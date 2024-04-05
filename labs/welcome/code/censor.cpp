@@ -1,23 +1,23 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
+//using namespace std;
 
 int main(int argc, char *argv[]){
 	if (argc != 2){
-		cerr << "USAGE: censor [length]" << endl;
+		std::cerr << "USAGE: censor [length]" << std::endl;
 		exit(1);
 	}
 
-	int word_size = stoi(argv[1]);
-	string text;
-	getline(cin, text);
+	int word_size = atoi(argv[1]);
+	std::string text;
+	getline(std::cin, text);
 	
-	vector<string> words_split;
-	string word;
+	std::vector<std::string> words_split;
+	std::string word;
 
 	while (text.length() > 0){
-		if (text.find(' ') == string::npos){
+		if (text.find(' ') == std::string::npos){
 			word = text;
 			text = "";
 		}
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
 	
 	vec_size = words_split.size();
 	for (int i = 0; i < vec_size; i++){
-		cout << words_split.at(i) << " ";
+		std::cout << words_split.at(i) << " ";
 	}
 
 	return 0;
