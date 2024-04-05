@@ -43,7 +43,6 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i < vec_size; i++){
 		cout << words_split.at(i) << " ";
 	}
-	cout << endl;
 
 	return 0;
 }
