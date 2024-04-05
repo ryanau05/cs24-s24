@@ -1,9 +1,7 @@
-CXX = g++
-
-CXXFLAGS = -std=c++17 -g -Wall -Wextra -Werror -Wno-unused-parameter
+CXX = g++ -std=c++17 -g -Wall -Wextra -Werror -Wno-unused-parameter
 
 censor: censor.o
-	$(CXX) $(CXXFLAGS) censor.o -o censor
+	$(CXX) censor.o -o censor
 
-clean:
+clean: 
 	/bin/rm -f *o censor
