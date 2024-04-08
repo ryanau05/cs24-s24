@@ -15,24 +15,22 @@ int main(int argc, char *argv[]){
 	getline(cin, text);
 	
 	vector<string> words_split;
-	string word;
-
-	while (text.length() > 0){
-		while(text.at(0) == ' '){
-			text = text.substr(text.find(' ') + 1);
-		}
-
-		if (text.find(' ') == string::npos){
-			word = text;
-			text = "";
-		}
-		
-		else {
-			word = text.substr(0, text.find(' '));
-			text = text.substr(text.find(' ') + 1);
-		}
-		
+	string word = "";
+	
+	int text_length = text.length();
+	for (int i = 0; i < text_length; i++){
+ 	       if(text.substr(i).find(' ') == string::npos && text.substr(i).find('\t') == string::npos){
+        		 word = text.substr(i);
+        		 words_split.push_back(word);
+           		 break;
+	 }
+	 else if (text.at(i) != ' ' && text.at(i) != '\t'){
+		word += text.at(i);
+	}
+	else if((text.at(i) == ' ' || text.at(i) == '\t') && (text.at(i - 1) != ' ' && text.at(i - 1) != '\t')){
 		words_split.push_back(word);
+		word = "";
+	}
 	}
 	
 	int vec_size = words_split.size();
