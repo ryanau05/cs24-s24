@@ -38,14 +38,14 @@ int main(int argc, char *argv[]){
         		 word = text.substr(i);
         		 words_split.push_back(word);
            		 break;
-	 }
-	 else if (text.at(i) != ' ' && text.at(i) != '\t'){
-		word += text.at(i);
-	}
-	else if((text.at(i) == ' ' || text.at(i) == '\t') && (text.at(i - 1) != ' ' && text.at(i - 1) != '\t')){
-		words_split.push_back(word);
-		word = "";
-	}
+	 	}
+		else if (text.at(i) != ' ' && text.at(i) != '\t'){
+			word += text.at(i);
+		}
+		else if((text.at(i) == ' ' || text.at(i) == '\t') && (text.at(i - 1) != ' ' && text.at(i - 1) != '\t')){
+			words_split.push_back(word);
+			word = "";
+		}
 	}
 	
 	int vec_size = words_split.size();
