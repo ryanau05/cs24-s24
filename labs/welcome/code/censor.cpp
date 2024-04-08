@@ -17,7 +17,22 @@ int main(int argc, char *argv[]){
 	vector<string> words_split;
 	string word = "";
 	
+	while (text.at(0) == ' ' || text.at(0) == '\t'){
+		text.erase(0, 1);
+	}
+
+
 	int text_length = text.length();
+	
+	for (int i = text_length - 1; i >= 0; i--){
+		if (text.at(i) == ' ' || text.at(i) == '\t'){
+			text.pop_back();
+		}
+		else {
+			break;
+		}
+	}
+	
 	for (int i = 0; i < text_length; i++){
  	       if(text.substr(i).find(' ') == string::npos && text.substr(i).find('\t') == string::npos){
         		 word = text.substr(i);
