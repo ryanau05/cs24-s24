@@ -13,7 +13,7 @@ FibVec::FibVec(){
 }
 
 FibVec::~FibVec(){
-
+    delete[] mVec;
 }
 
 size_t FibVec::fib_val(size_t val) const{

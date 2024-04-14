@@ -10,7 +10,7 @@ class FibVec {
 
 private:
   // Member Variables
-  int *mVec = new int[2];
+  int *mVec = new int[1];
   int fib_size = 2;
   int size = 1;
   int num_values = 0;
