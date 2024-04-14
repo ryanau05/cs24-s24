@@ -27,7 +27,7 @@ public:
   // Member Functions
   size_t capacity() const; // return size of storage buffer DONE
   size_t count() const; // return num of items in vector DONE
-  void insert(int val, size_t index); // inserts val at index DONE
+  void insert(int val, size_t index); // inserts val at index
   int lookup(size_t index) const; // returns val at index DONE
   int pop(); // removes and returns last value of vector
   void push(int val); // inserts val at end of vector DONE
