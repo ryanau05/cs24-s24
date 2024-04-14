@@ -10,25 +10,27 @@ class FibVec {
 
 private:
   // Member Variables
-  int mVec[0];
-  int size = 2;
+  int *mVec = new int[0];
+  int fib_size = 2;
+  int size = 1;
+  int num_values = 0;
 
   // Helper Functions
-  void resize(size_t size); // resizes vector to f(val)
-  size_t fib_val(size_t val); // calculates f(val)
+  size_t fib_val(size_t val) const; // calculates f(val) DONE
+  void resize(int mVec[], int resize_val); // resizes vector to f(size) DONE
 
 public:
   // Constructor and Destructor
-  FibVec(); // constructor
+  FibVec(); // constructor DONE
   ~FibVec();
 
   // Member Functions
-  size_t capacity() const; // return size of storage buffer
-  size_t count() const; // return num of items in vector
-  void insert(int val, size_t index); // inserts val at index
-  int lookup(size_t index) const; // returns val at index
+  size_t capacity() const; // return size of storage buffer DONE
+  size_t count() const; // return num of items in vector DONE
+  void insert(int val, size_t index); // inserts val at index DONE
+  int lookup(size_t index) const; // returns val at index DONE
   int pop(); // removes and returns last value of vector
-  void push(int val); // inserts val at end of vector
+  void push(int val); // inserts val at end of vector DONE
   int remove(size_t index);
 
 };
