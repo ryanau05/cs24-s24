@@ -9,8 +9,7 @@ using namespace std;
 // FibVec Function Implementations
 
 FibVec::FibVec(){
-    /*delete[] mVec;
-    int *mVec = new int[2];*/
+
 }
 
 FibVec::~FibVec(){
@@ -83,7 +82,7 @@ void FibVec::insert(int val, size_t index){
 
 int FibVec::lookup(size_t index) const{
     if (index >= sizeof(*mVec) / 4){
-        throw out_of_range("invalid index");
+        throw out_of_range("Index out of range");
         exit(1);
     }
 
