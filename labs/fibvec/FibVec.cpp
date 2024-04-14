@@ -9,8 +9,8 @@ using namespace std;
 // FibVec Function Implementations
 
 FibVec::FibVec(){
-    delete[] mVec;
-    int *mVec = new int[2];
+    /*delete[] mVec;
+    int *mVec = new int[2];*/
 }
 
 FibVec::~FibVec(){
@@ -25,7 +25,7 @@ size_t FibVec::fib_val(size_t val) const{
 }
 
 void FibVec::resize(int mVec[], int resize_val){
-    fib_size = resize_val;
+    /*fib_size = resize_val;
     size = fib_val(fib_size);
 
     int *tempVec = new int[size];
@@ -39,7 +39,7 @@ void FibVec::resize(int mVec[], int resize_val){
     for (int i = 0; i < num_values; i++){
         mVec[i] = tempVec[i];
     }
-    delete[] tempVec;
+    delete[] tempVec;*/
 }
 
 size_t FibVec::capacity() const{
@@ -51,7 +51,7 @@ size_t FibVec::count() const{
 }
 
 void FibVec::insert(int val, size_t index){
-    if (index >= fib_val(fib_size + 2)){
+    /*if (index >= fib_val(fib_size + 2)){
         throw out_of_range("invalid index");
         exit(1);
     }
@@ -78,7 +78,7 @@ void FibVec::insert(int val, size_t index){
     while (i < num_values){
         mVec[i] = tempVec[i - 1];
     }
-    delete[] tempVec;
+    delete[] tempVec;*/
 }
 
 int FibVec::lookup(size_t index) const{
