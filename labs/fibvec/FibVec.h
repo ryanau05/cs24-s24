@@ -20,6 +20,7 @@ private:
 public:
   // Constructor and Destructor
   FibVec(); // constructor
+  ~FibVec();
 
   // Member Functions
   size_t capacity() const; // return size of storage buffer

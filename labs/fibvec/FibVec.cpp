@@ -12,6 +12,10 @@ FibVec::FibVec(){
 
 }
 
+FibVec::~FibVec(){
+
+}
+
 size_t FibVec::capacity() const{
     return 42;
 }
