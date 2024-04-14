@@ -9,8 +9,8 @@ using namespace std;
 // FibVec Function Implementations
 
 FibVec::FibVec(){
-    delete[] mVec;
-    int mVec[fib_val(size)];
+    //delete[] mVec;
+    //int mVec[fib_val(size)];
 }
 
 // returns fibonacci value
@@ -61,5 +61,5 @@ int FibVec::pop(){
 }
 
 void push(int val){
-    
+
 }
