@@ -32,13 +32,7 @@ void FibVec::resize(int mVec[], int resize_val){
         tempVec[i] = mVec[i];
     }
 
-    delete[] mVec;
-    mVec = new int[size];
-
-    for (int i = 0; i < num_values; i++){
-        mVec[i] = tempVec[i];
-    }
-    delete[] tempVec;
+    mVec = tempVec;
 }
 
 size_t FibVec::capacity() const{
