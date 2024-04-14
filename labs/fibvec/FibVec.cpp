@@ -39,3 +39,7 @@ int FibVec::pop(){
 void FibVec::push(int val){
 
 }
+
+int FibVec::remove(size_t index){
+    return 42;
+}

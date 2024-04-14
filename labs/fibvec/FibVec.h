@@ -29,6 +29,7 @@ public:
   int lookup(size_t index) const; // returns val at index
   int pop(); // removes and returns last value of vector
   void push(int val); // inserts val at end of vector
+  int remove(size_t index);
 
 };
 
