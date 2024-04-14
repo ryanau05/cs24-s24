@@ -60,6 +60,6 @@ int FibVec::pop(){
     return 42;
 }
 
-void push(int val){
+void FibVec::push(int val){
 
 }
