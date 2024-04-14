@@ -36,7 +36,7 @@ void FibVec::resize(int mVec[], int resize_val){
 }
 
 size_t FibVec::capacity() const{
-    return fib_val(size);
+    return size;
 }
 
 size_t FibVec::count() const{
@@ -89,7 +89,7 @@ int FibVec::pop(){
 }
 
 void FibVec::push(int val){
-    if (num_values == fib_size){
+    if (num_values == size){
         resize(mVec, fib_size + 1);
     }
     mVec[num_values] = val;
