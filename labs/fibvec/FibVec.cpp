@@ -33,6 +33,7 @@ void FibVec::resize(int mVec[], int resize_val){
     }
 
     mVec = tempVec;
+    delete[] tempVec;
 }
 
 size_t FibVec::capacity() const{
