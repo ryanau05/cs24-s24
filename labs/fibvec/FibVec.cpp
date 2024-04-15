@@ -82,7 +82,7 @@ int FibVec::lookup(size_t index) const{
 
 int FibVec::pop(){
     if (num_values == 0){
-        throw underflow_error("Vector is invalid");
+        throw underflow_error("Underflow");
     }
 
     /*int val = mVec[num_values - 1];
