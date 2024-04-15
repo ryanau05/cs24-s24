@@ -113,13 +113,14 @@ void FibVec::push(int val){
 }
 
 int FibVec::remove(size_t index){
-    if (index >= fib_val(fib_size + 2)){
+    int tempIndex = index;
+    if (tempIndex >= num_values){
         throw out_of_range("Index out of range");
         exit(1);
     }
 
-    int tempIndex = index;
     int val = mVec[tempIndex];
+    num_values -= 1;
     int* tempVec = new int[size];
     for (int i = 0; i < tempIndex; i++){
         tempVec[i] = mVec[i];
@@ -131,7 +132,6 @@ int FibVec::remove(size_t index){
     delete[] mVec;
     mVec = tempVec;
 
-    num_values += 1;
     int num = fib_val(fib_size - 2);
     if (num_values < num){
         resize(fib_size - 1);
