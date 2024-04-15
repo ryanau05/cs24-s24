@@ -9,7 +9,7 @@ using namespace std;
 // FibVec Function Implementations
 
 FibVec::FibVec(){
-
+    mVec = new int[2];
 }
 
 FibVec::~FibVec(){
@@ -44,34 +44,20 @@ size_t FibVec::count() const{
 }
 
 void FibVec::insert(int val, size_t index){
-    /*if (index >= fib_val(fib_size + 2)){
+    if (index >= fib_val(fib_size + 2)){
         throw out_of_range("invalid index");
         exit(1);
     }
 
-    if (num_values == fib_size){
+    if (num_values == size){
         resize(mVec, fib_size + 1);
     }
 
-    int *tempVec = new int[size];
-    for (int i = 0; i < num_values; i++){
-        tempVec[i] = mVec[i];
-    }
-
-    delete[] mVec;
-    int *mVec = new int[size];
-
-    int i = 0;
-    while (i < index){
-        mVec[i]= tempVec[i];
-        i++;
+    for (size_t i = num_values; i > index; i--){
+        mVec[i] = mVec[i - 1];
     }
     mVec[index] = val;
-    i++;
-    while (i < num_values){
-        mVec[i] = tempVec[i - 1];
-    }
-    delete[] tempVec;*/
+    num_values += 1;
 }
 
 int FibVec::lookup(size_t index) const{
@@ -93,7 +79,7 @@ void FibVec::push(int val){
         resize(mVec, fib_size + 1);
     }
     mVec[num_values] = val;
-    num_values++;
+    num_values += 1;
 }
 
 int FibVec::remove(size_t index){
