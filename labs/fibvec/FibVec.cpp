@@ -32,6 +32,7 @@ void FibVec::resize(int mVec[], int resize_val){
         tempVec[i] = mVec[i];
     }
 
+    delete[] mVec;
     mVec = tempVec;
     delete[] tempVec;
 }
