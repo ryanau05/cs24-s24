@@ -81,11 +81,11 @@ int FibVec::lookup(size_t index) const{
 }
 
 int FibVec::pop(){
-    /*if (num_values == 0){
-        throw underflow_error("Empty array");
+    if (num_values == 0){
+        throw underflow_error("Vector is invalid");
     }
 
-    int val = mVec[num_values - 1];
+    /*int val = mVec[num_values - 1];
 
     int* tempVec = new int[size];
     for (int i = 0; i < num_values - 1; i++){
@@ -107,11 +107,12 @@ int FibVec::pop(){
 }
 
 void FibVec::push(int val){
-    if (num_values == size){
+    /*if (num_values == size){
         resize(fib_size + 1);
     }
     mVec[num_values] = val;
-    num_values += 1;
+    num_values += 1;*/
+    insert(val, num_values);
 }
 
 int FibVec::remove(size_t index){
