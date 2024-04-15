@@ -27,7 +27,7 @@ void FibVec::resize(int resize_val){
     fib_size = resize_val;
     size = fib_val(fib_size);
 
-    int* tempVec = new int [size];
+    int* tempVec = new int[size];
     for (int i = 0; i < num_values; i++){
         tempVec[i] = mVec[i];
     }
@@ -76,12 +76,13 @@ int FibVec::pop(){
         throw underflow_error("Empty array");
     }
 
+    int val = mVec[num_values - 1];
     int num = fib_val(fib_size - 2);
     if (num_values < num && fib_size >= 3){
         resize(fib_size - 1);
     }
 
-    int* tempVec = new int [size];
+    int* tempVec = new int[size];
     for (int i = 0; i < num_values - 1; i++){
         tempVec[i] = mVec[i];
     }
@@ -90,7 +91,7 @@ int FibVec::pop(){
     mVec = tempVec;
 
     num_values -= 1;
-    return mVec[num_values - 1];
+    return val;
 }
 
 void FibVec::push(int val){
