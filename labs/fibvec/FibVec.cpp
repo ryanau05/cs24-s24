@@ -13,7 +13,7 @@ FibVec::FibVec(){
 }
 
 FibVec::~FibVec(){
-    delete[] mVec;
+    //delete[] mVec;
 }
 
 size_t FibVec::fib_val(size_t val) const{
@@ -27,14 +27,13 @@ void FibVec::resize(int mVec[], int resize_val){
     fib_size = resize_val;
     size = fib_val(fib_size);
 
-    int *tempVec = new int[size];
+    int* tempVec = new int [size];
     for (int i = 0; i < num_values; i++){
         tempVec[i] = mVec[i];
     }
 
     delete[] mVec;
     mVec = tempVec;
-    delete[] tempVec;
 }
 
 size_t FibVec::capacity() const{
