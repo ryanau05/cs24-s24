@@ -105,15 +105,15 @@ int FibVec::pop(){
 }
 
 void FibVec::push(int val){
-    if (num_values == size){
+    /*if (num_values == size){
         resize(fib_size + 1);
     }
     mVec[num_values] = val;
-    num_values += 1;
+    num_values += 1;*/
 }
 
 int FibVec::remove(size_t index){
-    /*int tempIndex = index;
+    int tempIndex = index;
     if (tempIndex >= num_values){
         throw out_of_range("Index out of range");
         exit(1);
@@ -137,6 +137,5 @@ int FibVec::remove(size_t index){
         resize(fib_size - 1);
     }
 
-    return val;*/
-    return 42;
+    return val;
 }
