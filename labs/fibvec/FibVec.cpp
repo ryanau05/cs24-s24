@@ -81,7 +81,7 @@ int FibVec::lookup(size_t index) const{
 }
 
 int FibVec::pop(){
-    if (num_values == 0){
+    /*if (num_values == 0){
         throw underflow_error("Empty array");
     }
 
@@ -101,7 +101,8 @@ int FibVec::pop(){
         resize(fib_size - 1);
     }
 
-    return val;
+    return val;*/
+    return 42;
 }
 
 void FibVec::push(int val){
