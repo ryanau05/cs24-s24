@@ -54,11 +54,20 @@ void FibVec::insert(int val, size_t index){
         resize(fib_size + 1);
     }
 
-    for (size_t i = num_values; i > index; i--){
-        mVec[i] = mVec[i - 1];
+    int num = index;
+    int* tempVec = new int[size];
+    for (int i = 0; i < num; i++){
+        tempVec[i] = mVec[i];
     }
-    mVec[index] = val;
+    tempVec[index] = val;
+    for (int i = num + 1; i <= num_values; i++){
+        tempVec[i] = mVec[i - 1];
+    }
+
+    delete[] mVec;
+    mVec = tempVec;
     num_values += 1;
+
 }
 
 int FibVec::lookup(size_t index) const{
@@ -91,7 +100,7 @@ int FibVec::pop(){
     if (num_values < num){
         resize(fib_size - 1);
     }
-    
+
     return val;
 }
 
