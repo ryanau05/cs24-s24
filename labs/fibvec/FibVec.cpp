@@ -9,7 +9,7 @@ using namespace std;
 // FibVec Function Implementations
 
 FibVec::FibVec(){
-    
+
 }
 
 FibVec::~FibVec(){
