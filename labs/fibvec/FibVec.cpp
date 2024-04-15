@@ -32,7 +32,7 @@ void FibVec::resize(int resize_val){
         tempVec[i] = mVec[i];
     }
 
-    delete [] mVec;
+    delete[] mVec;
     mVec = tempVec;
 }
 
@@ -46,7 +46,7 @@ size_t FibVec::count() const{
 
 void FibVec::insert(int val, size_t index){
     if (index >= fib_val(fib_size + 2)){
-        throw out_of_range("invalid index");
+        throw out_of_range("Index out of range");
         exit(1);
     }
 
@@ -72,7 +72,15 @@ int FibVec::lookup(size_t index) const{
 }
 
 int FibVec::pop(){
-    return 42;
+    int val = mVec[num_values - 1];
+    int* tempVec = new int [size];
+    for (int i = 0; i < num_values - 1; i++){
+        tempVec[i] = mVec[i];
+    }
+
+    delete[] mVec;
+    mVec = tempVec;
+    return val;
 }
 
 void FibVec::push(int val){
