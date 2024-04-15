@@ -72,7 +72,6 @@ int FibVec::lookup(size_t index) const{
 }
 
 int FibVec::pop(){
-    int val = mVec[num_values - 1];
     int* tempVec = new int [size];
     for (int i = 0; i < num_values - 1; i++){
         tempVec[i] = mVec[i];
@@ -80,7 +79,9 @@ int FibVec::pop(){
 
     delete[] mVec;
     mVec = tempVec;
-    return val;
+
+    num_values -= 1;
+    return mVec[num_values - 1];
 }
 
 void FibVec::push(int val){
