@@ -77,8 +77,8 @@ int FibVec::pop(){
     }
 
     int val = mVec[num_values - 1];
-    int num = fib_val(fib_size - 1);
-    if (num_values < num && fib_size >= 2){
+    int num = fib_val(fib_size - 2);
+    if (num_values < num){
         resize(fib_size - 1);
     }
 
