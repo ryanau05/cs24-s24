@@ -135,8 +135,8 @@ int FibVec::remove(size_t index){
     delete[] mVec;
     mVec = tempVec;
 
-    int num = fib_val(fib_size - 1);
-    if (num_values < num){
+    int num = fib_val(fib_size - 2);
+    if (num_values < num && fib_size >= 3){
         resize(fib_size - 1);
     }
 
