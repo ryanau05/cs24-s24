@@ -17,7 +17,7 @@ private:
 
   // Helper Functions
   size_t fib_val(size_t val) const; // calculates f(val) DONE
-  void resize(int mVec[], int resize_val); // resizes vector to f(size) DONE
+  void resize(int resize_val); // resizes vector to f(size) DONE
 
 public:
   // Constructor and Destructor

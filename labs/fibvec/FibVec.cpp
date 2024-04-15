@@ -13,7 +13,7 @@ FibVec::FibVec(){
 }
 
 FibVec::~FibVec(){
-    //delete[] mVec;
+    delete[] mVec;
 }
 
 size_t FibVec::fib_val(size_t val) const{
@@ -23,7 +23,7 @@ size_t FibVec::fib_val(size_t val) const{
     return fib_val(val - 1) + fib_val(val - 2);
 }
 
-void FibVec::resize(int mVec[], int resize_val){
+void FibVec::resize(int resize_val){
     fib_size = resize_val;
     size = fib_val(fib_size);
 
@@ -32,7 +32,7 @@ void FibVec::resize(int mVec[], int resize_val){
         tempVec[i] = mVec[i];
     }
 
-    delete[] mVec;
+    delete [] mVec;
     mVec = tempVec;
 }
 
@@ -51,7 +51,7 @@ void FibVec::insert(int val, size_t index){
     }
 
     if (num_values == size){
-        resize(mVec, fib_size + 1);
+        resize(fib_size + 1);
     }
 
     for (size_t i = num_values; i > index; i--){
@@ -77,7 +77,7 @@ int FibVec::pop(){
 
 void FibVec::push(int val){
     if (num_values == size){
-        resize(mVec, fib_size + 1);
+        resize(fib_size + 1);
     }
     mVec[num_values] = val;
     num_values += 1;
