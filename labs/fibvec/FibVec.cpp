@@ -9,8 +9,7 @@ using namespace std;
 // FibVec Function Implementations
 
 FibVec::FibVec(){
-    mVec = new int[2];
-
+    mVec = new int[size];
 }
 
 FibVec::~FibVec(){
