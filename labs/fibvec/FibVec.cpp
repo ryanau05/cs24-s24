@@ -48,7 +48,7 @@ void FibVec::insert(int val, size_t index){
     int tempIndex = index;
     if (tempIndex > num_values){
         throw out_of_range("Index out of range");
-        exit(1);
+        //exit(1);
     }
 
     if (num_values == size){
@@ -74,7 +74,7 @@ int FibVec::lookup(size_t index) const{
     int tempIndex = index;
     if (tempIndex >= num_values){
         throw out_of_range("Index out of range");
-        exit(1);
+        //exit(1);
     }
 
     return mVec[index];
@@ -119,7 +119,7 @@ int FibVec::remove(size_t index){
     int tempIndex = index;
     if (tempIndex >= num_values){
         throw out_of_range("Index out of range");
-        exit(1);
+        //exit(1);
     }
 
     int val = mVec[tempIndex];
