@@ -20,6 +20,8 @@ struct Move {
 
   // Helper to render a Move as text.
   std::string to_string() const;
+
+  void test_input() const;
 };
 
 #endif

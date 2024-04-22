@@ -17,7 +17,7 @@ Move::Move(const std::string& input){
         exit(0);
     }
 
-    if (input[1] != ' ' && input[3] != ' '){
+    if (!(isspace(input[1])) || !(isspace(input[3]))){
         ParseError whitespace("Invalid Spacing");
         exit(0);
     }
@@ -34,7 +34,8 @@ Move::Move(const std::string& input){
         exit(0);
     }
 
-    column = input[5];
+
+    column = input[5] - '0';
     if (!(column >= 1 && column <= 3)){
         ParseError column("Invalid Column");
         exit(0);
