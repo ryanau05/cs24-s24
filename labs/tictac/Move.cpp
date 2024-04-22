@@ -148,6 +148,8 @@ Move::Move(const std::string& input){
 }
 
 std::string Move::to_string() const{
-    std::string move = std::to_string(number) + ' ' + toupper(player) + ' ' + toupper((char)row) + std::to_string(column);
+    char x = toupper(player);
+    char y = toupper(row);
+    std::string move = std::to_string(number) + ' ' + x + ' ' + y + std::to_string(column);
     return move;
 }
