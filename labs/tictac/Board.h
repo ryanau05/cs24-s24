@@ -11,7 +11,7 @@ class Board{
         char rowB[3];
         char rowC[3];
         int turn = 0;
-        bool isXTurn;
+        char prevTurn;
 
     public: 
         void input_move(Move move);

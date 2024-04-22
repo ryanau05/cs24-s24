@@ -29,7 +29,7 @@ void Board::input_move(Move move){
     }
 
     if (row == 'A'){
-        if (rowA[column] == 'X' && rowA[column] == 'O'){
+        if (rowA[column] == 'X' || rowA[column] == 'O'){
             InvalidMove taken("Invalid move.");
             throw taken;
             exit(2);
@@ -37,7 +37,7 @@ void Board::input_move(Move move){
         rowA[column] = player;
     }
     else if (row == 'B'){
-        if (rowB[column] == 'X' && rowB[column] == 'O'){
+        if (rowB[column] == 'X' || rowB[column] == 'O'){
             InvalidMove taken("Invalid move.");
             throw taken;
             exit(2);
@@ -45,7 +45,7 @@ void Board::input_move(Move move){
         rowB[column] = player;
     }
     else if (row == 'C'){
-        if (rowC[column] == 'X' && rowC[column] == 'O'){
+        if (rowC[column] == 'X' || rowC[column] == 'O'){
             InvalidMove taken("Invalid move.");
             throw taken;
             exit(2);
