@@ -1,14 +1,15 @@
 #include "Errors.h"
 #include "Board.h"
 #include <iostream>
+#include <cctype>
 
 // Space for implementing Board functions.
 
 void Board::input_move(Move move){
     int num = move.number;
     char player = toupper(move.player);
-    //char row = toupper(move.row);
-    //int column = move.column - 1;
+    char row = toupper(move.row);
+    int column = move.column - 1;
 
 
     if (turn == 1){
@@ -26,26 +27,6 @@ void Board::input_move(Move move){
         throw turn;
         exit(2);
     }
-
-   /*//std::cout << player << row << column << std::endl;
-    std::cout << "Endhere";
-
-    if (turn != num){
-        InvalidMove turn("Invalid move.");
-        throw turn;
-        exit(2);
-    }
-
-    if (turn == 1){
-        prevTurn = player;
-    }
-
-    if (player == prevTurn && turn != 1){
-        InvalidMove playerturn("Invalid move.");
-        throw playerturn;
-        exit(2);
-    }
-    prevTurn = player;
 
     if (row == 'A'){
         if (rowA[column] == 'X' || rowA[column] == 'O'){
@@ -71,7 +52,6 @@ void Board::input_move(Move move){
         }
         rowC[column] = player;
     }
-    turn += 1;*/
     prevTurn = player;
     turn += 1;
 }
@@ -113,4 +93,28 @@ bool Board::test_diagonal() const{
     }
     
     return false;
+}
+
+std::string Board::game_status() const{
+    if (test_horizontal() || test_vertical() || test_diagonal()){
+        std::string text = "Game over: ";
+        text += prevTurn;
+        return text + " wins.";
+    }
+    else if (!(test_horizontal() || test_vertical() || test_diagonal()) && turn == 10){
+        return "Game over: Draw.";
+    }
+    else if (turn == 1){
+        return "Game in progress: New game.";
+    }
+    else {
+        std::string text = "Game in progress: ";
+        if (prevTurn == 'X'){
+            text += 'O';
+        }
+        else {
+            text += 'X';
+        }
+        return text + "\'s turn.";
+    }
 }

@@ -5,16 +5,26 @@
 #include <string>
 
 int main() {
+    //bool verbose = false;
     std::string text;
+    Board test;
+    while(std::getline(std::cin, text)){
+        Move move(text);
+        test.input_move(move);
+    }
 
-    std::getline(std::cin, text);
-    
-    Move move(text);
-
-    std::string a = move.to_string();
-
-    std::cout << a;
-    
+    test.game_status();
+    /*try{
+            test.input_move(move);
+        }
+        catch(const ParseError& e) {
+            if(verbose) {
+                std::cout << "Parse error: " << e.what() << '\n';
+            }
+            else {
+                std::cout << "Parse error.\n";
+            }
+        }*/
 
     return 0;
 }
