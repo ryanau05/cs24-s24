@@ -43,7 +43,7 @@ Move::Move(const std::string& input){
 
     int size = input.length();
     for (int i = 6; i < size; i++){
-        if (!(isspace(input[i])) && input[i - 2] != '#' && input[i - 3] != ' '){
+        if (input[i] == '#' && input[i - 1] != ' '){
             ParseError comment("Invalid Format");
             exit(0);
         }
