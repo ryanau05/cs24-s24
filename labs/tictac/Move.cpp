@@ -19,13 +19,13 @@ Move::Move(const std::string& input){
 
     if (!(isspace(input[1])) || !(isspace(input[3]))){
         ParseError whitespace("Parse error.");
-        exit(0);
+        exit(1);
     }
 
     player = input[2];
     if (player != 'X' && player != 'O' && input[2] != 'x' && input[2] != 'o'){
         ParseError player("Parse error.");
-        exit(0);
+        exit(1);
     }
 
     row = input[4];
