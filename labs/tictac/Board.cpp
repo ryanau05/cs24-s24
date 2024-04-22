@@ -10,10 +10,10 @@ void Board::input_move(Move move){
     char row = toupper(move.row);
     int column = move.column - 1;
 
-    std::cout << player << row << column << std::endl;
+    //std::cout << player << row << column << std::endl;
 
     if (turn != num - 1){
-        InvalidMove turn("Invalid move. 1");
+        InvalidMove turn("Invalid move.");
         throw turn;
         exit(2);
     }
