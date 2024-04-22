@@ -7,45 +7,45 @@
 
 Move::Move(const std::string& input){
     if (input.length() < 6){
-        ParseError format("Invalid Format");
-        exit(0);
+        ParseError format("Parse error");
+        exit(1);
     }
 
     number = input[0] - '0';
     if (!(number >= 1 && number <= 9)){
-        ParseError num("Invalid Number");
-        exit(0);
+        ParseError num("Parse error");
+        exit(1);
     }
 
     if (!(isspace(input[1])) || !(isspace(input[3]))){
-        ParseError whitespace("Invalid Spacing");
-        exit(0);
+        ParseError whitespace("Parse error");
+        exit(1);
     }
 
     player = input[2];
     if (player != 'X' && player != 'O'){
-        ParseError player("Invalid Player");
-        exit(0);
+        ParseError player("Parse error");
+        exit(1);
     }
 
     row = input[4];
     if (!((row >= 65 && row <= 67) || (row >= 97 && row <= 99))){
-        ParseError row("Invalid Row");
-        exit(0);
+        ParseError row("Parse error");
+        exit(1);
     }
 
 
     column = input[5] - '0';
     if (!(column >= 1 && column <= 3)){
-        ParseError column("Invalid Column");
-        exit(0);
+        ParseError column("Parse error");
+        exit(1);
     }
 
     int size = input.length();
     for (int i = 6; i < size; i++){
-        if (input[i] == '#' && input[i - 1] != ' '){
-            ParseError comment("Invalid Format");
-            exit(0);
+        if (input[i] != '#' || input[i - 1] != ' '){
+            ParseError comment("Parse error");
+            exit(1);
         }
     }
 }
