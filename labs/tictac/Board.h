@@ -7,10 +7,10 @@
 // Here's some space for the class definition; member functions go in Board.cpp.
 class Board{
     private:
-        Move rowA[3];
-        Move rowB[3];
-        Move rowC[3];
-        int turn;
+        char rowA[3];
+        char rowB[3];
+        char rowC[3];
+        int turn = 0;
         bool isXTurn;
 
     public: 
