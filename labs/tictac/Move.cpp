@@ -39,6 +39,7 @@ Move::Move(const std::string& input){
         exit(1);
     }
 
+    exit(0);
 }
 
 std::string Move::to_string() const{
