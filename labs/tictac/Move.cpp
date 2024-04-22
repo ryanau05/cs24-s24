@@ -50,7 +50,6 @@ Move::Move(const std::string& input){
         }
     }
 
-    std::cout << to_string();
     exit(0);
 }
 
