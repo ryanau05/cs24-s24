@@ -1,5 +1,6 @@
 #include "Errors.h"
 #include "Move.h"
+#include <string>
 
 // Space for implementing Move functions.
 
@@ -27,7 +28,7 @@ Move::Move(const std::string& input){
     }
 
     row = input[4];
-    if (!(row >= 65 && row <= 67)){
+    if (!((row >= 65 && row <= 67) || (row >= 97 && row <= 99))){
         ParseError row("Invalid Row");
         exit(1);
     }
@@ -38,4 +39,9 @@ Move::Move(const std::string& input){
         exit(1);
     }
 
+}
+
+std::string Move::to_string() const{
+    std::string move = std::to_string(number) + ' ' + player + ' ' + (char)row + std::to_string(column);
+    return move;
 }
