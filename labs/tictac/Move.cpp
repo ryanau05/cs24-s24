@@ -16,9 +16,9 @@ Move::Move(const std::string& input){
     }
 
     if (num < 4){
-        //std::cout << "Parse error." << std::endl;
-        ParseError size("Parse error.");
-        throw size;
+        std::cout << "Parse error." << std::endl;
+        //ParseError size("Parse error.");
+        //throw size;
         exit(1);
     }
 
