@@ -19,8 +19,7 @@ class Board{
         bool test_horizontal() const;
         bool test_vertical() const;
         bool test_diagonal() const;
-
-        void test_input() const;
+        void turn_order();
 };
 
 #endif

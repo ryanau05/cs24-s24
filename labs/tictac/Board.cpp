@@ -11,8 +11,9 @@ void Board::input_move(Move move){
     char row = toupper(move.row);
     int column = move.column - 1;
 
+    
 
-    if (turn == 1){
+    /*if (turn == 1){
         prevTurn = player;
     }
 
@@ -23,7 +24,7 @@ void Board::input_move(Move move){
     }
 
     if (prevTurn == player && turn != 1){
-        InvalidMove turn("Invalid move.");
+        InvalidMove turn("Invalid move. 1");
         throw turn;
         exit(2);
     }
@@ -53,8 +54,9 @@ void Board::input_move(Move move){
         rowC[column] = player;
     }
     prevTurn = player;
-    turn += 1;
+    turn += 1;*/
 }
+
 
 bool Board::test_horizontal() const{
     if (rowA[0] == rowA[1] && rowA[1] == rowA[2]){

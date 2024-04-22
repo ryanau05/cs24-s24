@@ -10,7 +10,7 @@ int main() {
     Board test;
     while(std::getline(std::cin, text)){
         Move move(text);
-        test.input_move(move);
+        //test.input_move(move);
     }
 
     test.game_status();
