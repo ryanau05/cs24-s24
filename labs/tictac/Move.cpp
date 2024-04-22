@@ -14,7 +14,7 @@ Move::Move(const std::string& input){
     number = input[0] - '0';
     if (!(number >= 1 && number <= 9)){
         ParseError num("Parse error.");
-        exit(0);
+        exit(1);
     }
 
     if (!(isspace(input[1])) || !(isspace(input[3]))){
@@ -38,14 +38,14 @@ Move::Move(const std::string& input){
     column = input[5] - '0';
     if (!(column >= 1 && column <= 3)){
         ParseError column("Parse error.");
-        exit(1);
+        exit(0);
     }
 
     int size = input.length();
     for (int i = 6; i < size; i++){
         if (input[i] != '#' || !(isspace(input[i - 1]))){
             ParseError comment("Parse error.");
-            exit(1);
+            exit(0);
         }
     }
 
