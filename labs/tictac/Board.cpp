@@ -19,12 +19,12 @@ void Board::input_move(Move move){
     }
     turn += 1;
     if (turn == 1){
-        isXTurn = (player == 'X');
+        prevTurn = player;
     }
 
-    if ((player == 'X' && !(isXTurn)) || (player == 'O' && isXTurn)){
+    if (player == prevTurn && turn != 1){
         InvalidMove playerturn("Invalid move.");
-        throw turn;
+        throw playerturn;
         exit(2);
     }
 
@@ -52,4 +52,5 @@ void Board::input_move(Move move){
         }
         rowC[column] = player;
     }
+    prevTurn = player;
 }
