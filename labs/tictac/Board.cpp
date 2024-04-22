@@ -12,8 +12,8 @@ void Board::input_move(Move move){
 
     std::cout << player << row << column << std::endl;
 
-    if (turn != num + 1){
-        InvalidMove turn("Invalid move.");
+    if (turn != num - 1){
+        InvalidMove turn("Invalid move. 1");
         throw turn;
         exit(2);
     }
@@ -52,7 +52,4 @@ void Board::input_move(Move move){
         }
         rowC[column] = player;
     }
-
-    std::cout << rowB[2] << std::endl;
-
 }
