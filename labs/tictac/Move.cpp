@@ -2,7 +2,6 @@
 #include "Move.h"
 #include <string>
 #include <cctype>
-#include <iostream>
 
 // Space for implementing Move functions.
 
@@ -50,7 +49,6 @@ Move::Move(const std::string& input){
         }
     }
 
-    exit(0);
 }
 
 std::string Move::to_string() const{
