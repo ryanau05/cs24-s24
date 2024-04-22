@@ -75,3 +75,42 @@ void Board::input_move(Move move){
     prevTurn = player;
     turn += 1;
 }
+
+bool Board::test_horizontal() const{
+    if (rowA[0] == rowA[1] && rowA[1] == rowA[2]){
+        return true;
+    }
+    else if (rowB[0] == rowB[1] && rowB[1] == rowB[2]){
+        return true;
+    }
+    else if (rowC[0] == rowC[1] && rowC[1] == rowC[2]){
+        return true;
+    }
+    
+    return false;
+}
+
+bool Board::test_vertical() const{
+    if (rowA[0] == rowB[0] && rowB[0] == rowC[0]){
+        return true;
+    }
+    else if (rowA[1] == rowB[1] && rowB[1] == rowC[1]){
+        return true;
+    }
+    else if (rowA[2] == rowB[2] && rowB[2] == rowC[2]){
+        return true;
+    }
+    
+    return false;
+}
+
+bool Board::test_diagonal() const{
+    if (rowA[0] == rowB[1] && rowB[1] == rowC[2]){
+        return true;
+    }
+    else if (rowA[2] == rowB[1] && rowB[1] == rowC[0]){
+        return true;
+    }
+    
+    return false;
+}

@@ -10,7 +10,7 @@ class Board{
         char rowA[3];
         char rowB[3];
         char rowC[3];
-        int turn = 0;
+        int turn = 1;
         char prevTurn;
 
     public: 
