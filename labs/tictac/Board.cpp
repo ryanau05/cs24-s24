@@ -22,7 +22,7 @@ void Board::input_move(Move move){
         isXTurn = (player == 'X');
     }
 
-    if ((player == 'X' && isXTurn) || (player == 'O' && !(isXTurn))){
+    if ((player == 'X' && !(isXTurn)) || (player == 'O' && isXTurn)){
         InvalidMove playerturn("Invalid move.");
         throw turn;
         exit(2);
