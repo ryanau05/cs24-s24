@@ -23,7 +23,7 @@ Move::Move(const std::string& input){
     }
 
     player = input[2];
-    if (player != 'X' && player != 'O' || input[2] == 'x' || input[2] == 'o'){
+    if (player != 'X' && player != 'O' && input[2] != 'x' && input[2] != 'o'){
         ParseError player("Parse error.");
         exit(0);
     }
