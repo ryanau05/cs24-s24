@@ -93,7 +93,7 @@ Move::Move(const std::string& input){
     while (i < length){
         if (!(isspace(input[i]))){
             if (count == 0){
-                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
+                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9) || isspace(input[i])){
                     std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
@@ -148,6 +148,6 @@ Move::Move(const std::string& input){
 }
 
 std::string Move::to_string() const{
-    std::string move = std::to_string(number) + ' ' + player + ' ' + (char)row + std::to_string(column);
+    std::string move = std::to_string(number) + ' ' + toupper(player) + ' ' + toupper((char)row) + std::to_string(column);
     return move;
 }
