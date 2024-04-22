@@ -7,16 +7,33 @@
 void Board::input_move(Move move){
     int num = move.number;
     char player = toupper(move.player);
-    char row = toupper(move.row);
-    int column = move.column - 1;
+    //char row = toupper(move.row);
+    //int column = move.column - 1;
 
-    turn += 1;
-    //std::cout << player << row << column << std::endl;
+
+    if (turn == 1){
+        prevTurn = player;
+    }
 
     if (turn != num){
-        ParseError turn("Parse error.");
+        InvalidMove turn("Invalid move.");
         throw turn;
-        exit(1);
+        exit(2);
+    }
+
+    if (prevTurn == player && turn != 1){
+        InvalidMove turn("Invalid move.");
+        throw turn;
+        exit(2);
+    }
+
+   /*//std::cout << player << row << column << std::endl;
+    std::cout << "Endhere";
+
+    if (turn != num){
+        InvalidMove turn("Invalid move.");
+        throw turn;
+        exit(2);
     }
 
     if (turn == 1){
@@ -54,4 +71,7 @@ void Board::input_move(Move move){
         }
         rowC[column] = player;
     }
+    turn += 1;*/
+    prevTurn = player;
+    turn += 1;
 }
