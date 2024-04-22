@@ -2,11 +2,12 @@
 #include "Move.h"
 #include <string>
 #include <cctype>
+#include <iostream>
 
 // Space for implementing Move functions.
 
 Move::Move(const std::string& input){
-    if (input.length() < 6){
+    /*if (input.length() < 6){
         ParseError format("Parse error.");
         exit(0);
     }
@@ -39,7 +40,7 @@ Move::Move(const std::string& input){
     if (!(column >= 1 && column <= 3)){
         ParseError column("Parse error.");
         exit(1);
-    }
+    }*/
 
     /*int size = input.length();
     for (int i = 6; i < size; i++){
@@ -85,6 +86,64 @@ Move::Move(const std::string& input){
     if (input.length() > 6){
 
     }*/
+
+    int i = 0;
+    int count = 0;
+    int length = input.length();
+    while (i < length){
+        if (!(isspace(input[i]))){
+            if (count == 0){
+                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
+                    ParseError number("Parse error.");
+                    exit(1);
+                }
+                else {
+                    number = input[i] - '0';
+                    count++;
+                }
+            }
+            else if (count == 1){
+                if (input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o'){
+                    ParseError player("Parse error.");
+                    exit(1);
+                }
+                else {
+                    player = input[i];
+                    count++;
+                }
+            }
+            else if (count == 2){
+                if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99))){
+                    ParseError row("Parse error.");
+                    exit(1);
+                }
+                else {
+                    row = input[i];
+                    count++;
+                }
+            }
+            else if (count == 3){
+                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 3) || (input[i - 1] != row)){
+                    ParseError column("Parse error.");
+                    exit(1);
+                }
+                else {
+                    column = input[i] - '0';
+                    count++;
+                }
+            }
+            else if (count == 4){
+                if (!(input[i] == '#' && isspace(input[i - 1]))){
+                    ParseError comment("Parse error.");
+                    exit(1);
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        i++;
+    }
 
 }
 
