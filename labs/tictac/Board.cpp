@@ -14,11 +14,11 @@ void Board::input_move(Move move){
     //std::cout << player << row << column << std::endl;
 
     if (turn != num){
-        InvalidMove turn("Parse error.");
+        ParseError turn("Parse error.");
         throw turn;
         exit(1);
     }
-    
+
     if (turn == 1){
         prevTurn = player;
     }
