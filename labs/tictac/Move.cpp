@@ -87,9 +87,22 @@ Move::Move(const std::string& input){
 
     }*/
 
+    int length = input.length();
+    int num = 0;
+    for (int i = 0; i < length; i++){
+        if (isalnum(input[i])){
+            num++;
+        }
+    }
+
+    if (num < 4){
+        std::cout << "Parse error." << std::endl;
+        exit(1);
+    }
+
     int i = 0;
     int count = 0;
-    int length = input.length();
+
     while (i < length){
         if (!(isspace(input[i]))){
             if (count == 0){
