@@ -1,6 +1,7 @@
 #include "Errors.h"
 #include "Move.h"
 #include <string>
+#include <cctype>
 
 // Space for implementing Move functions.
 
@@ -39,7 +40,12 @@ Move::Move(const std::string& input){
         exit(1);
     }
 
-    exit(0);
+    for (int i = 6; i < input.length(); i++){
+        if (!(isspace(input[i])) && input[i - 2] != '#' && input[i - 3] != ' '){
+            ParseError comment("Invalid Format");
+            exit(1);
+        }
+    }
 }
 
 std::string Move::to_string() const{
