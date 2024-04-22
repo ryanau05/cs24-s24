@@ -94,7 +94,7 @@ Move::Move(const std::string& input){
         if (!(isspace(input[i]))){
             if (count == 0){
                 if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
-                    ParseError number("Parse error.");
+                    std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
                 else {
@@ -104,7 +104,7 @@ Move::Move(const std::string& input){
             }
             else if (count == 1){
                 if ((input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o') || !(isspace(input[i - 1]))){
-                    ParseError player("Parse error.");
+                    std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
                 else {
@@ -114,7 +114,7 @@ Move::Move(const std::string& input){
             }
             else if (count == 2){
                 if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99)) || !(isspace(input[i - 1]))){
-                    ParseError row("Parse error.");
+                    std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
                 else {
@@ -124,7 +124,7 @@ Move::Move(const std::string& input){
             }
             else if (count == 3){
                 if (!(input[i] - '0' >= 1 && input[i] - '0' <= 3) || (input[i - 1] != row)){
-                    ParseError column("Parse error.");
+                    std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
                 else {
@@ -134,7 +134,7 @@ Move::Move(const std::string& input){
             }
             else if (count == 4){
                 if (!(input[i] == '#' && isspace(input[i - 1]))){
-                    ParseError comment("Parse error.");
+                    std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
                 else {
