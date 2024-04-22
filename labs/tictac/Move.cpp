@@ -38,16 +38,16 @@ Move::Move(const std::string& input){
     column = input[5] - '0';
     if (!(column >= 1 && column <= 3)){
         ParseError column("Parse error.");
-        exit(0);
+        exit(1);
     }
 
-    int size = input.length();
+    /*int size = input.length();
     for (int i = 6; i < size; i++){
         if (input[i] != '#' || !(isspace(input[i - 1]))){
             ParseError comment("Parse error.");
             exit(0);
         }
-    }
+    }*/
 
     /*if (input.length() < 6){
         ParseError size("Parse error.");
