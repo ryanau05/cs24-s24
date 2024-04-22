@@ -6,10 +6,10 @@
 // Space for implementing Board functions.
 
 void Board::input_move(Move move){
-    int num = move.number;
+    /*int num = move.number;
     char player = toupper(move.player);
     char row = toupper(move.row);
-    int column = move.column - 1;
+    int column = move.column - 1;*/
 
     
 
