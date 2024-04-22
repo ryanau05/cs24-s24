@@ -5,5 +5,19 @@
 
 // I recommended writing a Board class to manage your game state.
 // Here's some space for the class definition; member functions go in Board.cpp.
+class Board{
+    private:
+        Move rowA[3];
+        Move rowB[3];
+        Move rowC[3];
+        int turn = 0;
+
+    public: 
+        void input_move(Move move);
+        std::string game_status() const;
+        
+    
+
+};
 
 #endif
