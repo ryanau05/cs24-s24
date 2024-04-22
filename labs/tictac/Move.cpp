@@ -93,7 +93,7 @@ Move::Move(const std::string& input){
     while (i < length){
         if (!(isspace(input[i]))){
             if (count == 0){
-                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9) || isspace(input[i])){
+                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9) || isspace(input[i - 1])){
                     std::cout << "Parse error." << std::endl;
                     exit(1);
                 }
