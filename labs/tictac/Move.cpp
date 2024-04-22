@@ -8,24 +8,24 @@
 Move::Move(const std::string& input){
     if (input.length() < 6){
         ParseError format("Parse error.");
-        exit(1);
+        exit(0);
     }
 
     number = input[0] - '0';
     if (!(number >= 1 && number <= 9)){
         ParseError num("Parse error.");
-        exit(1);
+        exit(0);
     }
 
     if (!(isspace(input[1])) || !(isspace(input[3]))){
         ParseError whitespace("Parse error.");
-        exit(1);
+        exit(0);
     }
 
     player = input[2];
-    if (player != 'X' && player != 'O'){
+    if (player != 'X' && player != 'O' || input[2] == 'x' || input[2] == 'o'){
         ParseError player("Parse error.");
-        exit(1);
+        exit(0);
     }
 
     row = input[4];
@@ -43,11 +43,48 @@ Move::Move(const std::string& input){
 
     int size = input.length();
     for (int i = 6; i < size; i++){
-        if (input[i] != '#' || input[i - 1] != ' '){
+        if (input[i] != '#' || !(isspace(input[i - 1]))){
             ParseError comment("Parse error.");
             exit(1);
         }
     }
+
+    /*if (input.length() < 6){
+        ParseError size("Parse error.");
+        exit(1);
+    }
+
+    if (!(input[0] >= 1 && input[0] <= 9)){
+        ParseError number("Parse error.");
+        exit(1);
+    }
+    int number = input[0];
+
+    if (!(isspace(input[1]) && isspace(input[3]))){
+        ParseError whitespace("Parse error.");
+        exit(1);
+    }
+
+    if (!(input[2] == 'X' || input[2] == 'O' || input[2] == 'x' || input[2] == 'o')){
+        ParseError player("Parse error.");
+        exit(1);
+    }
+    char player = input[2];
+
+    if ((input[4] >= 65 && input[4] <= 67) || (input[4] >= 97 && input[4] <= 99)){
+        ParseError row("Parse error.");
+        exit(1);
+    }
+    int row = input[4];
+
+    if (!(input[5] - '0' >= 1 && input[5] - '0' <= 3)){
+        ParseError column("Parse error.");
+        exit(1);
+    }
+
+    if (input.length() > 6){
+
+    }*/
 
 }
 
