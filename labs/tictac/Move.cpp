@@ -103,7 +103,7 @@ Move::Move(const std::string& input){
                 }
             }
             else if (count == 1){
-                if (input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o'){
+                if ((input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o') || !(isspace(input[i - 1]))){
                     ParseError player("Parse error.");
                     exit(1);
                 }
@@ -113,7 +113,7 @@ Move::Move(const std::string& input){
                 }
             }
             else if (count == 2){
-                if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99))){
+                if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99)) || !(isspace(input[i - 1]))){
                     ParseError row("Parse error.");
                     exit(1);
                 }
