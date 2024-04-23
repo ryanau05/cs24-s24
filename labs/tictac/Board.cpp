@@ -6,6 +6,10 @@
 // Space for implementing Board functions.
 
 void Board::input_move(Move move){
+    if (gameOver && turn != 0){
+        std::cout << game_status() << std::endl;
+        turn = 0;
+    }
     try {
         if (gameOver){
             InvalidMove error("Invalid move.");
