@@ -11,8 +11,11 @@ int main() {
     while(std::getline(std::cin, text)){
         Move move(text);
         test.input_move(move);
+        if (test.gameOver){
+            break;
+        }
     }
-    //std::cout << test.game_status() << std::endl;
+    std::cout << test.game_status() << std::endl;
 
     return 0;
 }
