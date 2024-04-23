@@ -15,18 +15,30 @@ Move::Move(const std::string& input){
         }
     }
 
-    if (num < 4){
-        //std::cout << "Parse error." << std::endl;
-        ParseError size("Parse error.");
-        throw size;
+    try {
+        if (num < 4){
+            //std::cout << "Parse error." << std::endl;
+            ParseError size("Parse error.");
+            throw size;
+            exit(1);
+        }
+    }
+    catch (const ParseError& e) {
+        std::cout << e.what() << std::endl;
         exit(1);
     }
 
     int i = 0;
     int count = 0;
-    if (!(isdigit(input[0]))){
-        ParseError error("Parse error.");
-        throw error;
+    try {
+        if (!(isdigit(input[0]))){
+            ParseError error("Parse error.");
+            throw error;
+            exit(1);
+        }
+    }
+    catch (const ParseError& e) {
+        std::cout << e.what() << std::endl;
         exit(1);
     }
 
@@ -45,7 +57,7 @@ Move::Move(const std::string& input){
                     }
                 }
                 catch (const ParseError& e) {
-                    std::cerr << e.what() << std::endl;
+                    std::cout << e.what() << std::endl;
                     exit(1);
                 }
             }
@@ -62,7 +74,7 @@ Move::Move(const std::string& input){
                     }
                 }
                 catch (const ParseError& e) {
-                    std::cerr << e.what() << std::endl;
+                    std::cout << e.what() << std::endl;
                     exit(1);
                 }
             }
@@ -79,7 +91,7 @@ Move::Move(const std::string& input){
                     }
                 }
                 catch (const ParseError& e) {
-                    std::cerr << e.what() << std::endl;
+                    std::cout << e.what() << std::endl;
                     exit(1);
                 }
             }
@@ -96,7 +108,7 @@ Move::Move(const std::string& input){
                     }
                 }
                 catch (const ParseError& e) {
-                    std::cerr << e.what() << std::endl;
+                    std::cout << e.what() << std::endl;
                     exit(1);
                 }
             }
@@ -112,7 +124,7 @@ Move::Move(const std::string& input){
                     }
                 }
                 catch (const ParseError& e) {
-                    std::cerr << e.what() << std::endl;
+                    std::cout << e.what() << std::endl;
                     exit(1);
                 }
             }
