@@ -9,6 +9,7 @@ void Board::input_move(Move move){
     if (gameOver){
         std::cout << game_status() << std::endl;
         turn = 0;
+        return;
     }
     int num = move.number;
     char player = toupper(move.player);
