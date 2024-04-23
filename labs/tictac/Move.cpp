@@ -33,67 +33,115 @@ Move::Move(const std::string& input){
     while (i < length){
         if (!(isspace(input[i]))){
             if (count == 0){
-                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
-                    std::cout << "Parse error." << std::endl;
-                    //ParseError error("Parse error.");
-                    //throw error;
-                    exit(1);
+                try {
+                    if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
+                        //std::cout << "Parse error." << std::endl;
+                        ParseError error("Parse error.");
+                        throw error;
+                    }
+                    else {
+                        number = input[i] - '0';
+                        count++;
+                    }
                 }
-                else {
-                    number = input[i] - '0';
-                    count++;
+                catch (const ParseError& e) {
+                    std::cerr << e.what() << std::endl;
+                    exit(1);
                 }
             }
             else if (count == 1){
-                if ((input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o') || !(isspace(input[i - 1]))){
-                    std::cout << "Parse error." << std::endl;
-                    //ParseError error("Parse error.");
-                    //throw error;
-                    exit(1);
+                try {
+                    if ((input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o') || !(isspace(input[i - 1]))){
+                        //std::cout << "Parse error." << std::endl;
+                        ParseError error("Parse error.");
+                        throw error;
+                    }
+                    else {
+                        player = input[i];
+                        count++;
+                    }
                 }
-                else {
-                    player = input[i];
-                    count++;
+                catch (const ParseError& e) {
+                    std::cerr << e.what() << std::endl;
+                    exit(1);
                 }
             }
             else if (count == 2){
-                if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99)) || !(isspace(input[i - 1]))){
-                    std::cout << "Parse error." << std::endl;
-                    //ParseError error("Parse error.");
-                    //throw error;
-                    exit(1);
+                try {
+                    if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99)) || !(isspace(input[i - 1]))){
+                        //std::cout << "Parse error." << std::endl;
+                        ParseError error("Parse error.");
+                        throw error;
+                    }
+                    else {
+                        row = input[i];
+                        count++;
+                    }
                 }
-                else {
-                    row = input[i];
-                    count++;
+                catch (const ParseError& e) {
+                    std::cerr << e.what() << std::endl;
+                    exit(1);
                 }
             }
             else if (count == 3){
-                if (!(input[i] - '0' >= 1 && input[i] - '0' <= 3) || (input[i - 1] != row)){
-                    //std::cout << "Parse error." << std::endl;
-                    ParseError error("Parse error.");
-                    throw error;
-                    exit(1);
+                try {
+                    if (!(input[i] - '0' >= 1 && input[i] - '0' <= 3) || (input[i - 1] != row)){
+                        //std::cout << "Parse error." << std::endl;
+                        ParseError error("Parse error.");
+                        throw error;
+                    }
+                    else {
+                        column = input[i] - '0';
+                        count++;
+                    }
                 }
-                else {
-                    column = input[i] - '0';
-                    count++;
+                catch (const ParseError& e) {
+                    std::cerr << e.what() << std::endl;
+                    exit(1);
                 }
             }
             else if (count == 4){
-                if (!(input[i] == '#' && isspace(input[i - 1]))){
-                    //std::cout << "Parse error." << std::endl;
-                    ParseError error("Parse error.");
-                    throw error;
-                    exit(1);
+                try {
+                    if (!(input[i] == '#' && isspace(input[i - 1]))){
+                        //std::cout << "Parse error." << std::endl;
+                        ParseError error("Parse error.");
+                        throw error;
+                    }
+                    else {
+                        break;
+                    }
                 }
-                else {
-                    break;
+                catch (const ParseError& e) {
+                    std::cerr << e.what() << std::endl;
+                    exit(1);
                 }
             }
         }
         i++;
     }
+
+
+
+
+
+
+
+    /*int count = 0;
+    int length = input.length();
+    for (int i = 0; i < length; i++){
+        if (i == 0){
+            if (input[i] - '0' >= 1 && input[i] - '0' <= 9){
+                number = input[i] - '0';
+                count++;
+            }
+            else {
+                ParseError error("Parse error.");
+                throw error;
+                exit(1);
+            }
+        }
+
+    }*/
 
 }
 
