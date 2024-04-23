@@ -34,9 +34,9 @@ Move::Move(const std::string& input){
         if (!(isspace(input[i]))){
             if (count == 0){
                 if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
-                    //std::cout << "Parse error." << std::endl;
-                    ParseError error("Parse error.");
-                    throw error;
+                    std::cout << "Parse error." << std::endl;
+                    //ParseError error("Parse error.");
+                    //throw error;
                     exit(1);
                 }
                 else {
