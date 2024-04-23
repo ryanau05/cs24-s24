@@ -164,6 +164,5 @@ void Board::end(){
     if (gameOver){
         std::cout << game_status() << std::endl;
         turn = 0;
-        exit(0);
     }
 }
