@@ -25,8 +25,8 @@ Move::Move(const std::string& input){
     int i = 0;
     int count = 0;
     if (!(isdigit(input[0]))){
-        ParseError leading_space("Parse error.");
-        throw leading_space;
+        ParseError error("Parse error.");
+        throw error;
         exit(1);
     }
 
@@ -35,8 +35,8 @@ Move::Move(const std::string& input){
             if (count == 0){
                 if (!(input[i] - '0' >= 1 && input[i] - '0' <= 9)){
                     //std::cout << "Parse error." << std::endl;
-                    ParseError number("Parse error.");
-                    throw number;
+                    ParseError error("Parse error.");
+                    throw error;
                     exit(1);
                 }
                 else {
@@ -47,8 +47,8 @@ Move::Move(const std::string& input){
             else if (count == 1){
                 if ((input[i] != 'X' && input[i] != 'x' && input[i] != 'O' && input[i] != 'o') || !(isspace(input[i - 1]))){
                     //std::cout << "Parse error." << std::endl;
-                    ParseError player("Parse error.");
-                    throw player;
+                    ParseError error("Parse error.");
+                    throw error;
                     exit(1);
                 }
                 else {
@@ -59,8 +59,8 @@ Move::Move(const std::string& input){
             else if (count == 2){
                 if (!((input[i] >= 65 && input[i] <= 67) || (input[i] >= 97 && input[i] <= 99)) || !(isspace(input[i - 1]))){
                     //std::cout << "Parse error." << std::endl;
-                    ParseError row("Parse error.");
-                    throw row;
+                    ParseError error("Parse error.");
+                    throw error;
                     exit(1);
                 }
                 else {
@@ -71,8 +71,8 @@ Move::Move(const std::string& input){
             else if (count == 3){
                 if (!(input[i] - '0' >= 1 && input[i] - '0' <= 3) || (input[i - 1] != row)){
                     //std::cout << "Parse error." << std::endl;
-                    ParseError column("Parse error.");
-                    throw column;
+                    ParseError error("Parse error.");
+                    throw error;
                     exit(1);
                 }
                 else {
@@ -83,8 +83,8 @@ Move::Move(const std::string& input){
             else if (count == 4){
                 if (!(input[i] == '#' && isspace(input[i - 1]))){
                     //std::cout << "Parse error." << std::endl;
-                    ParseError comment("Parse error.");
-                    throw comment;
+                    ParseError error("Parse error.");
+                    throw error;
                     exit(1);
                 }
                 else {
