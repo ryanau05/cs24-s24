@@ -14,7 +14,7 @@ void Board::input_move(Move move){
     }
     catch (ParseError& e){
         std::cout << e.what() << std::endl;
-        exit(1);
+        exit(2);
     }
 
     int num = move.number;
