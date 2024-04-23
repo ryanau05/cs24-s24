@@ -10,10 +10,13 @@ int main() {
     Board test;
     while(std::getline(std::cin, text)){
         Move move(text);
-        //test.input_move(move);
+        test.input_move(move);
+        if (test.gameOver){
+            break;
+        }
     }
 
-    test.game_status();
+    std::cout << test.game_status();
     /*try{
             test.input_move(move);
         }

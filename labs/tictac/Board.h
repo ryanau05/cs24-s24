@@ -7,19 +7,18 @@
 // Here's some space for the class definition; member functions go in Board.cpp.
 class Board{
     private:
-        char rowA[3];
-        char rowB[3];
-        char rowC[3];
+        char rowA[3] = {'N','N','N'};
+        char rowB[3] = {'N','N','N'};
+        char rowC[3] = {'N','N','N'};
         int turn = 1;
-        char prevTurn;
+        char prevTurn = 'N';
 
     public: 
         void input_move(Move move);
-        std::string game_status() const;
-        bool test_horizontal() const;
-        bool test_vertical() const;
-        bool test_diagonal() const;
+        std::string game_status();
+        bool test_status();
         void turn_order();
+        bool gameOver = false;
 };
 
 #endif
