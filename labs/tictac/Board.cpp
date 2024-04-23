@@ -6,17 +6,17 @@
 // Space for implementing Board functions.
 
 void Board::input_move(Move move){
-    /*try {
-        if (turn == 0){
-            ParseError error("Parse error.");
+    try {
+        if (turn == 0 && gameOver){
+            InvalidMove error("Invalid move.");
             throw error;
         }
     }
-    catch (ParseError& e){
+    catch (InvalidMove& e){
         std::cout << e.what() << std::endl;
         exit(2);
     }
-*/
+
     int num = move.number;
     char player = toupper(move.player);
     char row = toupper(move.row);
@@ -159,11 +159,11 @@ std::string Board::game_status(){
         return text + "\'s turn.";
     }
 }
-/*
+
 void Board::end(){
     if (gameOver){
         std::cout << game_status() << std::endl;
         turn = 0;
         exit(0);
     }
-}*/
+}
