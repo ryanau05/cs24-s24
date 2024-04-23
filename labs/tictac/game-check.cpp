@@ -16,7 +16,7 @@ int main() {
         }
     }
 
-    std::cout << test.game_status();
+    std::cout << test.game_status() << std::endl;
     /*try{
             test.input_move(move);
         }

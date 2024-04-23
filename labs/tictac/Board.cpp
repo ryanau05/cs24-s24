@@ -46,12 +46,13 @@ void Board::input_move(Move move){
     }
     if (row == 'A'){
         try {
-            if (rowA[column] != 'N'){
-                InvalidMove error("Invalid move.");
-                throw error;
+            if (rowA[column] == 'N'){
+                rowA[column] = player;
             }
             else {
-                rowC[column] = player;
+                std::cout << rowA[column];
+                InvalidMove error("Invalid move.");
+                throw error;
             }
         }
         catch (InvalidMove& e){
@@ -77,12 +78,13 @@ void Board::input_move(Move move){
     }
     else if (row == 'C'){
         try {
-            if (rowC[column] != 'N'){
-                InvalidMove error("Invalid move.");
-                throw error;
+            if (rowC[column] == 'N'){
+                rowC[column] = player;
             }
             else {
-                rowC[column] = player;
+                std::cout << rowC[column];
+                InvalidMove error("Invalid move.");
+                throw error;
             }
         }
         catch (InvalidMove& e){
