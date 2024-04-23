@@ -6,15 +6,21 @@
 // Space for implementing Board functions.
 
 void Board::input_move(Move move){
-    if (gameOver){
-        std::cout << game_status() << std::endl;
-        turn = 0;
-        return;
-    }
     int num = move.number;
     char player = toupper(move.player);
     char row = toupper(move.row);
     int column = move.column - 1;
+
+    try {
+        if (gameOver){
+            InvalidMove error("Invalid move.");
+            throw error;
+        }
+    }
+    catch (InvalidMove& e){
+        std::cout << e.what() << std::endl;
+        exit(2);
+    }
 
     try { // incorrect move numbering
         if (turn != num){
@@ -98,6 +104,9 @@ void Board::input_move(Move move){
     prevTurn = player;
     turn += 1;
     test_status();
+    if (gameOver){
+        std::cout << game_status() << std::endl;
+    }
 }
 
 
