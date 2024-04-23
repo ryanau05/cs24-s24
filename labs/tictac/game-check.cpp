@@ -17,7 +17,7 @@ int main() {
         }*/
         test.end();
     }
-    std::cout << test.game_status() << std::endl;
+    //std::cout << test.game_status() << std::endl;
 
     return 0;
 }
