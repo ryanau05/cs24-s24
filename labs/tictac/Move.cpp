@@ -70,9 +70,9 @@ Move::Move(const std::string& input){
             }
             else if (count == 3){
                 if (!(input[i] - '0' >= 1 && input[i] - '0' <= 3) || (input[i - 1] != row)){
-                    //std::cout << "Parse error." << std::endl;
-                    ParseError error("Parse error.");
-                    throw error;
+                    std::cout << "Parse error." << std::endl;
+                    //ParseError error("Parse error.");
+                    //throw error;
                     exit(1);
                 }
                 else {
@@ -82,9 +82,9 @@ Move::Move(const std::string& input){
             }
             else if (count == 4){
                 if (!(input[i] == '#' && isspace(input[i - 1]))){
-                    //std::cout << "Parse error." << std::endl;
-                    ParseError error("Parse error.");
-                    throw error;
+                    std::cout << "Parse error." << std::endl;
+                    //ParseError error("Parse error.");
+                    //throw error;
                     exit(1);
                 }
                 else {
