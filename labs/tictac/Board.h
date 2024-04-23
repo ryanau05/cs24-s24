@@ -18,9 +18,9 @@ class Board{
         std::string game_status();
         bool test_status();
         void turn_order();
-        void end();
+       // void end();
         bool gameOver = false;
-        bool extra = false;
+        //bool extra = false;
 };
 
 #endif

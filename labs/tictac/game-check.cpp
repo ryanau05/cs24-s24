@@ -12,10 +12,11 @@ int main() {
         Move move(text);
         test.input_move(move);
         if (test.gameOver){
-            test.end();
+            //test.end();
+            break;
         }
     }
-
+    std::cout << test.game_status() << std::endl;
 
     return 0;
 }

@@ -149,7 +149,7 @@ std::string Board::game_status(){
         return text + "\'s turn.";
     }
 }
-
+/*
 void Board::end(){
     if (!(extra)){
         std::cout << game_status() << std::endl;
@@ -167,4 +167,4 @@ void Board::end(){
         std::cout << e.what() << std::endl;
         exit(2);
     }
-}
+}*/
