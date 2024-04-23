@@ -66,7 +66,6 @@ void Board::input_move(Move move){
                 rowB[column] = player;
             }
             else {
-                std::cout << rowB[column];
                 InvalidMove error("Invalid move.");
                 throw error;
             }
