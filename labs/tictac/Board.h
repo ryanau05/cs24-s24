@@ -17,10 +17,7 @@ class Board{
         void input_move(Move move);
         std::string game_status();
         bool test_status();
-        void turn_order();
-        void end();
         bool gameOver = false;
-        //bool extra = false;
 };
 
 #endif
