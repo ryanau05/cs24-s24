@@ -6,12 +6,13 @@ Tree::Tree(){
 }
 
 Tree::~Tree(){
-    delete root;
+    clear();
 }
 
 void Tree::clear(){
     clearAll(root);
     nodeCount = 0;
+    root = nullptr;
 }
 
 void Tree::clearAll(Node* node){
@@ -125,14 +126,10 @@ std::string Tree::print_all(const Node* node) const{
         return "-";
     }
 
-    // std::cout << "(";
-    // print_all(node->left);
-    // std::cout << " " << node->data << " ";
-    // print_all(node->right);
-    // std::cout << ")";
     if (node->left == nullptr && node->right == nullptr) {
         return node->data;
     }
+
     return "(" + print_all(node->left) + " " + node->data + " " + print_all(node->right) + ")";
 }
 
