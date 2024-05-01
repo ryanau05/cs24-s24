@@ -5,8 +5,8 @@
 
 class Tree {
   // Member Variables
-  Node* root = new Node;
-  size_t nodeCount = 0;
+  Node* root;
+  size_t nodeCount;
   // Private Helper Functions
   void promote(Node* promote);
   void clearAll(Node* curr);                                          // recursively deletes tree

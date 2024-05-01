@@ -1,8 +1,10 @@
 #include "Tree.h"
 #include <iostream>
+#include <string>
 // Tree Function Implementations
 Tree::Tree(){
     root = nullptr;
+    nodeCount = 0;
 }
 
 Tree::~Tree(){
@@ -161,10 +163,10 @@ std::string Tree::print_all(const Node* node) const{
     }
 
     if (node->left == nullptr && node->right == nullptr) {
-        return node->data;
+        return node->data + std::to_string(node->weight);
     }
 
-    return "(" + print_all(node->left) + " " + node->data + " " + print_all(node->right) + ")";
+    return "(" + print_all(node->left) + " " + node->data + std::to_string(node->weight) +  " " + print_all(node->right) + ")";
 }
 
 std::string Tree::lookup(size_t index) const{
