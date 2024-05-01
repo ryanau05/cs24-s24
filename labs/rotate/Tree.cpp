@@ -97,7 +97,7 @@ void Tree::insert(const std::string& s){
                 add->parent = curr;
                 nodeCount += 1;
                 adjustWeight(curr, true);
-                rebalance(curr->parent);
+                //rebalance(curr->parent);
                 return;
             }
         }
@@ -110,7 +110,7 @@ void Tree::insert(const std::string& s){
                 add->parent = curr;
                 nodeCount += 1;
                 adjustWeight(curr, true);
-                rebalance(curr->parent);
+                //rebalance(curr->parent);
                 return;
             }
         }
@@ -133,4 +133,17 @@ void Tree::print_all(const Node* node) const{
         print_all(node->right);
         std::cout << ")";
     }
+}
+
+
+size_t Tree::find(const std::string& s) const{
+    return 2;
+}
+
+std::string Tree::lookup(size_t index) const{
+    return "STUB";
+}
+
+void Tree::remove(size_t index){
+    return;
 }
