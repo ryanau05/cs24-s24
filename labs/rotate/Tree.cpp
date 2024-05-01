@@ -98,6 +98,7 @@ void Tree::insert(const std::string& s){
                 nodeCount += 1;
                 adjustWeight(curr, true);
                 //rebalance(curr->parent);
+                delete curr;
                 return;
             }
         }
@@ -111,6 +112,7 @@ void Tree::insert(const std::string& s){
                 nodeCount += 1;
                 adjustWeight(curr, true);
                 //rebalance(curr->parent);
+                delete curr;
                 return;
             }
         }
