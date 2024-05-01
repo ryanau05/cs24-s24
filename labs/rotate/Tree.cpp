@@ -10,6 +10,11 @@ Tree::~Tree(){
     delete root;
 }
 
+void Tree::clear(){
+    clearAll(root);
+    nodeCount = 0;
+}
+
 void Tree::clearAll(Node* node){
     if (node == nullptr){
         return;
@@ -20,9 +25,30 @@ void Tree::clearAll(Node* node){
     delete node;
 }
 
-void Tree::clear(){
-    clearAll(root);
-    nodeCount = 0;
+bool Tree::isLeaf(Node* node){
+    if (node->left == nullptr && node->right == nullptr){
+        return true;
+    }
+    return false;
+}
+
+void Tree::adjustWeight(Node* node, bool increase){
+    while (node != root){
+        if (increase){
+            node->weight += 1;
+        }
+        else {
+            node->weight -= 1;
+        }
+        node = node->parent;
+    }
+    
+    if (increase){
+        root->weight += 1;
+    }
+    else {
+        root->weight -= 1;
+    }
 }
 
 size_t Tree::count() const{
@@ -61,29 +87,34 @@ void Tree::insert(const std::string& s){
     }
 
     Node* curr = root;
-    while (curr->left != nullptr && curr->right != nullptr){
+    while (true){
         if (s <= curr->data){
-            curr = curr->left;
+            if (curr->left != nullptr){
+                curr = curr->left;
+            }
+            else {
+                curr->left = add;
+                add->parent = curr;
+                nodeCount += 1;
+                adjustWeight(curr, true);
+                rebalance(curr->parent);
+                return;
+            }
         }
         else if (s > curr->data){
-            curr = curr->right;
+            if (curr->right != nullptr){
+                curr = curr->right;
+            }
+            else {
+                curr->right = add;
+                add->parent = curr;
+                nodeCount += 1;
+                adjustWeight(curr, true);
+                rebalance(curr->parent);
+                return;
+            }
         }
     }
-    if (s <= curr->data){
-        curr->left = add;
-    }
-    else {
-        curr->right = add;
-    }
-
-    add->parent = curr; 
-    nodeCount += 1;
-
-    while (curr != root){
-        curr->weight += 1;
-        curr = curr->parent;
-    }
-    root->weight += 1;
 }
 
 void Tree::print() const{
