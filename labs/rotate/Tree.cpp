@@ -9,6 +9,37 @@ Tree::~Tree(){
     clear();
 }
 
+int Tree::calcImbalance(Node* node){
+    int left, right, imbalance;
+    if (node->left == nullptr){
+        left = 0;
+    }
+    else {
+        left = (node->left)->weight;
+    }
+    if (node->right == nullptr){
+        right = 0;
+    }
+    else {
+        right = (node->right)->weight;
+    }
+
+    imbalance = left - right;
+    if (imbalance < 0){
+        imbalance *= -1;
+    }
+    
+    return imbalance;
+}
+
+void Tree::promote(Node* promote){
+    if (calcImbalance(promote) < 3){
+        return;
+    }
+
+
+}
+
 void Tree::clear(){
     clearAll(root);
     nodeCount = 0;
@@ -25,7 +56,7 @@ void Tree::clearAll(Node* node){
     delete node;
 }
 
-bool Tree::isLeaf(Node* node){
+bool Tree::isLeaf(Node* node) const{
     if (node->left == nullptr && node->right == nullptr){
         return true;
     }
@@ -113,7 +144,11 @@ void Tree::insert(const std::string& s){
             }
         }
     }
-    delete add;
+}
+
+size_t Tree::find(const std::string& s) const{
+
+    return 0;
 }
 
 void Tree::print() const{
@@ -130,12 +165,6 @@ std::string Tree::print_all(const Node* node) const{
     }
 
     return "(" + print_all(node->left) + " " + node->data + " " + print_all(node->right) + ")";
-}
-
-
-
-size_t Tree::find(const std::string& s) const{
-    return 2;
 }
 
 std::string Tree::lookup(size_t index) const{

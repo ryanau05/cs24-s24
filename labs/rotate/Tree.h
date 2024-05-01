@@ -8,11 +8,13 @@ class Tree {
   Node* root = new Node;
   size_t nodeCount = 0;
   // Private Helper Functions
-  void rebalance(Node* promote);
-  void clearAll(Node* curr);                      // recursively deletes tree
-  std::string print_all(const Node* node) const;         // recursively prints tree
-  bool isLeaf(Node* node);                        // true if node is leaf
-  void adjustWeight(Node* node, bool increase);   // increments weight
+  void promote(Node* promote);
+  void clearAll(Node* curr);                                          // recursively deletes tree
+  std::string print_all(const Node* node) const;                      // recursively prints tree
+  bool isLeaf(Node* node) const;                                      // true if node is leaf
+  void adjustWeight(Node* node, bool increase);                       // increments weight 
+  int calcImbalance(Node* node);
+  int findIndex(Node* root, std::string s, int index = 0) const;
 
 
 public:
