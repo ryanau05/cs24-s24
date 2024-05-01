@@ -2,7 +2,6 @@
 #include <iostream>
 // Tree Function Implementations
 Tree::Tree(){
-    root = new Node;
     root = nullptr;
 }
 
@@ -118,22 +117,25 @@ void Tree::insert(const std::string& s){
 }
 
 void Tree::print() const{
-    print_all(root);
-    std::cout << std::endl;
+    std::cout << print_all(root) << std::endl;
 }
 
-void Tree::print_all(const Node* node) const{
+std::string Tree::print_all(const Node* node) const{
     if (node == nullptr) {
-        std::cout << "-";
-    } 
-    else {
-        std::cout << "(";
-        print_all(node->left);
-        std::cout << " " << node->data << " ";
-        print_all(node->right);
-        std::cout << ")";
+        return "-";
     }
+
+    // std::cout << "(";
+    // print_all(node->left);
+    // std::cout << " " << node->data << " ";
+    // print_all(node->right);
+    // std::cout << ")";
+    if (node->left == nullptr && node->right == nullptr) {
+        return node->data;
+    }
+    return "(" + print_all(node->left) + " " + node->data + " " + print_all(node->right) + ")";
 }
+
 
 
 size_t Tree::find(const std::string& s) const{

@@ -5,12 +5,12 @@
 
 class Tree {
   // Member Variables
-  Node* root;
+  Node* root = new Node;
   size_t nodeCount = 0;
   // Private Helper Functions
   void rebalance(Node* promote);
   void clearAll(Node* curr);                      // recursively deletes tree
-  void print_all(const Node* node) const;         // recursively prints tree
+  std::string print_all(const Node* node) const;         // recursively prints tree
   bool isLeaf(Node* node);                        // true if node is leaf
   void adjustWeight(Node* node, bool increase);   // increments weight
 
