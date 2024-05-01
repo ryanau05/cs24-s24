@@ -163,10 +163,10 @@ std::string Tree::print_all(const Node* node) const{
     }
 
     if (node->left == nullptr && node->right == nullptr) {
-        return node->data + std::to_string(node->weight);
+        return node->data;
     }
 
-    return "(" + print_all(node->left) + " " + node->data + std::to_string(node->weight) +  " " + print_all(node->right) + ")";
+    return "(" + print_all(node->left) + " " + node->data +  " " + print_all(node->right) + ")";
 }
 
 std::string Tree::lookup(size_t index) const{
