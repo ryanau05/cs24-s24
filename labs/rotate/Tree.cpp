@@ -11,6 +11,15 @@ Tree::~Tree(){
     clear();
 }
 
+size_t Tree::rootIndex() const{
+    if (root->left == nullptr){
+        return 0;
+    }
+    else {
+        return (root->left)->weight;
+    }
+}
+
 int Tree::calcImbalance(Node* node){
     int left, right, imbalance;
     if (node->left == nullptr){
@@ -165,6 +174,12 @@ std::string Tree::print_all(const Node* node) const{
 }
 
 std::string Tree::lookup(size_t index) const{
+    if (index >= nodeCount){
+        throw std::out_of_range("Index out of range.");
+    }
+    if (index == rootIndex()){
+        return root->data;
+    }
     return "STUB";
 }
 
@@ -172,7 +187,7 @@ void Tree::remove(size_t index){
     if (index >= nodeCount){
         throw std::out_of_range("Index out of range.");
     }
-    if (nodeCount == 1){
+    if (index == rootIndex()){
         delete root;
         root = nullptr;
         nodeCount -= 1;
