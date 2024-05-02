@@ -1,6 +1,6 @@
 #include "Tree.h"
 #include <iostream>
-#include <string>
+#include <stdexcept>
 // Tree Function Implementations
 Tree::Tree(){
     root = nullptr;
@@ -169,6 +169,17 @@ std::string Tree::lookup(size_t index) const{
 }
 
 void Tree::remove(size_t index){
+    if (nodeCount == 1){
+        delete root;
+        root = nullptr;
+        nodeCount -= 1;
+        return;
+    }
+    if (index > nodeCount){
+        throw std::out_of_range();
+
+    }
+
     return;
 }
 
