@@ -169,15 +169,14 @@ std::string Tree::lookup(size_t index) const{
 }
 
 void Tree::remove(size_t index){
+    if (index >= nodeCount){
+        throw std::out_of_range("Index out of range.");
+    }
     if (nodeCount == 1){
         delete root;
         root = nullptr;
         nodeCount -= 1;
         return;
-    }
-    if (index > nodeCount){
-        throw std::out_of_range();
-
     }
 
     return;
