@@ -14,7 +14,7 @@ class Tree {
   bool isLeaf(Node* node) const;                                      // true if node is leaf
   void adjustWeight(Node* node, bool increase);                       // increments weight 
   int calcImbalance(Node* node);
-  int findIndex(Node* root, std::string s, int index = 0) const;
+  int findHelp(Node* node, const std::string& s) const;
 
 
 public:

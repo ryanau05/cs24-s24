@@ -148,11 +148,6 @@ void Tree::insert(const std::string& s){
     }
 }
 
-size_t Tree::find(const std::string& s) const{
-
-    return 0;
-}
-
 void Tree::print() const{
     std::cout << print_all(root) << std::endl;
 }
@@ -175,4 +170,33 @@ std::string Tree::lookup(size_t index) const{
 
 void Tree::remove(size_t index){
     return;
+}
+
+int index1 = 0;
+
+int Tree::findHelp(Node* node, const std::string& s) const{
+    if (root == nullptr) {
+        return -1;
+    }
+
+    int left_index = findHelp(root->left, s);
+    if (left_index != -1) {
+        return left_index;
+    }
+
+    index1++;
+    if (root->data == s) {
+        return index1;
+    }
+
+    return findHelp(root->right, s);
+}
+
+
+size_t Tree::find(const std::string& s) const{
+    if (!contains(s)){
+        return SIZE_MAX;
+    }
+
+    return findHelp(root, s);
 }
