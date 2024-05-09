@@ -18,9 +18,11 @@ void stack::push(AST* token){
 
     if (neg* token1 = dynamic_cast<neg*>(token)){
         negate();
+        delete token1;
     }
     else if (num* token1 = dynamic_cast<num*>(token); token1 == nullptr){
         compute();
+        delete token1;
     }
 }
 
