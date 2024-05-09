@@ -17,8 +17,6 @@ class stack{
         void pushNeg(neg* token);
         void pushOpp(opp* token);
         void pop();
-        void compute(opp* token);
-        void negate(neg* token);
 };
 
 #endif
