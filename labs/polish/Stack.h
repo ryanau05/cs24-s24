@@ -5,7 +5,6 @@
 // Implement its member functions in Stack.cpp.
 #include "AST.h"
 #include "Nodes.h"
-using namespace std;
 
 class stack{
     public:
@@ -13,10 +12,13 @@ class stack{
         int count;
         stack();
         ~stack();
-        void pushNum(num* token);
-        void pushNeg(neg* token);
-        void pushOpp(opp* token);
+        void recursiveClear(AST* token);
+        // void pushNum(num* token);
+        void pushNeg(node* token);
+        void pushOpp(node* token);
+        void push(AST* token);
         void pop();
+        // string getType(AST* token);
 };
 
 #endif
