@@ -1,5 +1,6 @@
 #include "Stack.h"
 #include "Nodes.h"
+#include <iostream>
 
 // Implement your Stack member functions here.
 stack::stack(){
@@ -15,7 +16,6 @@ stack::~stack(){
 void stack::push(AST* token){
     rpn[count] = token;
     count++;
-
     if (neg* token1 = dynamic_cast<neg*>(token)){
         negate();
         delete token1;
@@ -24,6 +24,9 @@ void stack::push(AST* token){
         compute();
         delete token1;
     }
+    num* a = dynamic_cast<num*>(rpn[count - 1]);
+    std::cout << a->getdata() << std::endl;
+    delete a;
 }
 
 void stack::pop(){

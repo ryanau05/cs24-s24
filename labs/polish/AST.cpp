@@ -2,6 +2,7 @@
 #include "Nodes.h"
 #include "Stack.h"
 
+#include <iostream>
 #include <sstream>
 #include <cctype>
 
