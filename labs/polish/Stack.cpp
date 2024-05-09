@@ -4,7 +4,7 @@
 
 // Implement your Stack member functions here.
 stack::stack(){
-
+    count = 0;
 }
 
 stack::~stack(){
@@ -13,20 +13,21 @@ stack::~stack(){
     }
 }
 
-void stack::push(AST* token){
+void stack::pushNum(num* token){
     rpn[count] = token;
     count++;
-    if (neg* token1 = dynamic_cast<neg*>(token)){
-        negate();
-        delete token1;
-    }
-    else if (num* token1 = dynamic_cast<num*>(token); token1 == nullptr){
-        compute();
-        delete token1;
-    }
-    num* a = dynamic_cast<num*>(rpn[count - 1]);
-    std::cout << a->getdata() << std::endl;
-    delete a;
+}
+
+void stack::pushNeg(neg* token){
+    token->left = rpn[count];
+    rpn[count] = token;
+}
+
+void stack::pushOpp(opp* token){
+    token->left = rpn[count - 1];
+    token->right = rpn[count];
+    token[count - 1];
+    pop();
 }
 
 void stack::pop(){
@@ -34,18 +35,16 @@ void stack::pop(){
     count--;
 }
 
-void stack::compute(){
-    opp* token = dynamic_cast<opp*>(rpn[count]);
-    token->left = rpn[count - 2];
-    token->right = rpn[count - 1];
-    rpn[count - 2] = token;
-    pop();
-    pop();
-}  
+// void stack::compute(opp* token){
+//     token->left = rpn[count - 2];
+//     token->right = rpn[count - 1];
+//     // pop();
+//     // pop();
+//     // rpn[0] = token;
+// }  
 
-void stack::negate(){
-    neg* token = dynamic_cast<neg*>(rpn[count]);
-    token->left = rpn[count - 1];
-    rpn[count - 1] = token;
-    pop();
-}
+// void stack::negate(neg* token){
+//     token->left = rpn[0];
+//     rpn[1] = token;
+//     pop();
+// }

@@ -18,7 +18,7 @@ class num : public AST{
 
 struct neg : public AST{
     char data = '~';
-    AST* left;
+    AST* left = nullptr;
     public:
         std::string prefix() const override;
         std::string postfix() const override;
@@ -28,8 +28,8 @@ struct neg : public AST{
 
 struct opp : public AST{
     char data;
-    AST* left;
-    AST* right;
+    AST* left = nullptr;
+    AST* right = nullptr;;
     public:
         opp(char opperator) : data(opperator){};
         std::string prefix() const override;

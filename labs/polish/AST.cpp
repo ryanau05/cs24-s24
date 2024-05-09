@@ -15,13 +15,13 @@ AST* AST::parse(const std::string& expression) {
         char* end;
         strtod(token.c_str(), &end);
         if (!(end == token.c_str() || *end != '\0')){
-            currstack.push(new num(stod(token)));
+            currstack.pushNum(new num(stod(token)));
         }
         else if (token.length() == 1 && token == "~"){
-            currstack.push(new neg);
+            currstack.pushNeg(new neg);
         }
         else if (token.length() == 1 && (token == "+" || token == "-" || token == "*" || token == "/" || token == "%")){
-            currstack.push(new opp(token[0]));
+            currstack.pushOpp(new opp(token[0]));
         }
         else {
             throw std::runtime_error("Invalid token: " + token);
