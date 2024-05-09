@@ -1,4 +1,4 @@
-CXX = g++ -std=c++17 -g
+CXX = g++ -std=c++17 -g -Wall -Wextra -Werror -Wno-unused-parameter
 
 test: Nodes.o AST.o Stack.o test.o
 	${CXX} $^ -o $@
