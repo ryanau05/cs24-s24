@@ -26,8 +26,7 @@ void stack::pushNeg(neg* token){
 void stack::pushOpp(opp* token){
     token->left = rpn[count - 1];
     token->right = rpn[count];
-    token[count - 1];
-    
+    rpn[count - 1] = token;
     pop();
 }
 
