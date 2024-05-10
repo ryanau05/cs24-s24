@@ -11,52 +11,69 @@ std::string format(double number) {
   return stream.str();
 }
 
-std::string num::prefix() const{
+node::node(std::string data_, std::string type_){
+  data = data_;
+  type = type_;
+}
+
+std::string node::prefix() const{
   return "";
 }
 
-std::string num::postfix() const{
+std::string node::postfix() const{
   return "";
 }
 
-double num::value() const{
+double node::value() const{
   return 0;
 }
 
-double num::getdata() const{
-  return data;
-}
+// std::string num::prefix() const{
+//   return "";
+// }
 
-std::string neg::prefix() const{
-  return "";
-}
+// std::string num::postfix() const{
+//   return "";
+// }
 
-std::string neg::postfix() const{
-  return "";
-}
+// double num::value() const{
+//   return 0;
+// }
 
-double neg::value() const{
-  return 0;
-}
+// double num::getdata() const{
+//   return data;
+// }
 
-char neg::getdata() const{
-  return data;
-}
+// std::string neg::prefix() const{
+//   return "";
+// }
 
-std::string opp::prefix() const{
-  return "";
-}
+// std::string neg::postfix() const{
+//   return "";
+// }
 
-std::string opp::postfix() const{
-  return "";
-}
+// double neg::value() const{
+//   return 0;
+// }
 
-double opp::value() const{
-  return 0;
-}
+// char neg::getdata() const{
+//   return data;
+// }
 
-char opp::getdata() const{
-  return data;
-}
+// std::string opp::prefix() const{
+//   return "";
+// }
+
+// std::string opp::postfix() const{
+//   return "";
+// }
+
+// double opp::value() const{
+//   return 0;
+// }
+
+// char opp::getdata() const{
+//   return data;
+// }
 
 // Implement your AST subclasses' member functions here.

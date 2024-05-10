@@ -15,17 +15,23 @@ AST* AST::parse(const std::string& expression) {
         char* end;
         strtod(token.c_str(), &end);
         if (!(end == token.c_str() || *end != '\0')){
-            currstack.pushNum(new num(stod(token)));
+            currstack.push(new node(token, "num"));
         }
         else if (token.length() == 1 && token == "~"){
-            currstack.pushNeg(new neg);
+            node* a = new node(token, "neg");
+            // currstack.pushNeg(new node(token, "neg"));
+            currstack.pushNeg(a);
         }
         else if (token.length() == 1 && (token == "+" || token == "-" || token == "*" || token == "/" || token == "%")){
-            currstack.pushOpp(new opp(token[0]));
+            node* a = new node(token, "opp");
+            currstack.pushOpp(a);
+            // currstack.pushOpp(new node(token, "opp"));
         }
         else {
             throw std::runtime_error("Invalid token: " + token);
         }
+        currstack.print();
+        std::cout << std::endl;
 
     }
 

@@ -9,42 +9,76 @@ stack::stack(){
 
 stack::~stack(){
     for (int i = 0; i < count; i++){
-        delete rpn[i];
+        recursiveClear(rpn[i]);
     }
 }
 
-void stack::pushNum(num* token){
+void stack::recursiveClear(AST* token) {
+    if (token == nullptr){
+        return;
+    }
+    node* a = dynamic_cast<node*>(token);
+    recursiveClear(a->left);
+    recursiveClear(a->right);
+    delete a;
+}
+
+void stack::print(){
+    for (int i = 0; i < count; i++){
+        print1(rpn[i]);
+        std::cout << " | ";
+    }
+}
+
+void stack::print1(AST* token){
+    if (token == nullptr){
+        return;
+    }
+
+    node* a = dynamic_cast<node*>(token);
+    print1(a->left);
+    std::cout << a->data << " ";
+    print1(a->right);
+}
+
+// void stack::pushNum(num* token){
+//     rpn[count] = token;
+//     count++;
+// }
+
+void stack::pushNeg(node* token){
+    token->left = rpn[count - 1];
+    rpn[count - 1] = token;
+}
+
+void stack::pushOpp(node* token){
+    token->left = rpn[count - 2];
+    token->right = rpn[count - 1];
+    rpn[count - 2] = token;
+    rpn[count - 1] = nullptr;
+    count--;
+}
+
+void stack::push(AST* token){
     rpn[count] = token;
     count++;
 }
 
-void stack::pushNeg(neg* token){
-    token->left = rpn[count];
-    rpn[count] = token;
-}
-
-void stack::pushOpp(opp* token){
-    token->left = rpn[count - 1];
-    token->right = rpn[count];
-    rpn[count - 1] = token;
-    pop();
-}
-
 void stack::pop(){
-    delete rpn[count];
     count--;
+    delete rpn[count];
 }
 
-// void stack::compute(opp* token){
-//     token->left = rpn[count - 2];
-//     token->right = rpn[count - 1];
-//     // pop();
-//     // pop();
-//     // rpn[0] = token;
-// }  
-
-// void stack::negate(neg* token){
-//     token->left = rpn[0];
-//     rpn[1] = token;
-//     pop();
+// std::string stack::getType(AST* token){
+//     if (num* a = dynamic_cast<num*>(token)){
+//         delete a;
+//         return "num";
+//     }
+//     else if (neg* a = dynamic_cast<neg*>(token)){
+//         delete a;
+//         return "neg";
+//     }
+//     else{
+//         return "opp";
+//     }   
 // }
