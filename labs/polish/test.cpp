@@ -28,8 +28,30 @@ int main() {
 
   // delete temp;
 
-  AST* temp = AST::parse("12 3 + 5 4 + 2 / *");
-  static_cast<void>(temp);
+  // AST* temp = AST::parse("12 3 + 5 4 + 2 / *");
+  // static_cast<void>(temp);
 
+  stack* temp = new stack;
+  temp->push(new node("12", "num"));
+  temp->push(new node("3", "num"));
+  temp->pushOpp(new node("+", "opp"));
+  temp->print();
+  std::cout << std::endl;
+  temp->push(new node("5", "num"));
+  temp->push(new node("4", "num"));
+  temp->pushOpp(new node("+", "opp"));
+  temp->print();
+  std::cout << std::endl;
+  temp->push(new node("2", "num"));
+  temp->pushOpp(new node("/", "opp"));
+  temp->print();
+  std::cout << std::endl;
+  temp->pushOpp(new node("*", "opp"));
+  temp->print();
+  std::cout << std::endl;
+
+  delete temp;
+
+  // AST* temp = AST::parse("12 3 + 5 4 + 2 / *");
   return 0;
 }

@@ -31,6 +31,6 @@ AST* AST::parse(const std::string& expression) {
         }
         currstack.print();
         std::cout << std::endl;
-    }
+   }
     return currstack.rpn[0];
 }

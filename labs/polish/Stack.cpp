@@ -64,6 +64,11 @@ void stack::push(node* token){
     count++;
 }
 
+void stack::pop(){
+    count--;
+    delete rpn[count];
+}
+
 // std::string stack::getType(AST* token){
 //     if (num* a = dynamic_cast<num*>(token)){
 //         delete a;

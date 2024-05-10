@@ -19,6 +19,7 @@ class stack{
         void pushNeg(node* token);
         void pushOpp(node* token);
         void push(node* token);
+        void pop();
         // string getType(AST* token);
 };
 

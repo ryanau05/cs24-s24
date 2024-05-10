@@ -4,7 +4,12 @@
 #include <string>
 
 struct Node {
-  // TODO!
+  Node* right = nullptr;
+  Node* left = nullptr;
+  Node* parent = nullptr;
+  int weight = 1;
+  std::string data;
+
 };
 
 #endif
