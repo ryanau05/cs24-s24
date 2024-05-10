@@ -28,7 +28,7 @@ std::string node::prefix()  const {
     return data;
   }
   else if (right == nullptr){
-    return data + " " + left->prefix() + " ";
+    return data + " " + left->prefix();
   }
   return data + " " + left->prefix() + " " + right->prefix();
 }
@@ -37,7 +37,7 @@ std::string node::postfix() const {
     return data;
   }
   else if (right == nullptr){
-    return left->postfix() + " " + data + " ";
+    return left->postfix() + " " + data;
   }
   return left->postfix() + " " + right->postfix() + " " + data;
 }
