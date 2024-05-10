@@ -1,5 +1,6 @@
 #include "Nodes.h"
 #include "AST.h"
+#include "Stack.h"
 
 #include <sstream>
 #include <string>
@@ -16,14 +17,12 @@ node::node(std::string data_, std::string type_){
   type = type_;
 }
 
-std::string node::prefix() const{
+std::string node::prefix()  const {
   return "";
 }
-
-std::string node::postfix() const{
+std::string node::postfix() const {
   return "";
 }
-
-double node::value() const{
+double      node::value()   const {
   return 0;
 }

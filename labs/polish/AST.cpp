@@ -16,7 +16,7 @@ AST* AST::parse(const std::string& expression) {
         strtod(token.c_str(), &end);
         if (!(end == token.c_str() || *end != '\0')){
             node* a = new node(token, "num");
-            currstack.push(a);
+            currstack.pushNum(a);
         }
         else if (token.length() == 1 && token == "~"){
             node* a = new node(token, "neg");
@@ -31,7 +31,6 @@ AST* AST::parse(const std::string& expression) {
         }
         // currstack.print();
         // std::cout << std::endl;
-        currstack.root = currstack.rpn[0];
    }
-    return currstack.pop();
+    return currstack.topNode();;
 }

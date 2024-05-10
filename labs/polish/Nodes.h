@@ -14,9 +14,9 @@ class node : public AST{
         node(std::string data_, std::string type_);
         AST* left = nullptr;
         AST* right = nullptr;
-        std::string prefix() const override;
-        std::string postfix() const override;
-        double value() const override;
+        virtual std::string prefix()  const override;
+        virtual std::string postfix() const override;
+        virtual double      value()   const override;
 };
 
 #endif
