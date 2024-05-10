@@ -19,39 +19,4 @@ class node : public AST{
         double value() const override;
 };
 
-// struct num : public AST{
-//     double data;
-//     public:
-//         AST* left = nullptr;
-//         AST* right = nullptr;
-        // num(double number) : data(number){};
-        // std::string prefix() const override;
-        // std::string postfix() const override;
-        // double value() const override;
-        // double getdata() const;
-// };
-
-// struct neg : public AST{
-//     char data = '~';
-//     public:
-//         AST* left = nullptr;
-//         AST* right = nullptr;
-//         std::string prefix() const override;
-//         std::string postfix() const override;
-//         double value() const override;
-//         char getdata() const;
-// };
-
-// struct opp : public AST{
-//     char data;
-//     public:
-//         AST* left = nullptr;
-//         AST* right = nullptr;
-//         opp(char opperator) : data(opperator){};
-//         std::string prefix() const override;
-//         std::string postfix() const override;
-//         double value() const override;
-//         char getdata() const;
-// };
-
 #endif

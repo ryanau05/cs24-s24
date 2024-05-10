@@ -8,8 +8,13 @@ stack::stack(){
 }
 
 stack::~stack(){
-    for (int i = 0; i < count; i++){
-        recursiveClear(rpn[i]);
+    if (count > 0){
+        for (int i = 0; i < count; i++){
+            recursiveClear(rpn[i]);
+        }
+    }
+    else {
+        recursiveClear(root);
     }
 }
 
@@ -41,11 +46,6 @@ void stack::print1(AST* token){
     print1(a->right);
 }
 
-// void stack::pushNum(num* token){
-//     rpn[count] = token;
-//     count++;
-// }
-
 void stack::pushNeg(node* token){
     token->left = rpn[count - 1];
     rpn[count - 1] = token;
@@ -64,21 +64,8 @@ void stack::push(node* token){
     count++;
 }
 
-void stack::pop(){
+AST* stack::pop(){
     count--;
-    delete rpn[count];
+    rpn[count] = nullptr;
+    return root;
 }
-
-// std::string stack::getType(AST* token){
-//     if (num* a = dynamic_cast<num*>(token)){
-//         delete a;
-//         return "num";
-//     }
-//     else if (neg* a = dynamic_cast<neg*>(token)){
-//         delete a;
-//         return "neg";
-//     }
-//     else{
-//         return "opp";
-//     }   
-// }

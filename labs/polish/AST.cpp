@@ -29,8 +29,9 @@ AST* AST::parse(const std::string& expression) {
         else {
             throw std::runtime_error("Invalid token: " + token);
         }
-        currstack.print();
-        std::cout << std::endl;
+        // currstack.print();
+        // std::cout << std::endl;
+        currstack.root = currstack.rpn[0];
    }
-    return currstack.rpn[0];
+    return currstack.pop();
 }

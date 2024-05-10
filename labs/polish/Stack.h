@@ -9,18 +9,17 @@
 class stack{
     public:
         AST* rpn[20];
+        AST* root;
         int count;
         stack();
         ~stack();
         void recursiveClear(AST* token);
         void print();
         void print1(AST* token);
-        // void pushNum(num* token);
         void pushNeg(node* token);
         void pushOpp(node* token);
         void push(node* token);
-        void pop();
-        // string getType(AST* token);
+        AST* pop();
 };
 
 #endif
