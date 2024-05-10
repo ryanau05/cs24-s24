@@ -27,9 +27,20 @@ AST* AST::parse(const std::string& expression) {
             currstack.clear();
             throw std::runtime_error("Invalid token: " + token);
         }
-        // currstack.print();
-        // std::cout << std::endl;
    }
+
+    if (currstack.top == -1){
+        throw std::runtime_error("No input");
+    }
+    if (currstack.top > 1){
+        node* b = dynamic_cast<node*>(currstack.rpn[1]);
+        if (b->type == "num"){
+            throw std::runtime_error("Too many operands");
+        }
+        else {
+            throw std::runtime_error("Not enough operands");
+        }
+    }
     AST* temp = currstack.topNode();
     currstack.pop();
     return temp;
