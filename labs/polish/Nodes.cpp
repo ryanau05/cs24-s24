@@ -18,6 +18,11 @@ node::node(std::string data_, std::string type_){
   type = type_;
 }
 
+node::~node(){
+  delete left;
+  delete right;
+}
+
 std::string node::prefix()  const {
   return data + " " + left->prefix() + " " + right->prefix();
 }

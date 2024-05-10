@@ -8,24 +8,8 @@
 
 class stack{
     public:
-        // AST* rpn[20];
-        // AST* root;
-        // int count;
-        // stack();
-        // ~stack();
-        void print() const;
-        void print1(AST* token) const;
-        // void pushNeg(node* token);
-        // void pushOpp(node* token);
-        // void push(node* token);
-        // AST* pop();
-        // std::string PN(AST* token) const;
-        // std::string RPN(AST* token) const;
-
-
         int top;
         AST* rpn[20];
-
         stack();
         ~stack();
         void pushNum(node* token);
@@ -36,6 +20,8 @@ class stack{
         void clear();
         void recursiveClear(AST* token);
         void clearStack();
+        void print() const;
+        void print1(AST* token) const;
 };
 
 #endif
