@@ -25,11 +25,11 @@ std::string node::postfix() const {
   return left->postfix() + " " + right->postfix() + " " + data;
 }
 double      node::value()   const {
+  double x = 0;
   if (type == "num"){
     return stod(data);
   }
-  double x = 0;
-  if (type == "opp"){
+  else if (type == "opp"){
     if (data == "+"){
         x += left->value() + right->value();
     }
@@ -40,14 +40,20 @@ double      node::value()   const {
       x +=left->value() * right->value();
     }
     else if (data == "/"){
+      if (right->value() == 0){
+        throw std::runtime_error("Division by zero.");
+      }
       x += left->value() / right->value();
     }
-    else if (data == "&"){
+    else if (data == "%"){
+      if (right->value() == 0){
+      throw std::runtime_error("Division by zero.");
+      }
       x += fmod(left->value(), right->value());
     }
   }
   else if (type == "neg"){
-     x *= -1;
+     x += -1 * left->value();
   }
   return x;
 }
