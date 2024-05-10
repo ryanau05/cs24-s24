@@ -9,12 +9,26 @@
 int main() {
   stack* temp = new stack;
   temp->push(new node("12", "num"));
-  // temp->pushNum(new num(3));
-  // temp->pushOpp(new opp('+'));
-  // opp* token = dynamic_cast<opp*>(temp->rpn[temp->count - 1]);
-  // num* token1 = dynamic_cast<num*>(token->right);
-  // std::cout << token1->getdata() << std::endl;
-  temp->pushNeg(new node("~", "neg"));
+  temp->push(new node("3", "num"));
+  temp->pushOpp(new node("+", "opp"));
+  temp->print();
+  std::cout << std::endl;
+  temp->push(new node("5", "num"));
+  temp->push(new node("4", "num"));
+  temp->pushOpp(new node("+", "opp"));
+  temp->print();
+  std::cout << std::endl;
+  temp->push(new node("2", "num"));
+  temp->pushOpp(new node("/", "opp"));
+  temp->print();
+  std::cout << std::endl;
+  temp->pushOpp(new node("*", "opp"));
+  temp->print();
+  std::cout << std::endl;
+
   delete temp;
+
+  // AST* temp = AST::parse("12 3 + 5 4 + 2 / *");
+
   return 0;
 }

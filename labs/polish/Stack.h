@@ -13,6 +13,8 @@ class stack{
         stack();
         ~stack();
         void recursiveClear(AST* token);
+        void print();
+        void print1(AST* token);
         // void pushNum(num* token);
         void pushNeg(node* token);
         void pushOpp(node* token);

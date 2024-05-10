@@ -8,8 +8,9 @@ stack::stack(){
 }
 
 stack::~stack(){
-    recursiveClear(rpn[0]);
-    // delete rpn[0];
+    for (int i = 0; i < count; i++){
+        recursiveClear(rpn[i]);
+    }
 }
 
 void stack::recursiveClear(AST* token) {
@@ -20,6 +21,24 @@ void stack::recursiveClear(AST* token) {
     recursiveClear(a->left);
     recursiveClear(a->right);
     delete a;
+}
+
+void stack::print(){
+    for (int i = 0; i < count; i++){
+        print1(rpn[i]);
+        std::cout << " | ";
+    }
+}
+
+void stack::print1(AST* token){
+    if (token == nullptr){
+        return;
+    }
+
+    node* a = dynamic_cast<node*>(token);
+    print1(a->left);
+    std::cout << a->data << " ";
+    print1(a->right);
 }
 
 // void stack::pushNum(num* token){
