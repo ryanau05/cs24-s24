@@ -33,7 +33,9 @@ class stack{
         void pushNeg(node* token);
         void pop();
         AST* topNode();
+        void clear();
         void recursiveClear(AST* token);
+        void clearStack();
 };
 
 #endif

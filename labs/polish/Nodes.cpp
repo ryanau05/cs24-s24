@@ -47,7 +47,7 @@ double      node::value()   const {
     }
     else if (data == "%"){
       if (right->value() == 0){
-      throw std::runtime_error("Division by zero.");
+        throw std::runtime_error("Division by zero.");
       }
       x += fmod(left->value(), right->value());
     }

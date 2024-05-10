@@ -91,10 +91,14 @@ stack::stack(){
 }
 
 stack::~stack(){
+    clear();
+}
+
+void stack::clear(){
     for (int i = top; i >= 0; i--){
         recursiveClear(rpn[i]);
-        pop();
     }
+    clearStack();
 }
 
 void stack::recursiveClear(AST* token) {
@@ -105,6 +109,13 @@ void stack::recursiveClear(AST* token) {
     recursiveClear(a->left);
     recursiveClear(a->right);
     delete a;
+}
+
+void stack::clearStack(){
+    for (int i = top; i >= 0; i--){
+        delete rpn[i];
+    }
+    top = -1;
 }
 
 void stack::pushNum(node* token){
@@ -129,7 +140,8 @@ void stack::pop(){
     if (top == -1){
         return;
     }
-    rpn[top--] = nullptr;
+    // rpn[top--] = nullptr;
+    delete rpn[top--];
 }
 
 AST* stack::topNode(){
