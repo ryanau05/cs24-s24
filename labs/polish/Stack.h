@@ -13,8 +13,8 @@ class stack{
         // int count;
         // stack();
         // ~stack();
-        void print();
-        void print1(AST* token);
+        void print() const;
+        void print1(AST* token) const;
         // void pushNeg(node* token);
         // void pushOpp(node* token);
         // void push(node* token);
@@ -24,7 +24,7 @@ class stack{
 
 
         int top;
-        AST* data[20];
+        AST* rpn[20];
 
         stack();
         ~stack();

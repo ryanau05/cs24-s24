@@ -18,10 +18,10 @@ node::node(std::string data_, std::string type_){
 }
 
 std::string node::prefix()  const {
-  return "";
+  return data + " " + left->prefix() + " " + right->prefix();
 }
 std::string node::postfix() const {
-  return "";
+  return left->postfix() + " " + right->postfix() + " " + data;
 }
 double      node::value()   const {
   return 0;

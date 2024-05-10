@@ -28,14 +28,14 @@
 //     delete a;
 // }
 
-void stack::print(){
+void stack::print() const{
     for (int i = 0; i <= top; i++){
-        print1(data[i]);
+        print1(rpn[i]);
         std::cout << " | ";
     }
 }
 
-void stack::print1(AST* token) {
+void stack::print1(AST* token) const{
     if (token == nullptr){
         return;
     }
@@ -92,7 +92,7 @@ stack::stack(){
 
 stack::~stack(){
     for (int i = top; i >= 0; i--){
-        recursiveClear(data[i]);
+        recursiveClear(rpn[i]);
         pop();
     }
 }
@@ -108,13 +108,13 @@ void stack::recursiveClear(AST* token) {
 }
 
 void stack::pushNum(node* token){
-    data[++top] = token;
+    rpn[++top] = token;
 }
 
 void stack::pushNeg(node* token){
     token->left = topNode();
     pop();
-    data[++top] = token;
+    rpn[++top] = token;
 }
 
 void stack::pushOpp(node* token){
@@ -122,13 +122,20 @@ void stack::pushOpp(node* token){
     pop();
     token->left = topNode();
     pop();
-    data[++top] = token;
+    rpn[++top] = token;
 }
 
 void stack::pop(){
-    data[top--] = nullptr;
+    if (top == -1){
+        return;
+    }
+    rpn[top--] = nullptr;
 }
 
 AST* stack::topNode(){
-    return data[top];
+    if (top == -1){
+        return nullptr;
+    }
+
+    return rpn[top];
 }
