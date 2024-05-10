@@ -24,9 +24,21 @@ node::~node(){
 }
 
 std::string node::prefix()  const {
+  if (left == nullptr && right == nullptr){
+    return data;
+  }
+  else if (right == nullptr){
+    return data + " " + left->prefix() + " ";
+  }
   return data + " " + left->prefix() + " " + right->prefix();
 }
 std::string node::postfix() const {
+  if (left == nullptr && right == nullptr){
+    return data;
+  }
+  else if (right == nullptr){
+    return left->postfix() + " " + data + " ";
+  }
   return left->postfix() + " " + right->postfix() + " " + data;
 }
 double      node::value()   const {
