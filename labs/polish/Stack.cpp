@@ -58,14 +58,23 @@ void stack::pushNum(node* token){
 }
 
 void stack::pushNeg(node* token){
+    if (topNode() == nullptr){
+        return;
+    }
     token->left = topNode();
     pop();
     rpn[++top] = token;
 }
 
 void stack::pushOpp(node* token){
+    if (topNode() == nullptr){
+        return;
+    }
     token->right = topNode();
     pop();
+    if (topNode() == nullptr){
+        return;
+    }
     token->left = topNode();
     pop();
     rpn[++top] = token;
