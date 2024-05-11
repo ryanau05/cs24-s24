@@ -46,9 +46,9 @@ double      node::value()   const {
   if (type == "num"){
     return stod(data);
   }
-  // else if (left == nullptr && right == nullptr){
-  //   return 0;
-  // }
+  else if (left == nullptr && right == nullptr){
+    return 0;
+  }
   else if (type == "opp"){
     if (data == "+"){
         x += left->value() + right->value();
@@ -73,9 +73,9 @@ double      node::value()   const {
     }
   }
   else if (type == "neg"){
-    // if (left != nullptr){
+    if (left != nullptr){
       x += -1 * left->value();
-    // }
+    }
   }
   return x;
 }
