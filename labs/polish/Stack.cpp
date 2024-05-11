@@ -59,6 +59,7 @@ void stack::pushNum(node* token){
 
 void stack::pushNeg(node* token){
     if (topNode() == nullptr){
+        throw std::runtime_error("Not enough operands.");
         return;
     }
     token->left = topNode();
