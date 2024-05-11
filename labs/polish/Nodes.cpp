@@ -19,14 +19,8 @@ node::node(std::string data_, std::string type_){
 }
 
 node::~node(){
-  if (left != nullptr){
-    delete left;
-    left = nullptr;
-  }
-  if (right != nullptr){
-    delete right;
-    right = nullptr;
-  }
+  delete left;
+  delete right;
 }
 
 std::string node::prefix()  const {
