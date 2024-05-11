@@ -20,10 +20,12 @@ node::node(std::string data_, std::string type_){
 
 node::~node(){
   if (left != nullptr){
-  delete left;
+    delete left;
+    left == nullptr;
   }
   if (right != nullptr){
-  delete right;
+    delete right;
+    right == nullptr;
   }
 }
 
@@ -50,23 +52,26 @@ double      node::value()   const {
   if (type == "num"){
     return stod(data);
   }
+  else if (left == nullptr && right == nullptr){
+    return 0;
+  }
   else if (type == "opp"){
-    if (data == "+" && left != nullptr && right != nullptr){
+    if (data == "+"){
         x += left->value() + right->value();
     }
-    else if (data == "-" && left != nullptr && right != nullptr){
+    else if (data == "-"){
       x += left->value() - right->value();
     }
-    else if (data == "*" && left != nullptr && right != nullptr){
+    else if (data == "*"){
       x +=left->value() * right->value();
     }
-    else if (data == "/" && left != nullptr && right != nullptr){
+    else if (data == "/"){
       if (right->value() == 0){
         throw std::runtime_error("Division by zero.");
       }
       x += left->value() / right->value();
     }
-    else if (data == "%"  && left != nullptr && right != nullptr){
+    else if (data == "%"){
       if (right->value() == 0){
         throw std::runtime_error("Division by zero.");
       }
