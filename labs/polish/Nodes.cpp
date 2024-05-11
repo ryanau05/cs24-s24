@@ -66,7 +66,7 @@ double      node::value()   const {
       }
       x += left->value() / right->value();
     }
-    else if (data == "%"){
+    else if (data == "%"  && left != nullptr && right != nullptr){
       if (right->value() == 0){
         throw std::runtime_error("Division by zero.");
       }
