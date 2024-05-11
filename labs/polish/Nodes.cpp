@@ -51,7 +51,7 @@ double      node::value()   const {
     return stod(data);
   }
   else if (type == "opp"){
-    if (data == "+"){
+    if (data == "+" && left != nullptr && right != nullptr){
         x += left->value() + right->value();
     }
     else if (data == "-"){
