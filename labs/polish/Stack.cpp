@@ -68,13 +68,13 @@ void stack::pushNeg(node* token){
 
 void stack::pushOpp(node* token){
     if (topNode() == nullptr){
-        throw std::runtime_error("Not enough operands");
+        throw std::runtime_error("Not enough operands.");
         return;
     }
     token->right = topNode();
     pop();
     if (topNode() == nullptr){
-        throw std::runtime_error("Not enough operands");
+        throw std::runtime_error("Not enough operands.");
         return;
     }
     token->left = topNode();
