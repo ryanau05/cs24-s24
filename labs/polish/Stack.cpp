@@ -96,3 +96,12 @@ AST* stack::topNode(){
 
     return rpn[top];
 }
+
+bool stack::isEmpty(){
+    if (rpn[0] == nullptr){
+        return true;
+    }
+    else {
+        return false;
+    }
+}

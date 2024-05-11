@@ -22,6 +22,7 @@ class stack{
         void clearStack();
         void print() const;
         void print1(AST* token) const;
+        bool isEmpty();
 };
 
 #endif
