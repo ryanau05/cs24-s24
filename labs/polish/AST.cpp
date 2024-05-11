@@ -18,9 +18,17 @@ AST* AST::parse(const std::string& expression) {
             currstack.pushNum(new node(token, "num"));
         }
         else if (token.length() == 1 && token == "~"){
+            if (currstack.isEmpty()){
+                currstack.clear();
+                throw std::runtime_error("Not enough operands.");
+            }
             currstack.pushNeg(new node(token, "neg"));
         }
         else if (token.length() == 1 && (token == "+" || token == "-" || token == "*" || token == "/" || token == "%")){
+            if (currstack.isEmpty()){
+                currstack.clear();
+                throw std::runtime_error("Not enough operands.");
+            }
             currstack.pushOpp(new node(token, "opp"));
         }
         else {
