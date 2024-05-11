@@ -13,8 +13,8 @@ class node : public AST{
         std::string type;
         node(std::string data_, std::string type_);
         ~node();
-        AST* left = nullptr;
-        AST* right = nullptr;
+        AST* left;
+        AST* right;
         virtual std::string prefix()  const override;
         virtual std::string postfix() const override;
         virtual double      value()   const override;

@@ -19,7 +19,7 @@ AST* AST::parse(const std::string& expression) {
         }
         else if (token.length() == 1 && token == "~"){
             if (currstack.isEmpty()){
-                currstack.clear();
+                // currstack.clear();
                 throw std::runtime_error("Not enough operands.");
             }
             currstack.pushNeg(new node(token, "neg"));

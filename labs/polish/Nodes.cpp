@@ -14,6 +14,8 @@ std::string format(double number) {
 }
 
 node::node(std::string data_, std::string type_){
+  left = nullptr;
+  right = nullptr;
   data = data_;
   type = type_;
 }
