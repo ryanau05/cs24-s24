@@ -74,7 +74,9 @@ double      node::value()   const {
     }
   }
   else if (type == "neg"){
-     x += -1 * left->value();
+    if (left != nullptr){
+      x += -1 * left->value();
+    }
   }
   return x;
 }
