@@ -26,7 +26,7 @@ AST* AST::parse(const std::string& expression) {
         }
         else if (token.length() == 1 && (token == "+" || token == "-" || token == "*" || token == "/" || token == "%")){
             if (currstack.isEmpty()){
-                currstack.clear();
+                // currstack.clear();
                 throw std::runtime_error("Not enough operands.");
             }
             currstack.pushOpp(new node(token, "opp"));
