@@ -18,10 +18,10 @@ Gender Person::gender() const{
     return Gender::ANY;
 }
 Person* Person::mother(){
-    return nullptr;
+    return memMother;
 }
 Person* Person::father(){
-    return nullptr;
+    return memFather;
 }
 
 std::set<Person*> Person::ancestors(PMod pmod){

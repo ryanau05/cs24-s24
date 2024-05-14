@@ -9,6 +9,7 @@
 #include <map>
 #include "Enums.h"
 #include <sstream>
+#include <ctype.h>
 
 // This is the database class you need to implement.
 // It stores a collection of people and supports lookup by name.

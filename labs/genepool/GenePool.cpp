@@ -5,6 +5,9 @@ GenePool::GenePool(std::istream& stream){
     std::string line;
 
     while (std::getline(stream, line)){
+        if (!isalpha(line[0])){
+            continue;
+        }
         std::string name;
         std::string gender;
         Gender gender_;
