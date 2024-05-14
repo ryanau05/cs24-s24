@@ -18,6 +18,7 @@ class Person {
 
 public:
   // Constructor
+  Person(std::string name_, Gender gender_, Person* mother_, Person* father_);
   // Destructor?
 
   // Required Getter Functions
@@ -49,6 +50,11 @@ public:
   std::set<Person*> uncles(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
 
   // Other Member Functions
+  std::string memName;
+  Gender memGender;
+  Person* memMother;
+  Person* memFather;
+  std::set<Person*> kids;
 };
 
 #endif

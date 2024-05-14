@@ -7,6 +7,8 @@
 #include <set>
 #include <string>
 #include <map>
+#include "Enums.h"
+#include <sstream>
 
 // This is the database class you need to implement.
 // It stores a collection of people and supports lookup by name.
@@ -14,6 +16,8 @@
 
 class GenePool {
   // Member Variables
+  std::map<std::string, Person*> genepool;
+  std::set<Person*> database;
 
   // Helper Functions
 
