@@ -120,7 +120,14 @@ std::set<Person*> Person::cousins(PMod pmod, SMod smod){
 }
 
 std::set<Person*> Person::daughters(){
-    return kids;
+    std::set<Person*> daughters_;
+    for (Person* person: kids){
+        if (person->memGender == Gender::FEMALE){
+            daughters_.insert(person);
+        }
+    }
+
+    return daughters_;
 }
 
 std::set<Person*> Person::descendants(){
@@ -371,7 +378,14 @@ std::set<Person*> Person::sisters(PMod pmod, SMod smod){
 }
 
 std::set<Person*> Person::sons(){
-    return kids;
+    std::set<Person*> sons_;
+    for (Person* person: kids){
+        if (person->memGender == Gender::MALE){
+            sons_.insert(person);
+        }
+    }
+
+    return sons_;
 }
 
 std::set<Person*> Person::uncles(PMod pmod, SMod smod){
