@@ -22,7 +22,22 @@ Person* Person::father(){
 }
 
 std::set<Person*> Person::ancestors(PMod pmod){
-    return kids;
+    std::set<Person*> ancestors_;
+    if (pmod == PMod::MATERNAL || pmod == PMod::ANY){
+        getAncestorsHelper(memMother, ancestors_);
+    }
+    if (pmod == PMod::PATERNAL || pmod == PMod::ANY){
+        getAncestorsHelper(memFather, ancestors_);
+    }
+    return ancestors_;
+}
+
+void Person::getAncestorsHelper(Person* person, std::set<Person*>& ancestors_) {
+    if (person != nullptr) {
+        ancestors_.insert(person);
+        getAncestorsHelper(person->memMother, ancestors_);
+        getAncestorsHelper(person->memFather, ancestors_);
+    }
 }
 
 std::set<Person*> Person::aunts(PMod pmod, SMod smod){
@@ -34,7 +49,6 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
         std::set<Person*> temp = memMother->kids;
         std::set<Person*> mSibs;
-        // temp.erase(nullptr);
         if (smod == SMod::FULL){
             for (Person* person: temp){
                 if (person->memGender == Gender::MALE && person->memName != memName && (person->memMother != nullptr && person->memFather != nullptr)){
@@ -72,7 +86,6 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
         std::set<Person*> temp = memFather->kids;
         std::set<Person*> pSibs;
-        // temp.erase(nullptr);
         if (smod == SMod::FULL){
             for (Person* person: temp){
                 if (person->memGender == Gender::MALE && person->memName != memName && (person->memMother != nullptr && person->memFather != nullptr)){

@@ -55,6 +55,8 @@ public:
   Person* memMother;
   Person* memFather;
   std::set<Person*> kids;
+
+  void getAncestorsHelper(Person* person, std::set<Person*>& ancestors);
 };
 
 #endif
