@@ -37,6 +37,7 @@ GenePool::GenePool(std::istream& stream){
                 mom = new Person(mother, Gender::FEMALE, nullptr, nullptr);
                 genepool[mother] = mom;
                 database.insert(mom);
+                allNames.insert(mother);
             }
         }
 
@@ -47,6 +48,7 @@ GenePool::GenePool(std::istream& stream){
                 dad = new Person(father, Gender::MALE, nullptr, nullptr);
                 genepool[father] = dad;
                 database.insert(dad);
+                allNames.insert(father);
             }
         }
 
@@ -66,6 +68,7 @@ GenePool::GenePool(std::istream& stream){
             }
             genepool[name] = person;
             database.insert(person);
+            allNames.insert(name);
         }
 
         if (mother != "???"){
@@ -78,6 +81,12 @@ GenePool::GenePool(std::istream& stream){
 }
 
 GenePool::~GenePool(){
+    for (std::string name: allNames){
+        delete genepool[name];
+    }
+    for (Person* person: database){
+        delete person;
+    }
 }
 
 std::set<Person*> GenePool::everyone() const{

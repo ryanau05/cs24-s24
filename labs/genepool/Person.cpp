@@ -8,9 +8,6 @@ Person::Person(std::string name_, Gender gender_, Person* mother_, Person* fathe
     memFather = father_;
 }
 
-#include "Person.h"
-
-// Person Member Functions
 const std::string& Person::name() const{
     return memName;
 }
