@@ -32,11 +32,12 @@ std::set<Person*> Person::aunts(PMod pmod, SMod smod){
 std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     std::set<Person*> bro;
     if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
-        std::set<Person*> mSibs = memMother->kids;
-        mSibs.erase(nullptr);
-        for (Person* person: mSibs){
-            if (person->memGender != Gender::MALE){
-                mSibs.erase(person);
+        std::set<Person*> temp = memMother->kids;
+        std::set<Person*> mSibs;
+        temp.erase(nullptr);
+        for (Person* person: temp){
+            if (person->memGender == Gender::MALE && person->memName != memName){
+                mSibs.insert(person);
             }
         }
         if (smod == SMod::FULL){
@@ -60,11 +61,12 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
         }
     }
     if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
-        std::set<Person*> pSibs = memFather->kids;
-        pSibs.erase(nullptr);
-        for (Person* person: pSibs){
-            if (person->memGender != Gender::MALE){
-                pSibs.erase(person);
+        std::set<Person*> temp = memFather->kids;
+        std::set<Person*> pSibs;
+        temp.erase(nullptr);
+        for (Person* person: temp){
+            if (person->memGender == Gender::MALE && person->memName != memName){
+                pSibs.insert(person);
             }
         }
         if (smod == SMod::FULL){
