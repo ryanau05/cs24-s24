@@ -56,7 +56,8 @@ public:
   Person* memFather;
   std::set<Person*> kids;
 
-  void getAncestorsHelper(Person* person, std::set<Person*>& ancestors);
+  void ancestorsHelper(Person* person, std::set<Person*>& ancestors);
+  void descendantsHelper(const std::set<Person*>& kids, std::set<Person*>& descendants);
 };
 
 #endif

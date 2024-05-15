@@ -24,19 +24,19 @@ Person* Person::father(){
 std::set<Person*> Person::ancestors(PMod pmod){
     std::set<Person*> ancestors_;
     if (pmod == PMod::MATERNAL || pmod == PMod::ANY){
-        getAncestorsHelper(memMother, ancestors_);
+        ancestorsHelper(memMother, ancestors_);
     }
     if (pmod == PMod::PATERNAL || pmod == PMod::ANY){
-        getAncestorsHelper(memFather, ancestors_);
+        ancestorsHelper(memFather, ancestors_);
     }
     return ancestors_;
 }
 
-void Person::getAncestorsHelper(Person* person, std::set<Person*>& ancestors_) {
+void Person::ancestorsHelper(Person* person, std::set<Person*>& ancestors_){
     if (person != nullptr) {
         ancestors_.insert(person);
-        getAncestorsHelper(person->memMother, ancestors_);
-        getAncestorsHelper(person->memFather, ancestors_);
+        ancestorsHelper(person->memMother, ancestors_);
+        ancestorsHelper(person->memFather, ancestors_);
     }
 }
 
@@ -144,7 +144,16 @@ std::set<Person*> Person::daughters(){
 }
 
 std::set<Person*> Person::descendants(){
-    return kids;
+    std::set<Person*> descendants;
+    descendantsHelper(kids, descendants);
+    return descendants;
+}
+
+void Person::descendantsHelper(const std::set<Person*>& kids, std::set<Person*>& descendants){
+    for (Person* kid : kids) {
+        descendants.insert(kid);
+        descendantsHelper(kid->kids, descendants);
+    }
 }
 
 std::set<Person*> Person::grandchildren(){
