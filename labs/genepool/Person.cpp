@@ -34,10 +34,19 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
         std::set<Person*> temp = memMother->kids;
         std::set<Person*> mSibs;
-        temp.erase(nullptr);
-        for (Person* person: temp){
-            if (person->memGender == Gender::MALE && person->memName != memName){
-                mSibs.insert(person);
+        // temp.erase(nullptr);
+        if (smod == SMod::FULL){
+            for (Person* person: temp){
+                if (person->memGender == Gender::MALE && person->memName != memName && (person->memMother != nullptr && person->memFather != nullptr)){
+                    mSibs.insert(person);
+                }
+            }
+        }
+        else {
+            for (Person* person: temp){
+                if (person->memGender == Gender::MALE && person->memName != memName){
+                    mSibs.insert(person);
+                }
             }
         }
         if (smod == SMod::FULL){
@@ -63,10 +72,19 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
         std::set<Person*> temp = memFather->kids;
         std::set<Person*> pSibs;
-        temp.erase(nullptr);
-        for (Person* person: temp){
-            if (person->memGender == Gender::MALE && person->memName != memName){
-                pSibs.insert(person);
+        // temp.erase(nullptr);
+        if (smod == SMod::FULL){
+            for (Person* person: temp){
+                if (person->memGender == Gender::MALE && person->memName != memName && (person->memMother != nullptr && person->memFather != nullptr)){
+                    pSibs.insert(person);
+                }
+            }
+        }
+        else {
+            for (Person* person: temp){
+                if (person->memGender == Gender::MALE && person->memName != memName){
+                    pSibs.insert(person);
+                }
             }
         }
         if (smod == SMod::FULL){
