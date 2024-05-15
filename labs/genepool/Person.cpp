@@ -41,7 +41,19 @@ void Person::ancestorsHelper(Person* person, std::set<Person*>& ancestors_){
 }
 
 std::set<Person*> Person::aunts(PMod pmod, SMod smod){
-    return kids;
+    std::set<Person*> aunts_;
+    std::set<Person*> mAunts;
+    std::set<Person*> pAunts;
+    if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
+        mAunts = memMother->sisters(pmod, smod);
+        aunts_.insert(mAunts.begin(), mAunts.end());
+    }
+    if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
+        pAunts = memFather->sisters(pmod, smod);
+        aunts_.insert(pAunts.begin(), pAunts.end());
+    }
+
+    return aunts_;
 }
 
 std::set<Person*> Person::brothers(PMod pmod, SMod smod){
@@ -435,5 +447,17 @@ std::set<Person*> Person::sons(){
 }
 
 std::set<Person*> Person::uncles(PMod pmod, SMod smod){
-    return kids;
+    std::set<Person*> uncles_;
+    std::set<Person*> mUncles;
+    std::set<Person*> pUncles;
+    if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
+        mUncles = memMother->brothers(pmod, smod);
+        uncles_.insert(mUncles.begin(), mUncles.end());
+    }
+    if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
+        pUncles = memFather->brothers(pmod, smod);
+        uncles_.insert(pUncles.begin(), pUncles.end());
+    }
+
+    return uncles_;
 }
