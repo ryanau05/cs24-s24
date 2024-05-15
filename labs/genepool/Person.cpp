@@ -90,7 +90,11 @@ std::set<Person*> Person::grandmothers(PMod pmod){
 }
 
 std::set<Person*> Person::grandparents(PMod pmod){
-    return kids;
+    std::set<Person*> grandp;
+    grandp.insert(grandmothers(pmod).begin(), grandmothers(pmod).end());
+    grandp.insert(grandfathers(pmod).begin(), grandfathers(pmod).end());
+
+    return grandp;
 }
 
 std::set<Person*> Person::grandsons(){
