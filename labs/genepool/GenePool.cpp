@@ -84,9 +84,6 @@ GenePool::~GenePool(){
     for (std::string name: allNames){
         delete genepool[name];
     }
-    for (Person* person: database){
-        delete person;
-    }
 }
 
 std::set<Person*> GenePool::everyone() const{
