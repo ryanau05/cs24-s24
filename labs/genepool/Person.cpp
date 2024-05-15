@@ -58,11 +58,27 @@ std::set<Person*> Person::granddaughters(){
 }
 
 std::set<Person*> Person::grandfathers(PMod pmod){
-    return kids;
+    std::set<Person*> grandf;
+    if (memMother !=  nullptr && memMother->memFather != nullptr){
+        grandf.insert(memMother->father());
+    }
+    if (memFather != nullptr && memFather->memFather != nullptr){
+        grandf.insert(memFather->father());
+    }
+
+    return grandf;
 }
 
 std::set<Person*> Person::grandmothers(PMod pmod){
-    return kids;
+    std::set<Person*> grandm;
+    if (memMother !=  nullptr && memMother->memMother != nullptr){
+        grandm.insert(memMother->mother());
+    }
+    if (memFather != nullptr && memFather->memMother != nullptr){
+        grandm.insert(memFather->mother());
+    }
+    
+    return grandm;
 }
 
 std::set<Person*> Person::grandparents(PMod pmod){
