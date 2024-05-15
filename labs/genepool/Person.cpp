@@ -33,6 +33,7 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     std::set<Person*> bro;
     if (pmod == PMod::MATERNAL || pmod == PMod::ANY){
         std::set<Person*> mSibs = memMother->kids;
+        mSibs.erase(nullptr);
         if (smod == SMod::FULL){
             for (Person* person: mSibs){
                 if (person->memMother == memMother && person->memFather == memFather && person->memGender == Gender::MALE && person != nullptr){
@@ -57,6 +58,7 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     }
     if (pmod == PMod::PATERNAL || pmod == PMod::ANY){
         std::set<Person*> pSibs = memFather->kids;
+        pSibs.erase(nullptr);
         if (smod == SMod::FULL){
             for (Person* person: pSibs){
                 if (person->memMother == memMother && person->memFather == memFather && person->memGender == Gender::MALE && person != nullptr){
