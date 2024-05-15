@@ -31,10 +31,7 @@ std::set<Person*> Person::aunts(PMod pmod, SMod smod){
 
 std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     std::set<Person*> bro;
-    if (pmod == PMod::MATERNAL || pmod == PMod::ANY){
-        if (memMother == nullptr){
-           break; 
-        }
+    if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
         std::set<Person*> mSibs = memMother->kids;
         mSibs.erase(nullptr);
         if (smod == SMod::FULL){
@@ -59,10 +56,7 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
             }
         }
     }
-    if (pmod == PMod::PATERNAL || pmod == PMod::ANY){
-        if (memFather == nullptr){
-           break; 
-        }
+    if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
         std::set<Person*> pSibs = memFather->kids;
         pSibs.erase(nullptr);
         if (smod == SMod::FULL){
