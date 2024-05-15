@@ -34,50 +34,56 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod){
     if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
         std::set<Person*> mSibs = memMother->kids;
         mSibs.erase(nullptr);
+        for (Person* person: mSibs){
+            if (person->memGender != Gender::MALE){
+                mSibs.erase(person);
+            }
+        }
         if (smod == SMod::FULL){
             for (Person* person: mSibs){
-                if (person->memMother == memMother && person->memFather == memFather && person->memGender == Gender::MALE && person != nullptr){
+                if (person->memMother == memMother && person->memFather == memFather){
                     bro.insert(person);
                 }
             }
         }
         if (smod == SMod::HALF){
             for (Person* person: mSibs){
-                if (((person->memMother == memMother && person->memFather != memFather) || (person->memMother != memMother && person->memFather == memFather)) && person->memGender == Gender::MALE && person != nullptr){
+                if ((person->memMother == memMother && person->memFather != memFather) || (person->memMother != memMother && person->memFather == memFather)){
                     bro.insert(person);
                 }
             }
         }
         if (smod == SMod::ANY){
             for (Person* person: mSibs){
-                if (person->memGender == Gender::MALE && person != nullptr){
-                    bro.insert(person);
-                }
+                bro.insert(person);
             }
         }
     }
     if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
         std::set<Person*> pSibs = memFather->kids;
         pSibs.erase(nullptr);
+        for (Person* person: pSibs){
+            if (person->memGender != Gender::MALE){
+                pSibs.erase(person);
+            }
+        }
         if (smod == SMod::FULL){
             for (Person* person: pSibs){
-                if (person->memMother == memMother && person->memFather == memFather && person->memGender == Gender::MALE && person != nullptr){
+                if (person->memMother == memMother && person->memFather == memFather){
                     bro.insert(person);
                 }
             }
         }
         if (smod == SMod::HALF){
             for (Person* person: pSibs){
-                if (((person->memMother == memMother && person->memFather != memFather) || (person->memMother != memMother && person->memFather == memFather)) && person->memGender == Gender::MALE && person != nullptr){
+                if ((person->memMother == memMother && person->memFather != memFather) || (person->memMother != memMother && person->memFather == memFather)){
                     bro.insert(person);
                 }
             }
         }
         if (smod == SMod::ANY){
             for (Person* person: pSibs){
-                if (person->memGender == Gender::MALE && person != nullptr){
-                    bro.insert(person);
-                }
+                bro.insert(person);
             }
         }
     }
