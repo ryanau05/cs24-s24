@@ -148,11 +148,26 @@ std::set<Person*> Person::descendants(){
 }
 
 std::set<Person*> Person::grandchildren(){
-    return kids;
+    std::set<Person*> grandkids;
+    std::set<Person*> grandd = granddaughters();
+    std::set<Person*> grands = grandsons();
+    grandkids.insert(grandd.begin(), grandd.end());
+    grandkids.insert(grands.begin(), grands.end());
+
+    return grandkids;
 }
 
 std::set<Person*> Person::granddaughters(){
-    return kids;
+    std::set<Person*> grandd;
+    for (Person* person: kids){
+        for (Person* subP: person->kids){
+            if (subP->memGender == Gender::FEMALE){
+                grandd.insert(subP);
+            }
+        }
+    }
+
+    return grandd;
 }
 
 std::set<Person*> Person::grandfathers(PMod pmod){
@@ -199,7 +214,16 @@ std::set<Person*> Person::grandparents(PMod pmod){
 }
 
 std::set<Person*> Person::grandsons(){
-    return kids;
+    std::set<Person*> grands;
+    for (Person* person: kids){
+        for (Person* subP: person->kids){
+            if (subP->memGender == Gender::MALE){
+                grands.insert(subP);
+            }
+        }
+    }
+
+    return grands;
 }
 
 std::set<Person*> Person::nephews(PMod pmod, SMod smod){
