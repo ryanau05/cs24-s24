@@ -142,7 +142,21 @@ std::set<Person*> Person::children(){
 }
 
 std::set<Person*> Person::cousins(PMod pmod, SMod smod){
-    return kids;
+    std::set<Person*> cousins_;
+    std::set<Person*> aunts_ = aunts(pmod, smod);
+    std::set<Person*> uncles_ = uncles(pmod, smod);
+
+    for (Person* aunt: aunts_){
+        std::set<Person*> temp = aunt->children();
+        cousins_.insert(temp.begin(), temp.end());
+    }
+    for (Person* uncle: uncles_){
+        std::set<Person*> temp = uncle->children();
+        cousins_.insert(temp.begin(), temp.end());
+    }
+
+    return cousins_;
+
 }
 
 std::set<Person*> Person::daughters(){
