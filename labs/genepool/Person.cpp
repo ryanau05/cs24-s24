@@ -1,4 +1,5 @@
 #include "Person.h"
+#include <iostream>
 
 // Person Member Functions
 Person::Person(std::string name_, Gender gender_, Person* mother_, Person* father_){
@@ -45,11 +46,11 @@ std::set<Person*> Person::aunts(PMod pmod, SMod smod){
     std::set<Person*> mAunts;
     std::set<Person*> pAunts;
     if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
-        mAunts = memMother->sisters(pmod, smod);
+        mAunts = memMother->sisters(PMod::ANY, smod);
         aunts_.insert(mAunts.begin(), mAunts.end());
     }
     if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
-        pAunts = memFather->sisters(pmod, smod);
+        pAunts = memFather->sisters(PMod::ANY, smod);
         aunts_.insert(pAunts.begin(), pAunts.end());
     }
 
@@ -451,11 +452,11 @@ std::set<Person*> Person::uncles(PMod pmod, SMod smod){
     std::set<Person*> mUncles;
     std::set<Person*> pUncles;
     if ((pmod == PMod::MATERNAL || pmod == PMod::ANY) && memMother != nullptr){
-        mUncles = memMother->brothers(pmod, smod);
+        mUncles = memMother->brothers(PMod::ANY, smod);
         uncles_.insert(mUncles.begin(), mUncles.end());
     }
     if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && memFather != nullptr){
-        pUncles = memFather->brothers(pmod, smod);
+        pUncles = memFather->brothers(PMod::ANY, smod);
         uncles_.insert(pUncles.begin(), pUncles.end());
     }
 
