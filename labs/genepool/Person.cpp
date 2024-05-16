@@ -249,11 +249,35 @@ std::set<Person*> Person::grandsons(){
 }
 
 std::set<Person*> Person::nephews(PMod pmod, SMod smod){
-    return kids;
+    std::set<Person*> nephews_;
+    std::set<Person*> sibs = siblings(pmod, smod);
+
+    for (Person* person: sibs){
+        std::set<Person*> tempNephews = person->children();
+        for (Person* tempKid: tempNephews){
+            if (tempKid->memGender == Gender::MALE){
+                nephews_.insert(tempKid);
+            }
+        }
+    }
+
+    return nephews_;
 }
 
 std::set<Person*> Person::nieces(PMod pmod, SMod smod){
-    return kids;
+    std::set<Person*> nieces_;
+    std::set<Person*> sibs = siblings(pmod, smod);
+
+    for (Person* person: sibs){
+        std::set<Person*> tempNieces = person->children();
+        for (Person* tempKid: tempNieces){
+            if (tempKid->memGender == Gender::FEMALE){
+                nieces_.insert(tempKid);
+            }
+        }
+    }
+
+    return nieces_;
 }
 
 std::set<Person*> Person::parents(PMod pmod){
