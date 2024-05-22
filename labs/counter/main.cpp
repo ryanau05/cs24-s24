@@ -36,11 +36,11 @@ int read_value(std::istream& stream, int dfault) {
   }
 }
 
-void print(Counter& counter) {
-  for(auto itr = counter.begin(); itr != counter.end(); ++itr) {
-    std::cout << itr.key() << ": " << itr.value() << '\n';
-  }
-}
+// void print(Counter& counter) {
+//   for(auto itr = counter.begin(); itr != counter.end(); ++itr) {
+//     std::cout << itr.key() << ": " << itr.value() << '\n';
+//   }
+// }
 
 
 int main(int argc, char** argv) {
@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
         counter.inc(key, delta);
       }
       else if(command == "print" || command == "p") {
-        print(counter);
+        // print(counter);
       }
       else if(command == "set" || command == "s") {
         int value = read_value(stream);

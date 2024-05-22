@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <string>
+#include "List.h"
 
 // This is the Counter class you need to implement.
 // It includes the Counter::Iterator as a nested class.
@@ -23,7 +24,7 @@ public:
 
 private:
   // Member Variables
-
+list linkedlist;
 private:
   // Helper Functions
 
