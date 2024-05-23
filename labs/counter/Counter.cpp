@@ -1,69 +1,89 @@
-// Counter.cpp
 #include "Counter.h"
+#include <iostream>
 
-Counter::Counter() {}
+// Counter Member Functions
 
-Counter::~Counter() {}
+Counter::Counter(){
+    list();
+    Index();
+}
 
-void Counter::inc(const std::string& key, int by) {
-    list::node* nodePtr = linkedlist.find(key);
-    if (nodePtr == nullptr) {
-        nodePtr = new list::node(key);
-        linkedlist.insert(nodePtr);
-        index.insert_(key, nodePtr);
+Counter::~Counter(){
+
+}
+
+void Counter::inc(const std::string& key, int by){
+    if (index.find_(key) == nullptr){
+        list::node* add = new list::node(key, by);
+        linkedlist.insert(add);
+        index.insert_(key, add);
+        return;
     }
-    nodePtr->data += by;
+
+    list::node* curr = index.find_(key);
+    curr->data += by;
 }
 
-void Counter::dec(const std::string& key, int by) {
-    list::node* nodePtr = linkedlist.find(key);
-    if (nodePtr != nullptr) {
-        nodePtr->data -= by;
+void Counter::dec(const std::string& key, int by){
+    if (index.find_(key) == nullptr){
+        list::node* add = new list::node(key, by);
+        linkedlist.insert(add);
+        index.insert_(key, add);
+        return;
     }
+
+    list::node* curr = index.find_(key);
+    curr->data -= by;
 }
 
-void Counter::del(const std::string& key) {
-    list::node* nodePtr = linkedlist.find(key);
-    if (nodePtr != nullptr) {
-        linkedlist.remove(key);
-        index.remove_(key);
+void Counter::del(const std::string& key){
+    index.remove_(key);
+}
+
+int  Counter::get(const std::string& key) const{
+    if (index.find_(key) == nullptr){
+        return 0;
     }
-}
-
-int  Counter::get(const std::string& key) const {
-    list::node* nodePtr = linkedlist.find(key);
-    return nodePtr != nullptr ? nodePtr->data : 0;
-}
-
-void Counter::set(const std::string& key, int count) {
-    list::node* nodePtr = linkedlist.find(key);
-    if (nodePtr == nullptr) {
-        nodePtr = new list::node(key, count);
-        linkedlist.insert(nodePtr);
-        index.insert_(key, nodePtr);
-    } else {
-        nodePtr->data = count;
+    list::node* val = index.find_(key);
+    if (val == nullptr){
+        return 0;
     }
+    return val->data;
 }
 
-size_t Counter::count() const {
-    return linkedlist.count;
+void Counter::set(const std::string& key, int count){
+    if (index.find_(key) == nullptr){
+        list::node* add = new list::node(key, count);
+        linkedlist.insert(add);
+        index.insert_(key, add);
+        return;
+    }
+
+    list::node* curr = index.find_(key);
+    curr->data = count;
 }
 
-int Counter::total() const {
+size_t Counter::count() const{
+    size_t count_ = linkedlist.count;
+    return count_;
+}
+
+int Counter::total() const{
     int sum = 0;
     list::node* curr = linkedlist.head;
-    while (curr != nullptr) {
+    while (curr != nullptr){
         sum += curr->data;
         curr = curr->next;
     }
     return sum;
 }
 
-Counter::Iterator Counter::begin() const {
-    return Iterator(linkedlist.head);
+Counter::Iterator Counter::begin() const{
+    Counter::Iterator itr(linkedlist.head);
+    return itr;
 }
 
-Counter::Iterator Counter::end() const {
-    return Iterator(nullptr);
+Counter::Iterator Counter::end() const{
+    Counter::Iterator itr(nullptr);
+    return itr;
 }
