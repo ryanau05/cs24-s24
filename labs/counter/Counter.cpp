@@ -26,10 +26,9 @@ void Counter::inc(const std::string& key, int by){
 
 void Counter::dec(const std::string& key, int by){
     if (index.find_(key) == nullptr){
-        list::node* add = new list::node(key, by);
+        list::node* add = new list::node(key);
         linkedlist.insert(add);
         index.insert_(key, add);
-        return;
     }
 
     list::node* curr = index.find_(key);
