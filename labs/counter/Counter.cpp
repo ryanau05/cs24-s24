@@ -68,6 +68,6 @@ Counter::Iterator Counter::begin() const{
 }
 
 Counter::Iterator Counter::end() const{
-    Counter::Iterator itr((linkedlist.tail)->next);
+    Counter::Iterator itr(nullptr);
     return itr;
 }
