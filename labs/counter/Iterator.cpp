@@ -16,9 +16,7 @@ int Counter::Iterator::value() const{
 }
 
 void Counter::Iterator::operator ++ (){
-    if (curr->next != nullptr){
-        curr = curr->next;
-    }
+    curr = curr->next;
 }
 
 bool Counter::Iterator::operator == (const Iterator& other) const{
