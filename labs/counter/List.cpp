@@ -19,9 +19,9 @@ list::list(){
 list::~list(){
     node* curr = head;
     while (curr != nullptr){
-        node* temp = curr;
-        curr = curr->next;
-        delete temp;
+        node* temp = curr->next;
+        delete curr;
+        curr = temp;
     }
     head = nullptr;
     count = 0;

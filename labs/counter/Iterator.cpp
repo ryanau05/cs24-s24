@@ -22,7 +22,13 @@ void Counter::Iterator::operator ++ (){
 }
 
 bool Counter::Iterator::operator == (const Iterator& other) const{
-    if (curr->key == other.key() && curr->data == other.value()){
+    if (curr == nullptr && other.curr == nullptr){
+        return true;
+    }
+    else if (curr == nullptr || other.curr == nullptr){
+        return false;
+    }
+    else if (curr->key == other.key() && curr->data == other.value()){
         return true;
     }
 
@@ -30,6 +36,12 @@ bool Counter::Iterator::operator == (const Iterator& other) const{
 }
 
 bool Counter::Iterator::operator != (const Iterator& other) const{
+    if (curr == nullptr && other.curr == nullptr){
+        return false;
+    }
+    else if (curr == nullptr || other.curr == nullptr){
+        return true;
+    }
     if (curr->key == other.key() && curr->data == other.value()){
         return false;
     }
