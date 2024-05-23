@@ -1,13 +1,14 @@
 #include "Counter.h"
+#include <iostream>
 
 // Counter Member Functions
 
 Counter::Counter(){
-
+    list();
 }
 
 Counter::~Counter(){
-    linkedlist.~list();
+
 }
 
 void Counter::inc(const std::string& key, int by){
@@ -56,6 +57,17 @@ int Counter::total() const{
     list::node* curr = linkedlist.head;
     while (curr != nullptr){
         sum += curr->data;
+        curr = curr->next;
     }
     return sum;
+}
+
+Counter::Iterator Counter::begin() const{
+    Counter::Iterator itr(linkedlist.head);
+    return itr;
+}
+
+Counter::Iterator Counter::end() const{
+    Counter::Iterator itr((linkedlist.tail)->next);
+    return itr;
 }

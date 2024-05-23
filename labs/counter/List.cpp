@@ -1,4 +1,5 @@
 #include "List.h"
+#include <iostream>
 
 // List Member Functions
 
@@ -44,10 +45,9 @@ void list::insert(const string& key_, int data_){
 
 list::node* list::find(const string& key_) const{
     node* curr = head;
-    while (curr->key != key_ && curr != nullptr){
+    while (curr != nullptr && curr->key != key_) {
         curr = curr->next;
     }
-
     return curr;
 }
 

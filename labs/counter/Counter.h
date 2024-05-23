@@ -12,8 +12,10 @@ class Counter {
 public:
   class Iterator {
     // Member Variables
+    list::node* curr;
 
   public:
+    Iterator(list::node* curr_ = nullptr);
     const std::string& key() const;
     int value() const;
 
@@ -25,6 +27,7 @@ public:
 private:
   // Member Variables
 list linkedlist;
+
 private:
   // Helper Functions
 
