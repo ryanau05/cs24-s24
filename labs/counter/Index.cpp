@@ -8,7 +8,7 @@ Index::Index() {
 }
 
 Index::~Index() {
-    delete[] table;
+    
 }
 
 size_t Index::hash(const std::string& key_) const {
