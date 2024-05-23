@@ -8,6 +8,9 @@ Index::Index() {
 }
 
 Index::~Index() {
+    for (size_t i = 0; i < capacity; i++){
+        table[i].head = nullptr;
+    }
     delete[] table;
 }
 
