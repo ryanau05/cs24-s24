@@ -13,8 +13,9 @@ class list{
                 int data;
                 node* next;
                 node* prev;
+                node* hashNext;
 
-                node(std::string key_, int data_ = 0);
+                node(const std::string& key_, int data_ = 0);
         };
 
         node* head;
@@ -22,7 +23,7 @@ class list{
         int count;
         list();
         ~list();
-        void insert(const std::string& key_, int data_ = 0);
+        void insert(node* add);
         node* find(const std::string& key_) const;
         void remove(std::string key_);
 };

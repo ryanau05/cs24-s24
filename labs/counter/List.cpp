@@ -3,9 +3,7 @@
 
 // List Member Functions
 
-using namespace std;
-
-list::node::node(string key_, int data_){
+list::node::node(const std::string& key_, int data_){
     key = key_;
     data = data_;
     next = nullptr;
@@ -29,8 +27,7 @@ list::~list(){
     count = 0;
 }
 
-void list::insert(const string& key_, int data_){
-    node* add = new list::node(key_, data_);
+void list::insert(node* add){
     if (head == nullptr){
         head = add;
     }
@@ -43,7 +40,7 @@ void list::insert(const string& key_, int data_){
     count++;
 }
 
-list::node* list::find(const string& key_) const{
+list::node* list::find(const std::string& key_) const{
     node* curr = head;
     while (curr != nullptr && curr->key != key_) {
         curr = curr->next;
@@ -51,7 +48,7 @@ list::node* list::find(const string& key_) const{
     return curr;
 }
 
-void list::remove(string key_){
+void list::remove(std::string key_){
     node* curr = find(key_);
     if (head->next == nullptr){                     // if removing only node in list
         head = nullptr;

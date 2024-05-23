@@ -5,6 +5,7 @@
 
 Counter::Counter(){
     list();
+    Index();
 }
 
 Counter::~Counter(){
@@ -12,36 +13,47 @@ Counter::~Counter(){
 }
 
 void Counter::inc(const std::string& key, int by){
-    if (linkedlist.find(key) == nullptr){
-        linkedlist.insert(key);
-    }
-    list::node* increment = linkedlist.find(key);
-    if (increment == nullptr){
+    // if (linkedlist.find(key) == nullptr){
+    //     linkedlist.insert(key);
+    // }
+    // list::node* increment = linkedlist.find(key);
+    // if (increment == nullptr){
+    //     return;
+    // }
+    // increment->data += by;
+
+    if (index.find_(key) == nullptr){
+        list::node* add = new list::node(key, by);
+        linkedlist.insert(add);
+        index.insert_(key, add);
         return;
     }
-    increment->data += by;
+
+    list::node* curr = index.find_(key);
+    curr->data += by;
 }
 
 void Counter::dec(const std::string& key, int by){
-    if (linkedlist.find(key) == nullptr){
-        linkedlist.insert(key);
-    }
-    list::node* increment = linkedlist.find(key);
-    if (increment == nullptr){
+    if (index.find_(key) == nullptr){
+        list::node* add = new list::node(key, by);
+        linkedlist.insert(add);
+        index.insert_(key, add);
         return;
     }
-    increment->data -= by;
+
+    list::node* curr = index.find_(key);
+    curr->data -= by;
 }
 
 void Counter::del(const std::string& key){
-    linkedlist.remove(key);
+    index.remove_(key);
 }
 
 int  Counter::get(const std::string& key) const{
-    if (linkedlist.find(key) == nullptr){
+    if (index.find_(key) == nullptr){
         return 0;
     }
-    list::node* val = linkedlist.find(key);
+    list::node* val = index.find_(key);
     if (val == nullptr){
         return 0;
     }
@@ -49,14 +61,15 @@ int  Counter::get(const std::string& key) const{
 }
 
 void Counter::set(const std::string& key, int count){
-    if (linkedlist.find(key) == nullptr){
-        linkedlist.insert(key);
-    }
-    list::node* increment = linkedlist.find(key);
-    if (increment == nullptr){
+    if (index.find_(key) == nullptr){
+        list::node* add = new list::node(key, count);
+        linkedlist.insert(add);
+        index.insert_(key, add);
         return;
     }
-    increment->data = count;
+
+    list::node* curr = index.find_(key);
+    curr->data = count;
 }
 
 size_t Counter::count() const{
