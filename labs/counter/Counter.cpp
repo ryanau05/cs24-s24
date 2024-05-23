@@ -16,6 +16,9 @@ void Counter::inc(const std::string& key, int by){
         linkedlist.insert(key);
     }
     list::node* increment = linkedlist.find(key);
+    if (increment == nullptr){
+        return;
+    }
     increment->data += by;
 }
 
@@ -24,6 +27,9 @@ void Counter::dec(const std::string& key, int by){
         linkedlist.insert(key);
     }
     list::node* increment = linkedlist.find(key);
+    if (increment == nullptr){
+        return;
+    }
     increment->data -= by;
 }
 
@@ -36,6 +42,9 @@ int  Counter::get(const std::string& key) const{
         return 0;
     }
     list::node* val = linkedlist.find(key);
+    if (val == nullptr){
+        return 0;
+    }
     return val->data;
 }
 
@@ -44,6 +53,9 @@ void Counter::set(const std::string& key, int count){
         linkedlist.insert(key);
     }
     list::node* increment = linkedlist.find(key);
+    if (increment == nullptr){
+        return;
+    }
     increment->data = count;
 }
 
