@@ -33,9 +33,6 @@ void Index::insert_(const std::string& key_, list::node* nodePtr) {
 
 list::node* Index::find_(const std::string& key_) const {
     size_t hashValue = hash(key_);
-    if (table[hashValue].head == nullptr){
-        return nullptr;
-    }
     list::node* curr = table[hashValue].head;
      while (curr != nullptr && curr->key != key_){
         curr = curr->hashNext;
@@ -48,54 +45,36 @@ void Index::remove_(const std::string& key_) {
     size_t hashValue = hash(key_);
     list::node* node_to_remove = find_(key_);
     if (node_to_remove == nullptr) {
-        return;
+        return;  // Node not found, nothing to remove
     }
 
+    // Remove node from the hash chain
     list::node* curr = table[hashValue].head;
-    if (curr == nullptr) {
-        return;
-    }
-
-    // Find the node just before the node to be removed
-    while (curr->hashNext != nullptr && (curr->hashNext)->key != key_) {
-        curr = curr->hashNext;
-    }
-
-    // If we reach here, curr->hashNext is the node to be removed
-    list::node* temp = curr->hashNext;
-    if (temp == nullptr) {
-        return;
-    }
-
-    // Remove temp from the hash chain
-    if (temp->hashNext == nullptr) {
-        curr->hashNext = nullptr;
+    if (curr == node_to_remove) {
+        table[hashValue].head = node_to_remove->hashNext;
     } else {
-        curr->hashNext = temp->hashNext;
-    }
-
-    // Remove temp from the doubly linked list
-    if (temp == table[hashValue].head) {  // If temp is head
-        if (temp->next == nullptr) {
-            table[hashValue].head = nullptr;
-        } else {
-            table[hashValue].head = temp->next;
+        while (curr != nullptr && curr->hashNext != node_to_remove) {
+            curr = curr->hashNext;
         }
-    } else {
-        if (temp->next == nullptr) {  // If temp is tail
-            if (temp->prev != nullptr) {
-                (temp->prev)->next = nullptr;
-            }
-            table[hashValue].tail = temp->prev;
-        } else {
-            if (temp->prev != nullptr) {
-                (temp->prev)->next = temp->next;
-            }
-            if (temp->next != nullptr) {
-                (temp->next)->prev = temp->prev;
-            }
+        if (curr != nullptr) {
+            curr->hashNext = node_to_remove->hashNext;
         }
     }
 
-    delete temp;
+    // Remove node from the doubly linked list
+    if (node_to_remove->prev != nullptr) {
+        node_to_remove->prev->next = node_to_remove->next;
+    } else {
+        // Node to remove is the head of the linked list
+        table[hashValue].head = node_to_remove->next;
+    }
+
+    if (node_to_remove->next != nullptr) {
+        node_to_remove->next->prev = node_to_remove->prev;
+    } else {
+        // Node to remove is the tail of the linked list
+        table[hashValue].tail = node_to_remove->prev;
+    }
+
+    delete node_to_remove;
 }
