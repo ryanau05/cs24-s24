@@ -46,61 +46,56 @@ list::node* Index::find_(const std::string& key_) const {
 
 void Index::remove_(const std::string& key_) {
     size_t hashValue = hash(key_);
-    if (find_(key_) == nullptr){
+    list::node* node_to_remove = find_(key_);
+    if (node_to_remove == nullptr) {
         return;
     }
+
     list::node* curr = table[hashValue].head;
-    // if (curr->key == key_){
-    //     if (curr->hashNext != nullptr){
-    //         table[hashValue].head = curr->hashNext;
-    //     }
-    //     else {
-    //         table[hashValue].head = nullptr;
-    //     }
-    //     (curr->prev)->next = curr->next;
-    //     (curr->next)->prev = curr->prev;
-    //     delete curr;
-    // }
-    while ((curr->hashNext)->key != key_){
+    if (curr == nullptr) {
+        return;
+    }
+
+    // Find the node just before the node to be removed
+    while (curr->hashNext != nullptr && (curr->hashNext)->key != key_) {
         curr = curr->hashNext;
     }
 
+    // If we reach here, curr->hashNext is the node to be removed
     list::node* temp = curr->hashNext;
-    if (temp->hashNext == nullptr){
-        curr->hashNext = nullptr;
+    if (temp == nullptr) {
+        return;
     }
-    else {
+
+    // Remove temp from the hash chain
+    if (temp->hashNext == nullptr) {
+        curr->hashNext = nullptr;
+    } else {
         curr->hashNext = temp->hashNext;
     }
 
-    if (temp == table[hashValue].head){             // if temp is head
-        if (temp->next == nullptr){
+    // Remove temp from the doubly linked list
+    if (temp == table[hashValue].head) {  // If temp is head
+        if (temp->next == nullptr) {
             table[hashValue].head = nullptr;
-        }
-        else {
+        } else {
             table[hashValue].head = temp->next;
         }
-    }
-    else {
-        if (temp->next == nullptr){                 // if temp is tail
-            (temp->prev)->next = nullptr;
+    } else {
+        if (temp->next == nullptr) {  // If temp is tail
+            if (temp->prev != nullptr) {
+                (temp->prev)->next = nullptr;
+            }
             table[hashValue].tail = temp->prev;
-        }
-        else {
-            (temp->prev)->next = temp->next;
-            (temp->next)->prev = temp->prev;
+        } else {
+            if (temp->prev != nullptr) {
+                (temp->prev)->next = temp->next;
+            }
+            if (temp->next != nullptr) {
+                (temp->next)->prev = temp->prev;
+            }
         }
     }
 
-
-
-    // while ((curr->hashNext)->key != key_){
-    //     curr = curr->hashNext;
-    // }
-
-    // list::node* temp = curr->hashNext;
-    // curr->hashNext = temp->hashNext;
-    // curr->next = temp->next;
-    // (temp->next)->prev = curr;
     delete temp;
 }
