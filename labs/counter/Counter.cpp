@@ -37,6 +37,7 @@ void Counter::dec(const std::string& key, int by){
 
 void Counter::del(const std::string& key){
     index.remove_(key);
+    linkedlist.count--;
 }
 
 int  Counter::get(const std::string& key) const{
