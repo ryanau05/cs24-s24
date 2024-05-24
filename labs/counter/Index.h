@@ -14,7 +14,7 @@ public:
     void remove_(const std::string& key_);
 
 private:
-    static const size_t capacity = 1000000;
+    static const size_t capacity = 65000;
     list* table;
 
     size_t hash(const std::string& key_) const;

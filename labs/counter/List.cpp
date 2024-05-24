@@ -27,8 +27,7 @@ list::~list(){
         curr = temp;
     }
     head = nullptr;
-    count = 0;
-    total = 0;
+    tail = nullptr;
 }
 
 void list::insert(node* add){
@@ -52,27 +51,49 @@ list::node* list::find(const std::string& key_) const{
     return curr;
 }
 
-void list::remove(std::string key_){
+// void list::remove(std::string key_){
+//     node* curr = find(key_);
+//     if (curr == nullptr){
+//         return;
+//     }
+//     if (head->next == nullptr){                     // if removing only node in list
+//         head = nullptr;
+//         delete curr;
+//     }
+//     else if (head == curr){                         // if removing head
+//         head = curr->next;
+//         head->prev = nullptr;
+//         delete curr;
+//     }
+//     else if (curr->next == nullptr){                // if removing tail
+//         (curr->prev)->next = nullptr;
+//         delete curr;
+//     }
+//     else {                                          // removing body node
+//         (curr->prev)->next = curr->next;
+//         (curr->next)->prev = curr->prev;
+//         delete curr;
+//     }
+// }
+
+void list::remove(std::string key_) {
     node* curr = find(key_);
-    if (curr == nullptr){
+    if (curr == nullptr) {
         return;
     }
-    if (head->next == nullptr){                     // if removing only node in list
+    if (head == curr && tail == curr) { // if only node in list
         head = nullptr;
-        delete curr;
-    }
-    else if (head == curr){                         // if removing head
+        tail = nullptr;
+    } else if (head == curr) { // if removing head
         head = curr->next;
         head->prev = nullptr;
-        delete curr;
+    } else if (tail == curr) { // if removing tail
+        tail = curr->prev;
+        tail->next = nullptr;
+    } else { // removing body node
+        curr->prev->next = curr->next;
+        curr->next->prev = curr->prev;
     }
-    else if (curr->next == nullptr){                // if removing tail
-        (curr->prev)->next = nullptr;
-        delete curr;
-    }
-    else {                                          // removing body node
-        (curr->prev)->next = curr->next;
-        (curr->next)->prev = curr->prev;
-        delete curr;
-    }
+    delete curr;
+    count--;
 }

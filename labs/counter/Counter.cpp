@@ -8,9 +8,16 @@ Counter::Counter(){
     Index();
 }
 
-Counter::~Counter(){
-
+Counter::~Counter() {
+    // Delete all nodes in the linked list
+    list::node* current = linkedlist.head;
+    while (current != nullptr) {
+        list::node* next = current->next;
+        delete current;
+        current = next;
+    }
 }
+
 
 void Counter::inc(const std::string& key, int by){
     if (index.find_(key) == nullptr){
