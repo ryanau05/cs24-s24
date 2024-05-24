@@ -14,14 +14,14 @@ Counter::~Counter(){
 
 void Counter::inc(const std::string& key, int by){
     if (index.find_(key) == nullptr){
-        list::node* add = new list::node(key, by);
+        list::node* add = new list::node(key);
         linkedlist.insert(add);
         index.insert_(key, add);
-        return;
     }
 
     list::node* curr = index.find_(key);
     curr->data += by;
+    linkedlist.total+= by;
 }
 
 void Counter::dec(const std::string& key, int by){
@@ -33,9 +33,12 @@ void Counter::dec(const std::string& key, int by){
 
     list::node* curr = index.find_(key);
     curr->data -= by;
+    linkedlist.total-= by;
 }
 
 void Counter::del(const std::string& key){
+    list::node* temp = index.find_(key);
+    linkedlist.total -= temp->data;
     index.remove_(key);
     linkedlist.count--;
 }
@@ -53,13 +56,14 @@ int  Counter::get(const std::string& key) const{
 
 void Counter::set(const std::string& key, int count){
     if (index.find_(key) == nullptr){
-        list::node* add = new list::node(key, count);
+        list::node* add = new list::node(key);
         linkedlist.insert(add);
         index.insert_(key, add);
-        return;
     }
 
     list::node* curr = index.find_(key);
+    linkedlist.total -= curr->data;
+    linkedlist.total += count;
     curr->data = count;
 }
 
@@ -69,13 +73,7 @@ size_t Counter::count() const{
 }
 
 int Counter::total() const{
-    int sum = 0;
-    list::node* curr = linkedlist.head;
-    while (curr != nullptr){
-        sum += curr->data;
-        curr = curr->next;
-    }
-    return sum;
+    return linkedlist.total;
 }
 
 Counter::Iterator Counter::begin() const{

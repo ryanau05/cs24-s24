@@ -14,6 +14,7 @@ list::list(){
     head = nullptr;
     tail = nullptr;
     count = 0;
+    total = 0;
 }
 
 list::~list(){
@@ -25,6 +26,7 @@ list::~list(){
     }
     head = nullptr;
     count = 0;
+    total = 0;
 }
 
 void list::insert(node* add){

@@ -21,6 +21,7 @@ class list{
         node* head;
         node* tail;
         int count;
+        int total;
         list();
         ~list();
         void insert(node* add);
