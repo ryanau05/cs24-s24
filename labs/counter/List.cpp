@@ -58,6 +58,7 @@ void list::remove(std::string key_){
     }
     if (head->next == nullptr){                     // if removing only node in list
         head = nullptr;
+        tail = nullptr;
         delete curr;
     }
     else if (head == curr){                         // if removing head
@@ -67,6 +68,7 @@ void list::remove(std::string key_){
     }
     else if (curr->next == nullptr){                // if removing tail
         (curr->prev)->next = nullptr;
+        tail = curr->prev;
         delete curr;
     }
     else {                                          // removing body node
