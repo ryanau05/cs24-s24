@@ -54,6 +54,9 @@ list::node* list::find(const std::string& key_) const{
 
 void list::remove(std::string key_){
     node* curr = find(key_);
+    if (curr == nullptr){
+        return;
+    }
     if (head->next == nullptr){                     // if removing only node in list
         head = nullptr;
         delete curr;
