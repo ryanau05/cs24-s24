@@ -50,24 +50,57 @@ void Index::remove_(const std::string& key_) {
         return;
     }
     list::node* curr = table[hashValue].head;
-    if (curr->key == key_){
-        if (curr->hashNext != nullptr){
-            table[hashValue].head = curr->hashNext;
-        }
-        else {
-            table[hashValue].head = nullptr;
-        }
-        (curr->prev)->next = curr->next;
-        (curr->next)->prev = curr->prev;
-        delete curr;
-    }
+    // if (curr->key == key_){
+    //     if (curr->hashNext != nullptr){
+    //         table[hashValue].head = curr->hashNext;
+    //     }
+    //     else {
+    //         table[hashValue].head = nullptr;
+    //     }
+    //     (curr->prev)->next = curr->next;
+    //     (curr->next)->prev = curr->prev;
+    //     delete curr;
+    // }
     while ((curr->hashNext)->key != key_){
         curr = curr->hashNext;
     }
 
     list::node* temp = curr->hashNext;
-    curr->hashNext = temp->hashNext;
-    curr->next = temp->next;
-    (temp->next)->prev = curr;
+    if (temp->hashNext == nullptr){
+        curr->hashNext = nullptr;
+    }
+    else {
+        curr->hashNext = temp->hashNext;
+    }
+
+    if (temp == table[hashValue].head){             // if temp is head
+        if (temp->next == nullptr){
+            table[hashValue].head = nullptr;
+        }
+        else {
+            table[hashValue].head = temp->next;
+        }
+    }
+    else {
+        if (temp->next == nullptr){                 // if temp is tail
+            (temp->prev)->next = nullptr;
+            table[hashValue].tail = temp->prev;
+        }
+        else {
+            (temp->prev)->next = temp->next;
+            (temp->next)->prev = temp->prev;
+        }
+    }
+
+
+
+    // while ((curr->hashNext)->key != key_){
+    //     curr = curr->hashNext;
+    // }
+
+    // list::node* temp = curr->hashNext;
+    // curr->hashNext = temp->hashNext;
+    // curr->next = temp->next;
+    // (temp->next)->prev = curr;
     delete temp;
 }
