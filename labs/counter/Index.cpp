@@ -27,6 +27,7 @@ void Index::insert_(const std::string& key_, list::node* nodePtr) {
     else {
         list::node* curr = table[hashValue].tail;
         curr->hashNext = nodePtr;
+        nodePtr->hashPrev = curr;
     }
     table[hashValue].tail = nodePtr;
 }
@@ -43,38 +44,21 @@ list::node* Index::find_(const std::string& key_) const {
 
 void Index::remove_(const std::string& key_) {
     size_t hashValue = hash(key_);
-    list::node* node_to_remove = find_(key_);
-    if (node_to_remove == nullptr) {
-        return;  // Node not found, nothing to remove
+    list::node* rm = find_(key_);
+    if (rm == nullptr) {
+        return;                                     // node not in list
     }
 
-    // Remove node from the hash chain
-    list::node* curr = table[hashValue].head;
-    if (curr == node_to_remove) {
-        table[hashValue].head = node_to_remove->hashNext;
-    } else {
-        while (curr != nullptr && curr->hashNext != node_to_remove) {
-            curr = curr->hashNext;
-        }
-        if (curr != nullptr) {
-            curr->hashNext = node_to_remove->hashNext;
-        }
+    if (table[hashValue].head == rm && table[hashValue].tail == rm){        // if only node in chain
+        table[hashValue].head = nullptr;
+        table[hashValue].tail = nullptr;
     }
-
-    // Remove node from the doubly linked list
-    if (node_to_remove->prev != nullptr) {
-        node_to_remove->prev->next = node_to_remove->next;
-    } else {
-        // Node to remove is the head of the linked list
-        table[hashValue].head = node_to_remove->next;
+    else if (table[hashValue].head == rm){               // if node is head
+        table[hashValue].head = rm->hashNext;
+        (rm->hashNext)->hashPrev = nullptr;
     }
-
-    if (node_to_remove->next != nullptr) {
-        node_to_remove->next->prev = node_to_remove->prev;
-    } else {
-        // Node to remove is the tail of the linked list
-        table[hashValue].tail = node_to_remove->prev;
+    else if (table[hashValue].tail == rm){          // if node is tail
+        table[hashValue].tail = rm->hashPrev;
+        (rm->hashPrev)->hashNext = nullptr;
     }
-
-    delete node_to_remove;
 }

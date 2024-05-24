@@ -14,6 +14,7 @@ class list{
                 node* next;
                 node* prev;
                 node* hashNext;
+                node* hashPrev;
 
                 node(const std::string& key_, int data_ = 0);
         };

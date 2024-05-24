@@ -8,6 +8,8 @@ list::node::node(const std::string& key_, int data_){
     data = data_;
     next = nullptr;
     prev = nullptr;
+    hashNext = nullptr;
+    hashPrev = nullptr;
 }
 
 list::list(){
@@ -70,5 +72,4 @@ void list::remove(std::string key_){
         (curr->next)->prev = curr->prev;
         delete curr;
     }
-    count--;
 }

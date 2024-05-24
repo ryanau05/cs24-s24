@@ -40,6 +40,7 @@ void Counter::del(const std::string& key){
     list::node* temp = index.find_(key);
     linkedlist.total -= temp->data;
     index.remove_(key);
+    linkedlist.remove(key);
     linkedlist.count--;
 }
 
