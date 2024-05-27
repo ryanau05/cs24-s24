@@ -47,7 +47,6 @@ Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float 
             else {
                 heap.push(word, avgScore);
             }
-        std::cout << avgScore << std::endl;
         }
     }
     while (heap.top().score < cutoff && heap.count() > 0){
