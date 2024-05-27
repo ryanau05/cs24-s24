@@ -22,6 +22,7 @@ WordList::WordList(std::istream& stream) {
 
 Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float cutoff) const {
     Heap heap(maxcount);
+    // std::vector<Point> test = {{2.473, 1.087}, {7.160, 0.320},  {3.238, 0.737},  {3.491, 0.732},  {7.229, -0.329},  {2.225, 2.045},  {5.761, 0.314},  {7.833, 0.907},  {4.048, 0.331}};
     for (auto& word: mWords){
         if (word.size() == points.size()){
             float px, py, qx, qy;
@@ -41,11 +42,11 @@ Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float 
             }
 
             avgScore = totalScore / points.size();
-            if (heap.count() == maxcount){
-                heap.pushpop(word, avgScore);
-            }
-            else {
+            if (heap.count() != heap.capacity()){
                 heap.push(word, avgScore);
+            }
+            else if (heap.top().score < avgScore){
+                heap.pushpop(word, avgScore);
             }
         }
     }
