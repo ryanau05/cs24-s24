@@ -13,4 +13,4 @@ test: test.cpp
 main: main.cpp
 
 clean:
-	rm -f test *.o
+	rm -f test main *.o

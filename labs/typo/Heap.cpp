@@ -15,7 +15,7 @@ Heap::Heap(const Heap& other){
 }
 
 Heap::~Heap(){
-    delete mData;
+    delete[] mData;
 }
 
 size_t Heap::capacity() const{
