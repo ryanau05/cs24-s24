@@ -21,6 +21,7 @@ WordList::WordList(std::istream& stream) {
 
 Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float cutoff) const {
     Heap heap(maxcount);
+    
     for (const auto& word : mWords) {
         if (word.size() == points.size()) {
             float totalScore = 0.0f;
