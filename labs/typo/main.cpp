@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 
     // Change these to test different cases!
     size_t maxcount = 5;
-    float  cutoff   = 0;
+    float  cutoff   = 0.5;
 
     // Read in the words file
     WordList* wordlist = nullptr;
