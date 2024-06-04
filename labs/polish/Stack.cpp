@@ -33,7 +33,7 @@ void stack::clear(){
     for (int i = top; i >= 0; i--){
         recursiveClear(rpn[i]);
     }
-    clearStack();
+    // clearStack();
 }
 
 void stack::recursiveClear(AST* token) {
