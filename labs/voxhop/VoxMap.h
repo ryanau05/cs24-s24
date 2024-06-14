@@ -5,6 +5,7 @@
 #include <vector>
 #include <queue>
 #include <unordered_set>
+#include <memory>
 
 #include "Point.h"
 #include "Route.h"
@@ -40,11 +41,11 @@ class VoxMap {
 
   // Helper Functions
   std::string hexToBin(char val) const;
-  bool isValidMove(const Point& p) const;
   int heuristic(const Point& a, const Point& b) const;
   bool isBottomless(Point a) const;
   int heuristic(const Point& a, const Point& b);
   bool isDest(Point a, Point b) const;
+  std::unique_ptr<Node> createNode(Point pt, int g, int h, Node* p = nullptr);
 
 
 public:

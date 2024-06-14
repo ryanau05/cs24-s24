@@ -46,8 +46,8 @@ Route VoxMap::route(Point src, Point dst) {
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
 
-  Node* startNode = new Node(src, 0, heuristic(src, dst));
-  openSet.push(startNode);
+  auto startNode = createNode(src, 0, heuristic(src, dst));
+  openSet.push(startNode.get());
 
   while (!openSet.empty()) {
       Node* current = openSet.top();
@@ -91,7 +91,7 @@ Route VoxMap::route(Point src, Point dst) {
       }
   }
 
-  return {};  // Return an empty route if no path found
+  return {}; // Return an empty route if no path found
 }
 
 std::string VoxMap::hexToBin(char val) const{
@@ -106,8 +106,8 @@ std::string VoxMap::hexToBin(char val) const{
 }
 
 int VoxMap::heuristic(const Point& a, const Point& b){
-  float h = abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z);
-  return h;
+  float h = std::abs(a.x - b.x) + std::abs(a.y - b.y) + std::abs(a.z - b.z);
+  return static_cast<int>(h);
 }
 
 bool VoxMap::isValid(Point a, Point b) const{
@@ -162,4 +162,8 @@ bool VoxMap::isBottomless(Point a) const{
     }
 
     return true;
+}
+
+std::unique_ptr<Node> VoxMap::createNode(Point pt, int g, int h, Node* p) {
+    return std::make_unique<Node>(pt, g, h, p);
 }
