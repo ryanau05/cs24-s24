@@ -87,6 +87,12 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x, current->point.y - 1, current->point.z}
     };
 
+    for (int i = neighbors.size(); i >= 0; i--){
+      if (outOfBounds(neighbors[i])){
+        neighbors.erase(neighbors.begin() + i);
+      }
+    }
+
     for (const Point& neighbor : neighbors) {
       if (!isValid(current->point, neighbor)) continue;
       if (closedSet.find(neighbor) != closedSet.end()) continue;
@@ -185,4 +191,11 @@ bool VoxMap::isBottomless(Point a) const{
 
 std::unique_ptr<Node> VoxMap::createNode(Point pt, int g, int h, Node* p) {
     return std::make_unique<Node>(pt, g, h, p);
+}
+
+bool VoxMap::outOfBounds(Point a) const{
+  if (a.x < 0 || a.x >= width || a.y < 0 || a.y >= depth || a.z < 0 || a.z >= height){
+    return true;
+  }
+  return false;
 }
