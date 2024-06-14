@@ -5,6 +5,7 @@
 #include <queue>
 #include <unordered_set>
 #include <algorithm>
+#include <iostream>
 
 VoxMap::VoxMap(std::istream& stream) {
   stream >> width >> depth >> height;
@@ -42,6 +43,14 @@ VoxMap::~VoxMap() {
 }
 
 Route VoxMap::route(Point src, Point dst) {
+  if (map[src.x][src.y][src.z] || outOfBounds(src)){
+    throw InvalidPoint(src);
+  }
+  else if (map[dst.x][dst.y][dst.z] || outOfBounds(dst)){
+    throw InvalidPoint(dst);
+  }
+
+
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
   std::vector<Node*> holding;
@@ -110,6 +119,7 @@ Route VoxMap::route(Point src, Point dst) {
     delete holding[i];
   }
 
+  throw NoRoute(src, dst);
   return {}; // Return an empty route if no path found
 }
 

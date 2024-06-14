@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <memory>
 #include <map>
+#include "Errors.h"
 
 #include "Point.h"
 #include "Route.h"
