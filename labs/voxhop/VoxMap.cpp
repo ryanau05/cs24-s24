@@ -50,7 +50,6 @@ Route VoxMap::route(Point src, Point dst) {
     throw InvalidPoint(dst);
   }
 
-
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
   std::vector<Node*> holding;
@@ -72,8 +71,8 @@ Route VoxMap::route(Point src, Point dst) {
 
         if (p2.x > p1.x) route.push_back(Move::EAST);
         else if (p2.x < p1.x) route.push_back(Move::WEST);
-        else if (p2.y > p1.y) route.push_back(Move::NORTH);
-        else if (p2.y < p1.y) route.push_back(Move::SOUTH);
+        else if (p2.y < p1.y) route.push_back(Move::NORTH);
+        else if (p2.y > p1.y) route.push_back(Move::SOUTH);
 
         temp = temp->parent;
       }
@@ -93,7 +92,9 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x + 1, current->point.y, current->point.z},
       {current->point.x - 1, current->point.y, current->point.z},
       {current->point.x, current->point.y + 1, current->point.z},
-      {current->point.x, current->point.y - 1, current->point.z}
+      {current->point.x, current->point.y - 1, current->point.z},
+      {current->point.x, current->point.y, current->point.z + 1},
+      {current->point.x, current->point.y, current->point.z - 1}
     };
 
     for (const Point& neighbor : neighbors) {
