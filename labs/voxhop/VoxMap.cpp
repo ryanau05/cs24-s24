@@ -190,20 +190,12 @@ bool VoxMap::isDest(Point a, Point b) const{
 }
 
 bool VoxMap::isBottomless(Point a) const{
-  if (map[a.x][a.y][a.z - 1]){
-    return true;
-  }
-
-  int itr = 0;
-  while (itr != a.z - 1 && itr <= height){
-    if (map[a.x][a.y][itr]){
-      return false;
+  for (int z = a.z - 1; z >= 0; --z) {
+        if (map[a.x][a.y][z]) {
+            return false; // There is a block below
+        }
     }
-    else {
-      itr++;
-    }
-  }
-  return false;
+  return true;
 }
 
 std::unique_ptr<Node> VoxMap::createNode(Point pt, int g, int h, Node* p) {
