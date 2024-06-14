@@ -44,17 +44,21 @@ VoxMap::~VoxMap() {
 Route VoxMap::route(Point src, Point dst) {
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
+  std::vector<Node*> holding;
 
   Node* startNode = new Node(src, 0, heuristic(src, dst));
   openSet.push(startNode);
+  holding.push_back(startNode);
 
   while (!openSet.empty()) {
     Node* current = openSet.top();
     openSet.pop();
+    holding.push_back(current);
 
     if (isDest(current->point, dst)) {
       Route route;
       Node* temp = current;
+      holding.push_back(temp);
       while (temp->parent) {
         Point& p1 = temp->parent->point;
         Point& p2 = temp->point;
@@ -68,15 +72,9 @@ Route VoxMap::route(Point src, Point dst) {
       }
       std::reverse(route.begin(), route.end());
 
-      // Clean up allocated nodes in openSet
-      while (!openSet.empty()) {
-        Node* node = openSet.top();
-        openSet.pop();
-        delete node;
+      for (int i = holding.size(); i >= 0; i--){
+        delete holding[i];
       }
-
-      // Clean up startNode
-      delete startNode;
 
       return route;
     }
@@ -101,15 +99,9 @@ Route VoxMap::route(Point src, Point dst) {
     }
   }
 
-  // Clean up allocated nodes in openSet if no path found
-  while (!openSet.empty()) {
-    Node* node = openSet.top();
-    openSet.pop();
-    delete node;
+  for (int i = holding.size(); i >= 0; i--){
+        delete holding[i];
   }
-
-  // Clean up startNode
-  delete startNode;
 
   return {};
 }
