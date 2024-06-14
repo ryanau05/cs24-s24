@@ -26,11 +26,11 @@ VoxMap::VoxMap(std::istream& stream) {
       std::getline(stream, line);           // read in each line of tier
       std::string hexVal = "";
 
-      for (int k = 0; k < width / 4; k++){  // adds each hexdex to string as bin
-        hexVal += hexToBin(line.at(k));
+      for (size_t k = 0; k < line.size(); k++){  // adds each hexdex to string as bin
+        hexVal += hexToBin(line[k]);
       }
 
-      for (int k = 0; k < width; k++){
+      for (size_t k = 0; k < hexVal.size(); k++){
         map[k][j][i] = (hexVal[k] == '1');
       }
     }
