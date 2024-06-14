@@ -43,10 +43,10 @@ VoxMap::~VoxMap() {
 }
 
 Route VoxMap::route(Point src, Point dst) {
-  if (map[src.x][src.y][src.z] || outOfBounds(src)){
+  if (outOfBounds(src) || map[src.x][src.y][src.z]){
     throw InvalidPoint(src);
   }
-  else if (map[dst.x][dst.y][dst.z] || outOfBounds(dst)){
+  else if (outOfBounds(dst) || map[dst.x][dst.y][dst.z]){
     throw InvalidPoint(dst);
   }
 
