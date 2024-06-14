@@ -99,6 +99,9 @@ Route VoxMap::route(Point src, Point dst) {
 
       openSet.push(neighborNode);
     }
+
+    // Remove the current node if not needed anymore
+    delete current; // Make sure to delete nodes that are no longer needed
   }
 
   // Clean up allocated nodes in openSet if no path found
