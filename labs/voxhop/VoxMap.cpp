@@ -71,7 +71,7 @@ Route VoxMap::route(Point src, Point dst) {
       }
       std::reverse(route.begin(), route.end());
 
-      for (int i = holding.size(); i >= 0; i--){
+      for (int i = holding.size() - 1; i >= 0; i--){
         delete holding[i];
       }
 
@@ -98,7 +98,7 @@ Route VoxMap::route(Point src, Point dst) {
     }
   }
 
-  for (int i = holding.size(); i >= 0; i--){
+  for (int i = holding.size() - 1; i >= 0; i--){
         delete holding[i];
   }
 
