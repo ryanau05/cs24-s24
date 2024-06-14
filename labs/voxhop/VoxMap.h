@@ -47,6 +47,7 @@ class VoxMap {
   int heuristic(const Point& a, const Point& b);
   bool isDest(Point a, Point b) const;
   std::unique_ptr<Node> createNode(Point pt, int g, int h, Node* p = nullptr);
+  void cleanupNodes(std::priority_queue<Node*, std::vector<Node*>, CompareNode>& nodes);
 
 
 public:

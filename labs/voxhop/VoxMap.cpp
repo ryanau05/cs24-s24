@@ -68,14 +68,8 @@ Route VoxMap::route(Point src, Point dst) {
       }
       std::reverse(route.begin(), route.end());
 
-      // Clean up allocated nodes in openSet
-      while (!openSet.empty()) {
-        Node* node = openSet.top();
-        openSet.pop();
-        delete node;
-      }
-
-      // Clean up startNode
+      // Clean up allocated nodes and startNode
+      cleanupNodes(openSet);
       delete startNode;
 
       return route;
@@ -101,20 +95,22 @@ Route VoxMap::route(Point src, Point dst) {
     }
 
     // Remove the current node if not needed anymore
-    delete current; // Make sure to delete nodes that are no longer needed
+    delete current; // Ensure to delete nodes that are no longer needed
   }
 
-  // Clean up allocated nodes in openSet if no path found
-  while (!openSet.empty()) {
-    Node* node = openSet.top();
-    openSet.pop();
-    delete node;
-  }
-
-  // Clean up startNode
+  // Clean up allocated nodes and startNode if no path found
+  cleanupNodes(openSet);
   delete startNode;
 
-  return {};
+  return {}; // Return an empty route if no path found
+}
+
+void VoxMap::cleanupNodes(std::priority_queue<Node*, std::vector<Node*>, CompareNode>& nodes) {
+  while (!nodes.empty()) {
+    Node* node = nodes.top();
+    nodes.pop();
+    delete node;
+  }
 }
 
 std::string VoxMap::hexToBin(char val) const{
