@@ -47,7 +47,6 @@ class VoxMap {
   int heuristic(const Point& a, const Point& b);
   bool isDest(Point a, Point b) const;
   std::unique_ptr<Node> createNode(Point pt, int g, int h, Node* p = nullptr);
-  std::map<char, std::string> hexmap;
 
 
 public:

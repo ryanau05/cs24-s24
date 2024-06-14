@@ -7,12 +7,6 @@
 #include <algorithm>
 
 VoxMap::VoxMap(std::istream& stream) {
-  hexmap = {
-        {'0', "0000"}, {'1', "0001"}, {'2', "0010"}, {'3', "0011"},
-        {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"},
-        {'8', "1000"}, {'9', "1001"}, {'a', "1010"}, {'b', "1011"},
-        {'c', "1100"}, {'d', "1101"}, {'e', "1110"}, {'f', "1111"}
-  };
   stream >> width >> depth >> height;
 
   map.resize(width);
@@ -51,55 +45,83 @@ Route VoxMap::route(Point src, Point dst) {
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
 
-  auto startNode = createNode(src, 0, heuristic(src, dst));
-  openSet.push(startNode.get());
+  Node* startNode = new Node(src, 0, heuristic(src, dst));
+  openSet.push(startNode);
 
   while (!openSet.empty()) {
-      Node* current = openSet.top();
-      openSet.pop();
+    Node* current = openSet.top();
+    openSet.pop();
 
-      if (isDest(current->point, dst)) {
-          Route route;
-          Node* temp = current;
-          while (temp->parent) {
-              Point& p1 = temp->parent->point;
-              Point& p2 = temp->point;
+    if (isDest(current->point, dst)) {
+      Route route;
+      Node* temp = current;
+      while (temp->parent) {
+        Point& p1 = temp->parent->point;
+        Point& p2 = temp->point;
 
-              if (p2.x > p1.x) route.push_back(Move::EAST);
-              else if (p2.x < p1.x) route.push_back(Move::WEST);
-              else if (p2.y > p1.y) route.push_back(Move::NORTH);
-              else if (p2.y < p1.y) route.push_back(Move::SOUTH);
+        if (p2.x > p1.x) route.push_back(Move::EAST);
+        else if (p2.x < p1.x) route.push_back(Move::WEST);
+        else if (p2.y > p1.y) route.push_back(Move::NORTH);
+        else if (p2.y < p1.y) route.push_back(Move::SOUTH);
 
-              temp = temp->parent;
-          }
-          std::reverse(route.begin(), route.end());
-          return route;
+        temp = temp->parent;
+      }
+      std::reverse(route.begin(), route.end());
+
+      // Clean up allocated nodes in openSet
+      while (!openSet.empty()) {
+        Node* node = openSet.top();
+        openSet.pop();
+        delete node;
       }
 
-      closedSet.insert(current->point);
+      // Clean up startNode
+      delete startNode;
 
-      std::vector<Point> neighbors = {
-          {current->point.x + 1, current->point.y, current->point.z},
-          {current->point.x - 1, current->point.y, current->point.z},
-          {current->point.x, current->point.y + 1, current->point.z},
-          {current->point.x, current->point.y - 1, current->point.z}
-      };
+      return route;
+    }
 
-      for (const Point& neighbor : neighbors) {
-          if (!isValid(current->point, neighbor)) continue;
-          if (closedSet.find(neighbor) != closedSet.end()) continue;
+    closedSet.insert(current->point);
 
-          int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
-          Node* neighborNode = new Node(neighbor, tentativeGCost, heuristic(neighbor, dst), current);
+    std::vector<Point> neighbors = {
+      {current->point.x + 1, current->point.y, current->point.z},
+      {current->point.x - 1, current->point.y, current->point.z},
+      {current->point.x, current->point.y + 1, current->point.z},
+      {current->point.x, current->point.y - 1, current->point.z}
+    };
 
-          openSet.push(neighborNode);
-      }
+    for (const Point& neighbor : neighbors) {
+      if (!isValid(current->point, neighbor)) continue;
+      if (closedSet.find(neighbor) != closedSet.end()) continue;
+
+      int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
+      Node* neighborNode = new Node(neighbor, tentativeGCost, heuristic(neighbor, dst), current);
+
+      openSet.push(neighborNode);
+    }
   }
 
-  return {}; // Return an empty route if no path found
+  // Clean up allocated nodes in openSet if no path found
+  while (!openSet.empty()) {
+    Node* node = openSet.top();
+    openSet.pop();
+    delete node;
+  }
+
+  // Clean up startNode
+  delete startNode;
+
+  return {};
 }
 
 std::string VoxMap::hexToBin(char val) const{
+  std::map<char, std::string> hexmap = {
+        {'0', "0000"}, {'1', "0001"}, {'2', "0010"}, {'3', "0011"},
+        {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"},
+        {'8', "1000"}, {'9', "1001"}, {'a', "1010"}, {'b', "1011"},
+        {'c', "1100"}, {'d', "1101"}, {'e', "1110"}, {'f', "1111"}
+  };
+
   auto it = hexmap.lower_bound(val);
   std::string hexBin = "";
   if (it != hexmap.end()) {
