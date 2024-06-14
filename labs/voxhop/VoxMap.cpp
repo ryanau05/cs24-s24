@@ -195,7 +195,7 @@ bool VoxMap::isBottomless(Point a) const{
   }
 
   int itr = 0;
-  while (itr != a.z - 1){
+  while (itr != a.z - 1 && itr <= height){
     if (map[a.x][a.y][itr]){
       return false;
     }
