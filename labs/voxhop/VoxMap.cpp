@@ -27,7 +27,7 @@ VoxMap::VoxMap(std::istream& stream) {
       std::string hexVal = "";
 
       for (int k = 0; k < width / 4; k++){  // adds each hexdex to string as bin
-        hexVal += hexToBin(line[k]);
+        hexVal += hexToBin(line.at(k));
       }
 
       for (int k = 0; k < width; k++){
@@ -122,12 +122,12 @@ std::string VoxMap::hexToBin(char val) const{
         {'c', "1100"}, {'d', "1101"}, {'e', "1110"}, {'f', "1111"}
   };
 
-  auto it = hexmap.lower_bound(val);
-  std::string hexBin = "";
+  auto it = hexmap.find(val);
   if (it != hexmap.end()) {
-      hexBin = it->second;
+    return it->second;
+  } else {
+    return "";
   }
-  return hexBin;
 }
 
 int VoxMap::heuristic(const Point& a, const Point& b){
