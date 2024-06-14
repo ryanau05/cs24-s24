@@ -87,7 +87,7 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x, current->point.y - 1, current->point.z}
     };
 
-    for (int i = neighbors.size(); i >= 0; i--){
+    for (int i = neighbors.size() - 1; i >= 0; i--){
       if (outOfBounds(neighbors[i])){
         neighbors.erase(neighbors.begin() + i);
       }
