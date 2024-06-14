@@ -58,7 +58,6 @@ Route VoxMap::route(Point src, Point dst) {
     if (isDest(current->point, dst)) {
       Route route;
       Node* temp = current;
-      holding.push_back(temp);
       while (temp->parent) {
         Point& p1 = temp->parent->point;
         Point& p2 = temp->point;
