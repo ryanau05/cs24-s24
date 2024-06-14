@@ -43,10 +43,10 @@ VoxMap::~VoxMap() {
 }
 
 Route VoxMap::route(Point src, Point dst) {
-  if (outOfBounds(src) || map[src.x][src.y][src.z]){
+  if (outOfBounds(src)){
     throw InvalidPoint(src);
   }
-  else if (outOfBounds(dst) || map[dst.x][dst.y][dst.z]){
+  else if (outOfBounds(dst)){
     throw InvalidPoint(dst);
   }
 
@@ -72,8 +72,8 @@ Route VoxMap::route(Point src, Point dst) {
 
         if (p2.x > p1.x) route.push_back(Move::EAST);
         else if (p2.x < p1.x) route.push_back(Move::WEST);
-        else if (p2.y < p1.y) route.push_back(Move::NORTH);
-        else if (p2.y > p1.y) route.push_back(Move::SOUTH);
+        else if (p2.y > p1.y) route.push_back(Move::NORTH);
+        else if (p2.y < p1.y) route.push_back(Move::SOUTH);
 
         temp = temp->parent;
       }
@@ -95,12 +95,6 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x, current->point.y + 1, current->point.z},
       {current->point.x, current->point.y - 1, current->point.z}
     };
-
-    for (int i = neighbors.size() - 1; i >= 0; i--){
-      if (outOfBounds(neighbors[i])){
-        neighbors.erase(neighbors.begin() + i);
-      }
-    }
 
     for (const Point& neighbor : neighbors) {
       if (!isValid(current->point, neighbor)) continue;
