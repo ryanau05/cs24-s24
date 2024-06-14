@@ -146,36 +146,13 @@ int VoxMap::heuristic(const Point& a, const Point& b){
 
 
 bool VoxMap::isValid(Point a, Point b) const{
-  if (b.x < 0 || b.x >= width || b.y < 0 || b.y >= depth){        // handles out of bounds
-    return false;
-  }
-
-  if (b.z + 1 < height && map[b.x][b.y][b.z]){                                         // handles block in path
-    if (map[b.x][b.y][b.z + 1]){                                   // if block on top of dest is stone
-      return false;
+  if (b.x < 0 || b.x >= width || b.y < 0 || b.y >= depth || b.z < 0 || b.z >= height) {
+        return false; // Out of bounds
     }
-    else {                                                                  // if block on top of dest is air
-      if (a.z + 1 < height && map[a.x][a.y][a.z + 1]){                                          // if block on top of curr is stone
-        return false;
-      }
-      else {                                                                // if block on top of curr is air
-        return true;
-      }
+    if (map[b.x][b.y][b.z]) {
+        return false; // Blocked
     }
-  }
-
-  if (b.z - 1 >= 0 && map[b.x][b.y][b.z - 1]){                                     // if flat
     return true;
-  }
-  else {                                                                    // if block below dest is air
-    if (isBottomless(b)){
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
-
 }
 
 bool VoxMap::isDest(Point a, Point b) const{
