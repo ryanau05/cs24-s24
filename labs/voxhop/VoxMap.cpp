@@ -63,8 +63,8 @@ Route VoxMap::route(Point src, Point dst) {
 
         if (p2.x > p1.x) route.push_back(Move::EAST);
         else if (p2.x < p1.x) route.push_back(Move::WEST);
-        else if (p2.y > p1.y) route.push_back(Move::NORTH);
-        else if (p2.y < p1.y) route.push_back(Move::SOUTH);
+        else if (p2.y < p1.y) route.push_back(Move::NORTH);
+        else if (p2.y > p1.y) route.push_back(Move::SOUTH);
 
         temp = temp->parent;
       }
