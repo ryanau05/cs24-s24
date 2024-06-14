@@ -53,7 +53,6 @@ Route VoxMap::route(Point src, Point dst) {
   while (!openSet.empty()) {
     Node* current = openSet.top();
     openSet.pop();
-    holding.push_back(current);
 
     if (isDest(current->point, dst)) {
       Route route;
@@ -71,7 +70,8 @@ Route VoxMap::route(Point src, Point dst) {
       }
       std::reverse(route.begin(), route.end());
 
-      for (int i = holding.size() - 1; i >= 0; i--){
+      // Cleanup nodes in holding vector
+      for (int i = holding.size() - 1; i >= 0; i--) {
         delete holding[i];
       }
 
@@ -95,14 +95,16 @@ Route VoxMap::route(Point src, Point dst) {
       Node* neighborNode = new Node(neighbor, tentativeGCost, heuristic(neighbor, dst), current);
 
       openSet.push(neighborNode);
+      holding.push_back(neighborNode); // Add to holding for future deletion
     }
   }
 
-  for (int i = holding.size() - 1; i >= 0; i--){
-        delete holding[i];
+  // Cleanup nodes in holding vector if no route found
+  for (int i = holding.size() - 1; i >= 0; i--) {
+    delete holding[i];
   }
 
-  return {};
+  return {}; // Return an empty route if no path found
 }
 
 std::string VoxMap::hexToBin(char val) const{
