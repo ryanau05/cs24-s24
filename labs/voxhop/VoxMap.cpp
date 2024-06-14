@@ -122,12 +122,12 @@ std::string VoxMap::hexToBin(char val) const{
         {'c', "1100"}, {'d', "1101"}, {'e', "1110"}, {'f', "1111"}
   };
 
-  auto it = hexmap.lower_bound(val);
-  std::string hexBin = "";
-  if (it != hexmap.end()) {
-      hexBin = it->second;
+  auto it = hexmap.find(val);
+  if (it == hexmap.end()) {
+    throw std::invalid_argument("Invalid hexadecimal character");
   }
-  return hexBin;
+
+  return it->second;
 }
 
 int VoxMap::heuristic(const Point& a, const Point& b){
