@@ -94,22 +94,23 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x, current->point.y + 1, current->point.z},
       {current->point.x, current->point.y - 1, current->point.z}
     };
+  
 
-    for (Point neighbor : neighbors){
-      if (canJump(current->point, neighbor)){
-        neighbor = jump(neighbor);
+    for (Point& neighbor : neighbors) {
+      Point tempNeighbor = neighbor;
+      if (outOfBounds(neighbor)) continue;
+      if (canJump(current->point, tempNeighbor)) {
+        tempNeighbor = jump(tempNeighbor);
       }
-      else if (canFall(current->point, neighbor)){
-        neighbor = fall(neighbor);
+      if (canFall(current->point, tempNeighbor)) {
+        tempNeighbor = fall(tempNeighbor);
       }
-    }
 
-    for (const Point& neighbor : neighbors) {
-      if (!isValid(current->point, neighbor)) continue;
-      if (closedSet.find(neighbor) != closedSet.end()) continue;
+      if (!isValid(current->point, tempNeighbor)) continue;
+      if (closedSet.find(tempNeighbor) != closedSet.end()) continue;
 
       int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
-      Node* neighborNode = new Node(neighbor, tentativeGCost, heuristic(neighbor, dst), current);
+      Node* neighborNode = new Node(tempNeighbor, tentativeGCost, heuristic(tempNeighbor, dst), current);
 
       openSet.push(neighborNode);
       holding.push_back(neighborNode); // Add to holding for future deletion
@@ -146,35 +147,39 @@ int VoxMap::heuristic(const Point& a, const Point& b){
   return static_cast<int>(h);
 }
 
-bool VoxMap::canJump(Point a, Point b){
-  if (a.z != height && !map[a.x][a.y][a.z + 1] && map[b.x][b.y][b.y] && !map[b.x][b.y][b.z + 1]){
+bool VoxMap::canJump(Point& a, Point& b){
+  if (a.z < height - 1 && !map[a.x][a.y][a.z + 1] && map[b.x][b.y][b.z] && !map[b.x][b.y][b.z + 1]){
     return true;
   }
   return false;
 }
 
-Point VoxMap::jump(Point a){
-  return {a.x, a.y, a.z + 1};
+Point VoxMap::jump(Point& a){
+  if (a.z < height - 1) { 
+    return {a.x, a.y, a.z + 1};
+  }
+  return a;
 }
 
-bool VoxMap::canFall(Point a, Point b){
-  if (!map[b.x][b.y][b.z] && b.z - 1 > 0 && !map[b.x][b.y][b.z - 1]){
-    return true;
+bool VoxMap::canFall(Point& a, Point& b){
+  if (!map[b.x][b.y][b.z] && b.z - 1 > 0){
+    if (!map[b.x][b.y][b.z - 1]){
+      return true;
+    }
   }
   return false;
 }
 
-Point VoxMap::fall(Point a){
+Point VoxMap::fall(Point& a){
   int itr = a.z;
-  while (itr > 0 && !map[a.x][a.y][itr - 1]){
-    itr++;
+  while (itr > 0 && !map[a.x][a.y][itr - 1]) {
+    itr--;
   }
-
   return {a.x, a.y, itr};
 }
 
-bool VoxMap::isflat(Point a){
-  if (!map[a.x][a.y][a.z] && a.z >= 1 && map[a.x][a.y][a.z - 1]){
+bool VoxMap::isflat(Point& a){
+  if (a.z >= 1 && !map[a.x][a.y][a.z]&& map[a.x][a.y][a.z - 1]){
     return true;
   }
   return false;
