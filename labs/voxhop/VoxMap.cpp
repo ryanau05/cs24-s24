@@ -52,18 +52,16 @@ Route VoxMap::route(Point src, Point dst) {
 
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
-  std::unordered_set<Node*> openSetNodes; // Track nodes in openSet
-  std::vector<Node*> holding;
+  std::unordered_set<Point, PointHash> visited; // Track visited nodes
 
   Node* startNode = new Node(src, 0, heuristic(src, dst));
   openSet.push(startNode);
-  openSetNodes.insert(startNode);
-  holding.push_back(startNode);
+  visited.insert(src); // Mark start node as visited
+  std::vector<Node*> holding;
 
   while (!openSet.empty()) {
     Node* current = openSet.top();
     openSet.pop();
-    openSetNodes.erase(current); // Remove from openSetNodes when popped
 
     if (isDest(current->point, dst)) {
       Route route;
@@ -121,31 +119,16 @@ Route VoxMap::route(Point src, Point dst) {
           continue;
       }
 
-      int newGCost = current->gCost + 1;  // Assuming uniform cost for each move
-
-      // Check if this neighbor has been visited and update if a shorter path is found
-      auto itClosed = closedSet.find(neighbor);
-      if (itClosed != closedSet.end()) {
-          continue; // Skip if already in closedSet
+      // Check if neighbor has been visited before
+      if (visited.find(neighbor) != visited.end()) {
+          continue; // Skip if already visited
       }
 
+      int newGCost = current->gCost + 1;  // Assuming uniform cost for each move
       Node* neighborNode = new Node(neighbor, newGCost, heuristic(neighbor, dst), current);
 
-      // Check if neighborNode is already in openSetNodes
-      if (openSetNodes.find(neighborNode) != openSetNodes.end()) {
-        // Check if we found a shorter path to this node
-        if (newGCost < neighborNode->gCost) {
-          // Update node's gCost and adjust priority in openSet
-          neighborNode->gCost = newGCost;
-          // Reinsert the node into openSet to adjust its position based on updated gCost
-          openSet.push(neighborNode);
-        }
-        continue; // Skip if already in openSet with a shorter or equal path
-      }
-
-      // Otherwise, add to openSet and openSetNodes
       openSet.push(neighborNode);
-      openSetNodes.insert(neighborNode);
+      visited.insert(neighbor); // Mark neighbor as visited
       holding.push_back(neighborNode);
     }
   }
