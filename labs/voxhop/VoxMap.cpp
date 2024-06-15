@@ -6,7 +6,6 @@
 #include <unordered_set>
 #include <algorithm>
 #include <iostream>
-#include <unordered_map>
 
 VoxMap::VoxMap(std::istream& stream) {
    stream >> width >> depth >> height;
@@ -53,7 +52,6 @@ Route VoxMap::route(Point src, Point dst) {
 
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
-  std::unordered_map<Point, int, PointHash> gCostMap; // To store the gCost for each node
   std::unordered_set<Node*> openSetNodes; // Track nodes in openSet
   std::vector<Node*> holding;
 
@@ -61,7 +59,6 @@ Route VoxMap::route(Point src, Point dst) {
   openSet.push(startNode);
   openSetNodes.insert(startNode);
   holding.push_back(startNode);
-  gCostMap[src] = 0;
 
   while (!openSet.empty()) {
     Node* current = openSet.top();
@@ -128,8 +125,8 @@ Route VoxMap::route(Point src, Point dst) {
 
       // Check if this neighbor has been visited and update if a shorter path is found
       auto itClosed = closedSet.find(neighbor);
-      if (itClosed != closedSet.end() && newGCost >= gCostMap[neighbor]) {
-          continue; // Skip if already visited with a shorter or equal path
+      if (itClosed != closedSet.end()) {
+          continue; // Skip if already in closedSet
       }
 
       Node* neighborNode = new Node(neighbor, newGCost, heuristic(neighbor, dst), current);
@@ -137,16 +134,11 @@ Route VoxMap::route(Point src, Point dst) {
       // Check if neighborNode is already in openSetNodes
       if (openSetNodes.find(neighborNode) != openSetNodes.end()) {
         // Check if we found a shorter path to this node
-        if (newGCost < gCostMap[neighbor]) {
-          // Update gCostMap and remove old node from openSet
-          gCostMap[neighbor] = newGCost;
-          auto itOpen = std::find_if(openSetNodes.begin(), openSetNodes.end(),
-                                     [&](Node* n) { return n->point == neighborNode->point; });
-          if (itOpen != openSetNodes.end()) {
-            openSetNodes.erase(itOpen);
-            openSet.push(neighborNode);
-            openSetNodes.insert(neighborNode);
-          }
+        if (newGCost < neighborNode->gCost) {
+          // Update node's gCost and adjust priority in openSet
+          neighborNode->gCost = newGCost;
+          // Reinsert the node into openSet to adjust its position based on updated gCost
+          openSet.push(neighborNode);
         }
         continue; // Skip if already in openSet with a shorter or equal path
       }
@@ -155,9 +147,6 @@ Route VoxMap::route(Point src, Point dst) {
       openSet.push(neighborNode);
       openSetNodes.insert(neighborNode);
       holding.push_back(neighborNode);
-
-      // Update gCost in gCostMap
-      gCostMap[neighbor] = newGCost;
     }
   }
 
