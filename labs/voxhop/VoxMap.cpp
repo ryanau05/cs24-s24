@@ -46,7 +46,7 @@ Route VoxMap::route(Point src, Point dst) {
   if (!isValidStandPoint(src)) {
     throw InvalidPoint(src);
   } 
-  else if (!isValidStandPoint(dst)) {
+  if (!isValidStandPoint(dst)) {
       throw InvalidPoint(dst);
   }
 
@@ -62,29 +62,29 @@ Route VoxMap::route(Point src, Point dst) {
     Node* current = openSet.top();
     openSet.pop();
 
-    // if (isDest(current->point, dst)) {
-    //   Route route;
-    //   Node* temp = current;
-    //   while (temp->parent) {
-    //     Point& p1 = temp->parent->point;
-    //     Point& p2 = temp->point;
+    if (isDest(current->point, dst)) {
+      Route route;
+      Node* temp = current;
+      while (temp->parent) {
+        Point& p1 = temp->parent->point;
+        Point& p2 = temp->point;
 
-    //     if (p2.x > p1.x) route.push_back(Move::EAST);
-    //     else if (p2.x < p1.x) route.push_back(Move::WEST);
-    //     else if (p2.y < p1.y) route.push_back(Move::NORTH);
-    //     else if (p2.y > p1.y) route.push_back(Move::SOUTH);
+        if (p2.x > p1.x) route.push_back(Move::EAST);
+        else if (p2.x < p1.x) route.push_back(Move::WEST);
+        else if (p2.y < p1.y) route.push_back(Move::NORTH);
+        else if (p2.y > p1.y) route.push_back(Move::SOUTH);
 
-    //     temp = temp->parent;
-    //   }
-    //   std::reverse(route.begin(), route.end());
+        temp = temp->parent;
+      }
+      std::reverse(route.begin(), route.end());
 
-    //   // Cleanup nodes in holding vector
-    //   for (int i = holding.size() - 1; i >= 0; i--) {
-    //     delete holding[i];
-    //   }
+      // Cleanup nodes in holding vector
+      for (Node* node : holding) {
+        delete node;
+      }
 
-    //   return route;
-    // }
+      return route;
+    }
 
     closedSet.insert(current->point);
 
@@ -94,14 +94,13 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x, current->point.y + 1, current->point.z},
       {current->point.x, current->point.y - 1, current->point.z}
     };
-  
 
     for (Point& neighbor : neighbors) {
       Point tempNeighbor = neighbor;
       if (outOfBounds(tempNeighbor)) {
           continue;
       }
-      if (current->point.z >= height - 1 && map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+      if (map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
           continue;
       }
       if (canJump(current->point, tempNeighbor)) {
@@ -122,6 +121,7 @@ Route VoxMap::route(Point src, Point dst) {
       if (closedSet.find(tempNeighbor) != closedSet.end()) {
           continue;
       }
+
       int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
       Node* neighborNode = new Node(tempNeighbor, tentativeGCost, heuristic(tempNeighbor, dst), current);
 
@@ -130,8 +130,8 @@ Route VoxMap::route(Point src, Point dst) {
     }
   }
 
-  for (int i = holding.size() - 1; i >= 0; i--) {
-    delete holding[i];
+  for (Node* node : holding) {
+    delete node;
   }
 
   throw NoRoute(src, dst);
