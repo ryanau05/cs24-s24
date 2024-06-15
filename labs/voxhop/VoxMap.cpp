@@ -98,6 +98,9 @@ Route VoxMap::route(Point src, Point dst) {
 
     for (Point& neighbor : neighbors) {
       Point tempNeighbor = neighbor;
+      if (closedSet.find(tempNeighbor) != closedSet.end()) {
+          continue;
+      }
       if (outOfBounds(tempNeighbor)) {
           continue;
       }
@@ -117,9 +120,6 @@ Route VoxMap::route(Point src, Point dst) {
           }
       }
       if (!isValid(current->point, tempNeighbor)) {
-          continue;
-      }
-      if (closedSet.find(tempNeighbor) != closedSet.end()) {
           continue;
       }
       int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
