@@ -52,11 +52,11 @@ Route VoxMap::route(Point src, Point dst) {
 
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
   std::unordered_set<Point, PointHash> closedSet;
-  std::unordered_set<Point, PointHash> visited; // Track visited nodes
+  std::unordered_set<Point, PointHash> visited;
 
   Node* startNode = new Node(src, 0, heuristic(src, dst));
   openSet.push(startNode);
-  visited.insert(src); // Mark start node as visited
+  visited.insert(src);
   std::vector<Node*> holding;
 
   while (!openSet.empty()) {
@@ -80,10 +80,11 @@ Route VoxMap::route(Point src, Point dst) {
       std::reverse(route.begin(), route.end());
 
       // Cleanup nodes in holding vector
-      for (int i = holding.size() - 1; i >= 0; i--) {
-        delete holding[i];
+      for (Node* node : holding) {
+        delete node; // Delete all nodes in holding
       }
 
+      delete startNode; // Delete the start node
       return route;
     }
 
@@ -119,29 +120,30 @@ Route VoxMap::route(Point src, Point dst) {
           continue;
       }
 
-      // Check if neighbor has been visited before
       if (visited.find(neighbor) != visited.end()) {
           continue; // Skip if already visited
       }
 
-      int newGCost = current->gCost + 1;  // Assuming uniform cost for each move
+      int newGCost = current->gCost + 1;
       Node* neighborNode = new Node(neighbor, newGCost, heuristic(neighbor, dst), current);
 
       openSet.push(neighborNode);
-      visited.insert(neighbor); // Mark neighbor as visited
+      visited.insert(neighbor);
       holding.push_back(neighborNode);
     }
   }
 
   // Cleanup nodes in holding vector
-  for (int i = holding.size() - 1; i >= 0; i--) {
-    delete holding[i];
+  for (Node* node : holding) {
+    delete node;
   }
 
-  // If no route found, throw exception or return empty route
+  delete startNode; // Ensure startNode is deleted in case of no route found
+
   throw NoRoute(src, dst);
   return {}; // Return an empty route if no path found
 }
+
 
 
 std::string VoxMap::hexToBin(char val) const{
