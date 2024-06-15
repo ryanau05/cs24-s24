@@ -54,6 +54,7 @@ class VoxMap {
   Point fall(Point& a);
   bool canFall(Point& a, Point& b);
   bool isflat(Point& a);
+  bool intoWall(Point& a);
 
 
 public:

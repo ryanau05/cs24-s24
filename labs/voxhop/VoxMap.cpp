@@ -8,34 +8,34 @@
 #include <iostream>
 
 VoxMap::VoxMap(std::istream& stream) {
-  stream >> width >> depth >> height;
+   stream >> width >> depth >> height;
 
-  map.resize(width);
-  for (int i = 0; i < width; i++){
-    map[i].resize(depth);
+    // Resize the map to fit the dimensions
+    map.resize(width, std::vector<std::vector<bool>>(depth, std::vector<bool>(height, false)));
 
-    for (int j = 0; j < depth; j++){
-      map[i][j].resize(height);
+    // Skip the newline character after the dimensions line
+    stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    for (int h = 0; h < height; ++h) {
+        // Read and discard the empty line before each tier
+        std::string emptyLine;
+        std::getline(stream, emptyLine);
+
+        for (int d = 0; d < depth; ++d) {
+            std::string line;
+            std::getline(stream, line);
+            std::string binaryString = "";
+
+            for (char c : line) {
+                binaryString += hexToBin(c);
+            }
+
+            // Populate the map with the binary values
+            for (int w = 0; w < width; ++w) {
+                map[w][d][h] = (binaryString[w] == '1');
+            }
+        }
     }
-  }
-
-  for (int i = 0; i < height; i++){         // iterate through each tier
-    std::string line;
-    std::getline(stream, line);             // discards empty line
-
-    for (int j = 0; j < depth; j++){        // iterate through each line
-      std::getline(stream, line);           // read in each line of tier
-      std::string hexVal = "";
-
-      for (size_t k = 0; k < line.size(); k++){  // adds each hexdex to string as bin
-        hexVal += hexToBin(line[k]);
-      }
-
-      for (size_t k = 0; k < hexVal.size(); k++){
-        map[k][j][i] = (hexVal[k] == '1');
-      }
-    }
-  }
 }
 
 VoxMap::~VoxMap() {
@@ -98,17 +98,30 @@ Route VoxMap::route(Point src, Point dst) {
 
     for (Point& neighbor : neighbors) {
       Point tempNeighbor = neighbor;
-      if (outOfBounds(neighbor)) continue;
+      if (outOfBounds(tempNeighbor)) {
+          continue;
+      }
+      if (current->point.z >= height - 1 && map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+          continue;
+      }
       if (canJump(current->point, tempNeighbor)) {
-        tempNeighbor = jump(tempNeighbor);
+          tempNeighbor = jump(tempNeighbor);
+          if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+              continue;
+          }
       }
       if (canFall(current->point, tempNeighbor)) {
-        tempNeighbor = fall(tempNeighbor);
+          tempNeighbor = fall(tempNeighbor);
+          if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+              continue;
+          }
       }
-
-      if (!isValid(current->point, tempNeighbor)) continue;
-      if (closedSet.find(tempNeighbor) != closedSet.end()) continue;
-
+      if (!isValid(current->point, tempNeighbor)) {
+          continue;
+      }
+      if (closedSet.find(tempNeighbor) != closedSet.end()) {
+          continue;
+      }
       int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
       Node* neighborNode = new Node(tempNeighbor, tentativeGCost, heuristic(tempNeighbor, dst), current);
 
@@ -117,7 +130,6 @@ Route VoxMap::route(Point src, Point dst) {
     }
   }
 
-  // Cleanup nodes in holding vector if no route found
   for (int i = holding.size() - 1; i >= 0; i--) {
     delete holding[i];
   }
@@ -179,7 +191,7 @@ Point VoxMap::fall(Point& a){
 }
 
 bool VoxMap::isflat(Point& a){
-  if (a.z >= 1 && !map[a.x][a.y][a.z]&& map[a.x][a.y][a.z - 1]){
+  if (a.z >= 1 && !map[a.x][a.y][a.z] && map[a.x][a.y][a.z - 1]){
     return true;
   }
   return false;
