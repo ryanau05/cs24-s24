@@ -58,77 +58,77 @@ Route VoxMap::route(Point src, Point dst) {
   openSet.push(startNode);
   holding.push_back(startNode);
 
-  // while (!openSet.empty()) {
-  //   Node* current = openSet.top();
-  //   openSet.pop();
+  while (!openSet.empty()) {
+    Node* current = openSet.top();
+    openSet.pop();
 
-  //   if (isDest(current->point, dst)) {
-  //     Route route;
-  //     Node* temp = current;
-  //     while (temp->parent) {
-  //       Point& p1 = temp->parent->point;
-  //       Point& p2 = temp->point;
+    // if (isDest(current->point, dst)) {
+    //   Route route;
+    //   Node* temp = current;
+    //   while (temp->parent) {
+    //     Point& p1 = temp->parent->point;
+    //     Point& p2 = temp->point;
 
-  //       if (p2.x > p1.x) route.push_back(Move::EAST);
-  //       else if (p2.x < p1.x) route.push_back(Move::WEST);
-  //       else if (p2.y < p1.y) route.push_back(Move::NORTH);
-  //       else if (p2.y > p1.y) route.push_back(Move::SOUTH);
+    //     if (p2.x > p1.x) route.push_back(Move::EAST);
+    //     else if (p2.x < p1.x) route.push_back(Move::WEST);
+    //     else if (p2.y < p1.y) route.push_back(Move::NORTH);
+    //     else if (p2.y > p1.y) route.push_back(Move::SOUTH);
 
-  //       temp = temp->parent;
-  //     }
-  //     std::reverse(route.begin(), route.end());
+    //     temp = temp->parent;
+    //   }
+    //   std::reverse(route.begin(), route.end());
 
-  //     // Cleanup nodes in holding vector
-  //     for (int i = holding.size() - 1; i >= 0; i--) {
-  //       delete holding[i];
-  //     }
+    //   // Cleanup nodes in holding vector
+    //   for (int i = holding.size() - 1; i >= 0; i--) {
+    //     delete holding[i];
+    //   }
 
-  //     return route;
-  //   }
+    //   return route;
+    // }
 
-  //   closedSet.insert(current->point);
+    closedSet.insert(current->point);
 
-  //   std::vector<Point> neighbors = {
-  //     {current->point.x + 1, current->point.y, current->point.z},
-  //     {current->point.x - 1, current->point.y, current->point.z},
-  //     {current->point.x, current->point.y + 1, current->point.z},
-  //     {current->point.x, current->point.y - 1, current->point.z}
-  //   };
+    std::vector<Point> neighbors = {
+      {current->point.x + 1, current->point.y, current->point.z},
+      {current->point.x - 1, current->point.y, current->point.z},
+      {current->point.x, current->point.y + 1, current->point.z},
+      {current->point.x, current->point.y - 1, current->point.z}
+    };
   
 
-  //   for (Point& neighbor : neighbors) {
-  //     Point tempNeighbor = neighbor;
-  //     if (outOfBounds(tempNeighbor)) {
-  //         continue;
-  //     }
-  //     if (current->point.z >= height - 1 && map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
-  //         continue;
-  //     }
-  //     if (canJump(current->point, tempNeighbor)) {
-  //         tempNeighbor = jump(tempNeighbor);
-  //         if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
-  //             continue;
-  //         }
-  //     }
-  //     if (canFall(current->point, tempNeighbor)) {
-  //         tempNeighbor = fall(tempNeighbor);
-  //         if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
-  //             continue;
-  //         }
-  //     }
-  //     if (!isValid(current->point, tempNeighbor)) {
-  //         continue;
-  //     }
-  //     if (closedSet.find(tempNeighbor) != closedSet.end()) {
-  //         continue;
-  //     }
-  //     int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
-  //     Node* neighborNode = new Node(tempNeighbor, tentativeGCost, heuristic(tempNeighbor, dst), current);
+    for (Point& neighbor : neighbors) {
+      Point tempNeighbor = neighbor;
+      if (outOfBounds(tempNeighbor)) {
+          continue;
+      }
+      if (current->point.z >= height - 1 && map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+          continue;
+      }
+      if (canJump(current->point, tempNeighbor)) {
+          tempNeighbor = jump(tempNeighbor);
+          if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+              continue;
+          }
+      }
+      if (canFall(current->point, tempNeighbor)) {
+          tempNeighbor = fall(tempNeighbor);
+          if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+              continue;
+          }
+      }
+      if (!isValid(current->point, tempNeighbor)) {
+          continue;
+      }
+      if (closedSet.find(tempNeighbor) != closedSet.end()) {
+          continue;
+      }
+      int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
+      Node* neighborNode = new Node(tempNeighbor, tentativeGCost, heuristic(tempNeighbor, dst), current);
 
-  //     openSet.push(neighborNode);
-  //     holding.push_back(neighborNode); // Add to holding for future deletion
-  //   }
-  // }
+      openSet.push(neighborNode);
+      holding.push_back(neighborNode); // Add to holding for future deletion
+    }
+  }
 
   for (int i = holding.size() - 1; i >= 0; i--) {
     delete holding[i];
