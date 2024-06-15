@@ -45,9 +45,9 @@ VoxMap::~VoxMap() {
 Route VoxMap::route(Point src, Point dst) {
   if (!isValidStandPoint(src)) {
     throw InvalidPoint(src);
-  } 
+  }
   if (!isValidStandPoint(dst)) {
-      throw InvalidPoint(dst);
+    throw InvalidPoint(dst);
   }
 
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
@@ -98,28 +98,28 @@ Route VoxMap::route(Point src, Point dst) {
     for (Point& neighbor : neighbors) {
       Point tempNeighbor = neighbor;
       if (outOfBounds(tempNeighbor)) {
-          continue;
+        continue;
       }
       if (map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
-          continue;
+        continue;
       }
       if (canJump(current->point, tempNeighbor)) {
-          tempNeighbor = jump(tempNeighbor);
-          if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
-              continue;
-          }
+        tempNeighbor = jump(tempNeighbor);
+        if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+          continue;
+        }
       }
       if (canFall(current->point, tempNeighbor)) {
-          tempNeighbor = fall(tempNeighbor);
-          if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
-              continue;
-          }
+        tempNeighbor = fall(tempNeighbor);
+        if (outOfBounds(tempNeighbor) || map[tempNeighbor.x][tempNeighbor.y][tempNeighbor.z]) {
+          continue;
+        }
       }
       if (!isValid(current->point, tempNeighbor)) {
-          continue;
+        continue;
       }
       if (closedSet.find(tempNeighbor) != closedSet.end()) {
-          continue;
+        continue;
       }
 
       int tentativeGCost = current->gCost + 1;  // Assuming uniform cost for each move
@@ -136,6 +136,26 @@ Route VoxMap::route(Point src, Point dst) {
 
   throw NoRoute(src, dst);
   return {}; // Return an empty route if no path found
+}
+
+bool VoxMap::outOfBounds(Point a) const {
+  if (a.x < 0 || a.x >= width || a.y < 0 || a.y >= depth || a.z < 0 || a.z >= height) {
+    return true;
+  }
+  return false;
+}
+
+bool VoxMap::isValidStandPoint(const Point& pt) const {
+  if (outOfBounds(pt)) {
+    return false;
+  }
+  if (map[pt.x][pt.y][pt.z]) {
+    return false;
+  }
+  if (pt.z == 0 || !map[pt.x][pt.y][pt.z - 1]) {
+    return false;
+  }
+  return true;
 }
 
 std::string VoxMap::hexToBin(char val) const{
@@ -238,28 +258,28 @@ std::unique_ptr<Node> VoxMap::createNode(Point pt, int g, int h, Node* p) {
     return std::make_unique<Node>(pt, g, h, p);
 }
 
-bool VoxMap::outOfBounds(Point a) const{
-  if (a.x < 0 || a.x >= width || a.y < 0 || a.y >= depth || a.z <= 0 || a.z >= height){
-    return true;
-  }
-  return false;
-}
+// bool VoxMap::outOfBounds(Point a) const{
+//   if (a.x < 0 || a.x >= width || a.y < 0 || a.y >= depth || a.z <= 0 || a.z >= height){
+//     return true;
+//   }
+//   return false;
+// }
 
-bool VoxMap::isValidStandPoint(const Point& pt) const {
-    // Check if the point is out of bounds
-    if (outOfBounds(pt)) {
-        return false;
-    }
+// bool VoxMap::isValidStandPoint(const Point& pt) const {
+//     // Check if the point is out of bounds
+//     if (outOfBounds(pt)) {
+//         return false;
+//     }
 
-    // Check if the voxel is empty
-    if (map[pt.x][pt.y][pt.z]) {
-        return false;
-    }
+//     // Check if the voxel is empty
+//     if (map[pt.x][pt.y][pt.z]) {
+//         return false;
+//     }
 
-    // Check if the voxel below is full
-    if (pt.z == 0 || !map[pt.x][pt.y][pt.z - 1]) {
-        return false;
-    }
+//     // Check if the voxel below is full
+//     if (pt.z == 0 || !map[pt.x][pt.y][pt.z - 1]) {
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
