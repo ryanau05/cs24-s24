@@ -43,11 +43,11 @@ VoxMap::~VoxMap() {
 }
 
 Route VoxMap::route(Point src, Point dst) {
-  if (outOfBounds(src) || map[src.x][src.y][src.z] || !map[src.x][src.y][src.z]){
+  if (!isValidStandPoint(src)) {
     throw InvalidPoint(src);
-  }
-  else if (outOfBounds(dst) || map[dst.x][dst.y][dst.z] || !map[dst.x][dst.y][dst.z]){
-    throw InvalidPoint(dst);
+  } 
+  else if (!isValidStandPoint(dst)) {
+      throw InvalidPoint(dst);
   }
 
   std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
@@ -243,4 +243,23 @@ bool VoxMap::outOfBounds(Point a) const{
     return true;
   }
   return false;
+}
+
+bool VoxMap::isValidStandPoint(const Point& pt) const {
+    // Check if the point is out of bounds
+    if (outOfBounds(pt)) {
+        return false;
+    }
+
+    // Check if the voxel is empty
+    if (map[pt.x][pt.y][pt.z]) {
+        return false;
+    }
+
+    // Check if the voxel below is full
+    if (pt.z == 0 || !map[pt.x][pt.y][pt.z - 1]) {
+        return false;
+    }
+
+    return true;
 }
