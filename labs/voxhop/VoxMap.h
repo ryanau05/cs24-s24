@@ -49,6 +49,11 @@ class VoxMap {
   bool isDest(Point a, Point b) const;
   std::unique_ptr<Node> createNode(Point pt, int g, int h, Node* p = nullptr);
   bool outOfBounds(Point a) const;
+  Point jump(Point a);
+  bool canJump(Point a, Point b);
+  Point fall(Point a);
+  bool canFall(Point a, Point b);
+  bool isflat(Point a);
 
 
 public:
@@ -56,7 +61,7 @@ public:
   ~VoxMap();
 
   float heuristic(Point a, Point b) const;
-  bool isValid(Point a, Point b) const;
+  bool isValid(Point a, Point b);
 
   Route route(Point src, Point dst);
 };

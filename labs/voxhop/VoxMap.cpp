@@ -92,10 +92,17 @@ Route VoxMap::route(Point src, Point dst) {
       {current->point.x + 1, current->point.y, current->point.z},
       {current->point.x - 1, current->point.y, current->point.z},
       {current->point.x, current->point.y + 1, current->point.z},
-      {current->point.x, current->point.y - 1, current->point.z},
-      {current->point.x, current->point.y, current->point.z + 1},
-      {current->point.x, current->point.y, current->point.z - 1}
+      {current->point.x, current->point.y - 1, current->point.z}
     };
+
+    for (Point neighbor : neighbors){
+      if (canJump(current->point, neighbor)){
+        neighbor = jump(neighbor);
+      }
+      else if (canFall(current->point, neighbor)){
+        neighbor = fall(neighbor);
+      }
+    }
 
     for (const Point& neighbor : neighbors) {
       if (!isValid(current->point, neighbor)) continue;
@@ -139,40 +146,49 @@ int VoxMap::heuristic(const Point& a, const Point& b){
   return static_cast<int>(h);
 }
 
+bool VoxMap::canJump(Point a, Point b){
+  if (a.z != height && !map[a.x][a.y][a.z + 1] && map[b.x][b.y][b.y] && !map[b.x][b.y][b.z + 1]){
+    return true;
+  }
+  return false;
+}
 
-bool VoxMap::isValid(Point a, Point b) const{
+Point VoxMap::jump(Point a){
+  return {a.x, a.y, a.z + 1};
+}
+
+bool VoxMap::canFall(Point a, Point b){
+  if (!map[b.x][b.y][b.z] && b.z - 1 > 0 && !map[b.x][b.y][b.z - 1]){
+    return true;
+  }
+  return false;
+}
+
+Point VoxMap::fall(Point a){
+  int itr = a.z;
+  while (itr > 0 && !map[a.x][a.y][itr - 1]){
+    itr++;
+  }
+
+  return {a.x, a.y, itr};
+}
+
+bool VoxMap::isflat(Point a){
+  if (!map[a.x][a.y][a.z] && a.z >= 1 && map[a.x][a.y][a.z - 1]){
+    return true;
+  }
+  return false;
+}
+
+bool VoxMap::isValid(Point a, Point b){
   if (outOfBounds(b)){
     return false;
   }
-
-  if (b.z + 1 < height && map[b.x][b.y][b.z]){                                         // handles block in path
-    if (map[b.x][b.y][b.z + 1]){                                   // if block on top of dest is stone
-      return false;
-    }
-    else {                                                                  // if block on top of dest is air
-      if (a.z + 1 < height && map[a.x][a.y][a.z + 1]){                                          // if block on top of curr is stone
-        return false;
-      }
-      else {                                                                // if block on top of curr is air
-        return true;
-      }
-    }
-  }
-
-  if (b.z - 1 >= 0 && map[b.x][b.y][b.z - 1]){                                     // if flat
+  if (isflat(b)){
     return true;
   }
-  else {                                                                    // if block below dest is air
-    if (isBottomless(b)){
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
 
-  return true;
-
+  return false;
 }
 
 bool VoxMap::isDest(Point a, Point b) const{
@@ -190,7 +206,7 @@ bool VoxMap::isBottomless(Point a) const{
   }
 
   int itr = 0;
-  while (itr != a.z - 1 && itr <= height){
+  while (itr != a.z && itr <= height){
     if (map[a.x][a.y][itr]){
       return false;
     }
@@ -206,7 +222,7 @@ std::unique_ptr<Node> VoxMap::createNode(Point pt, int g, int h, Node* p) {
 }
 
 bool VoxMap::outOfBounds(Point a) const{
-  if (a.x < 0 || a.x >= width || a.y < 0 || a.y >= depth || a.z < 0 || a.z >= height){
+  if (a.x < 0 || a.x >= width || a.y < 0 || a.y >= depth || a.z <= 0 || a.z >= height){
     return true;
   }
   return false;
