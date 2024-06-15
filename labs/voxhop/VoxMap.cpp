@@ -136,6 +136,18 @@ Route VoxMap::route(Point src, Point dst) {
 
       // Check if neighborNode is already in openSetNodes
       if (openSetNodes.find(neighborNode) != openSetNodes.end()) {
+        // Check if we found a shorter path to this node
+        if (newGCost < gCostMap[neighbor]) {
+          // Update gCostMap and remove old node from openSet
+          gCostMap[neighbor] = newGCost;
+          auto itOpen = std::find_if(openSetNodes.begin(), openSetNodes.end(),
+                                     [&](Node* n) { return n->point == neighborNode->point; });
+          if (itOpen != openSetNodes.end()) {
+            openSetNodes.erase(itOpen);
+            openSet.push(neighborNode);
+            openSetNodes.insert(neighborNode);
+          }
+        }
         continue; // Skip if already in openSet with a shorter or equal path
       }
 
@@ -158,7 +170,6 @@ Route VoxMap::route(Point src, Point dst) {
   throw NoRoute(src, dst);
   return {}; // Return an empty route if no path found
 }
-
 
 
 std::string VoxMap::hexToBin(char val) const{
